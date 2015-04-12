@@ -11,3 +11,4 @@ namespace OnlineCookbook.Model.Common
 
     }
 }
+

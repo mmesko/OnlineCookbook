@@ -40,7 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlergenPOCO.cs" />
+    <Compile Include="CategoryPOCO.cs" />
+    <Compile Include="CommentPOCO.cs" />
+    <Compile Include="FavouritePOCO.cs" />
+    <Compile Include="FavouriteUserPOCO.cs" />
+    <Compile Include="IngradientPOCO.cs" />
+    <Compile Include="MessagePOCO.cs" />
+    <Compile Include="MessageUserPOCO.cs" />
+    <Compile Include="PreparationStepPicturePOCO.cs" />
+    <Compile Include="PreparationStepPOCO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecipeAlergenPOCO.cs" />
+    <Compile Include="RecipeIngradientPOCO.cs" />
+    <Compile Include="RecipePicturePOCO.cs" />
+    <Compile Include="RecipePOCO.cs" />
+    <Compile Include="RolePOCO.cs" />
+    <Compile Include="UserPOCO.cs" />
+    <Compile Include="UserRolePOCO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model.Common\Model.Common.csproj">
