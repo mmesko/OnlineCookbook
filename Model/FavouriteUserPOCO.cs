@@ -9,7 +9,7 @@ namespace OnlineCookbook.Model
         public int Id { get; set; }
         public int UserId { get; set; }
         public int FavouriteId { get; set; }
-        //public virtual Favourite Favourite { get; set; }
-        //public virtual User User { get; set; }
+        public virtual FavouritePOCO Favourite { get; set; }
+        public virtual UserPOCO User { get; set; }
     }
 }

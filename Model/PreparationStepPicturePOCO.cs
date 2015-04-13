@@ -9,7 +9,7 @@ namespace OnlineCookbook.Model
         public int Id { get; set; }
         public byte[] StepPicture { get; set; }
         public int PreparationStepId { get; set; }
-        //public virtual PreparationStep PreparationStep { get; set; }
+        public virtual PreparationStepPOCO PreparationStep { get; set; }
 
     }
 

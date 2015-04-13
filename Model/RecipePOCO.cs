@@ -9,12 +9,12 @@ namespace OnlineCookbook.Model
     {
          public RecipePOCO()
         {
-           /* this.Comments = new List<Comment>();
-            this.Favourites = new List<Favourite>();
-            this.PreparationSteps = new List<PreparationStep>();
-            this.RecipeAlergens = new List<RecipeAlergen>();
-            this.RecipeIngradients = new List<RecipeIngradient>();
-            this.RecipePictures = new List<RecipePicture>();*/
+            this.Comments = new List<CommentPOCO>();
+            this.Favourites = new List<FavouritePOCO>();
+            this.PreparationSteps = new List<PreparationStepPOCO>();
+            this.RecipeAlergens = new List<RecipeAlergenPOCO>();
+            this.RecipeIngradients = new List<RecipeIngradientPOCO>();
+            this.RecipePictures = new List<RecipePicturePOCO>();
         }
 
         public int Id { get; set; }
@@ -24,14 +24,14 @@ namespace OnlineCookbook.Model
         public string RecipeText { get; set; }
         public int UserId { get; set; }
         public int CategoryId { get; set; }
-        /*public virtual Category Category { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Favourite> Favourites { get; set; }
-        public virtual ICollection<PreparationStep> PreparationSteps { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<RecipeAlergen> RecipeAlergens { get; set; }
-        public virtual ICollection<RecipeIngradient> RecipeIngradients { get; set; }
-        public virtual ICollection<RecipePicture> RecipePictures { get; set; }*/
+        public virtual CategoryPOCO Category { get; set; }
+        public virtual ICollection<CommentPOCO> Comments { get; set; }
+        public virtual ICollection<FavouritePOCO> Favourites { get; set; }
+        public virtual ICollection<PreparationStepPOCO> PreparationSteps { get; set; }
+        public virtual UserPOCO User { get; set; }
+        public virtual ICollection<RecipeAlergenPOCO> RecipeAlergens { get; set; }
+        public virtual ICollection<RecipeIngradientPOCO> RecipeIngradients { get; set; }
+        public virtual ICollection<RecipePicturePOCO> RecipePictures { get; set; }*/
 
     }
 }

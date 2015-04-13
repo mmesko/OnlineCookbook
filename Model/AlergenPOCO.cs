@@ -8,12 +8,12 @@ namespace OnlineCookbook.Model
     {
         public AlergenPOCO()
         {
-           // this.RecipeAlergens = new List<RecipeAlergen>();
+            this.RecipeAlergens = new List<RecipeAlergenPOCO>();
         }
 
         public int Id { get; set; }
         public string AlergenName { get; set; }
-        //public virtual ICollection<RecipeAlergen> RecipeAlergens { get; set; }
+        public virtual ICollection<RecipeAlergenPOCO> RecipeAlergens { get; set; }
     }
 }
 

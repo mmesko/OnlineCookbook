@@ -8,11 +8,11 @@ namespace OnlineCookbook.Model
     {
         public UserPOCO()
         {
-           /* this.Comments = new List<Comment>();
-            this.FavouriteUsers = new List<FavouriteUser>();
-            this.MessageUsers = new List<MessageUser>();
-            this.Recipes = new List<Recipe>();
-            this.UserRoles = new List<UserRole>();*/
+            this.Comments = new List<CommentPOCO>();
+            this.FavouriteUsers = new List<FavouriteUserPOCO>();
+            this.MessageUsers = new List<MessageUserPOCO>();
+            this.Recipes = new List<RecipePOCO>();
+            this.UserRoles = new List<UserRolePOCO>();
         }
 
         public int Id { get; set; }
@@ -22,11 +22,11 @@ namespace OnlineCookbook.Model
         public string SaltKey { get; set; }
         public string RecoweryQuestion { get; set; }
         public string RecoveryAnswer { get; set; }
-       /* public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<FavouriteUser> FavouriteUsers { get; set; }
-        public virtual ICollection<MessageUser> MessageUsers { get; set; }
-        public virtual ICollection<Recipe> Recipes { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; }*/
+        public virtual ICollection<CommentPOCO> Comments { get; set; }
+        public virtual ICollection<FavouriteUserPOCO> FavouriteUsers { get; set; }
+        public virtual ICollection<MessageUserPOCO> MessageUsers { get; set; }
+        public virtual ICollection<RecipePOCO> Recipes { get; set; }
+        public virtual ICollection<UserRolePOCO> UserRoles { get; set; }
 
     }
 }

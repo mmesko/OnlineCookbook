@@ -11,8 +11,8 @@ namespace OnlineCookbook.Model
         public string IngradientUnit { get; set; }
         public int RecipeId { get; set; }
         public int IngradientId { get; set; }
-        //public virtual Ingradient Ingradient { get; set; }
-        //public virtual Recipe Recipe { get; set; }
+        public virtual IngradientPOCO Ingradient { get; set; }
+        public virtual RecipePOCO Recipe { get; set; }
 
     }
 }

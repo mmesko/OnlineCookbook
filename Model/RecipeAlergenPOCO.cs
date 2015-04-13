@@ -11,8 +11,8 @@ namespace OnlineCookbook.Model
         public string AlergenUntit { get; set; }
         public int RecipeId { get; set; }
         public int AlergenId { get; set; }
-        //public virtual Alergen Alergen { get; set; }
-        //public virtual Recipe Recipe { get; set; }
+        public virtual AlergenPOCO Alergen { get; set; }
+        public virtual RecipePOCO Recipe { get; set; }
 
     }
 }

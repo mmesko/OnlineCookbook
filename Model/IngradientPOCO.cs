@@ -8,11 +8,11 @@ namespace OnlineCookbook.Model
     {
          public IngradientPOCO()
         {
-            //this.RecipeIngradients = new List<RecipeIngradient>();
+            this.RecipeIngradients = new List<RecipeIngradientPOCO>();
         }
 
         public int Id { get; set; }
         public string IngradientName { get; set; }
-        //public virtual ICollection<RecipeIngradient> RecipeIngradients { get; set; }
+        public virtual ICollection<RecipeIngradientPOCO> RecipeIngradients { get; set; }
     }
 }

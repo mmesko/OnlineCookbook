@@ -8,12 +8,12 @@ namespace OnlineCookbook.Model
     {
         public RolePOCO()
         {
-            //this.UserRoles = new List<UserRole>();
+            this.UserRoles = new List<UserRolePOCO>();
         }
 
         public int Id { get; set; }
         public string RoleTitle { get; set; }
         public string abrv { get; set; }
-        //public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<UserRolePOCO> UserRoles { get; set; }
     }
 }

@@ -9,13 +9,13 @@ namespace OnlineCookbook.Model
 
         public MessagePOCO()
         {
-            //this.MessageUsers = new List<MessageUser>();
+            this.MessageUsers = new List<MessageUserPOCO>();
         }
 
         public int Id { get; set; }
         public string TextMessage { get; set; }
         public System.DateTime DateCreated { get; set; }
-        //public virtual ICollection<MessageUser> MessageUsers { get; set; }
+        public virtual ICollection<MessageUserPOCO> MessageUsers { get; set; }
 
     }
 }

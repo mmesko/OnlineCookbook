@@ -10,8 +10,8 @@ namespace OnlineCookbook.Model
         public string CommentText { get; set; }
         public int UserId { get; set; }
         public int RecipeId { get; set; }
-        //public virtual Recipe Recipe { get; set; }
-       // public virtual User User { get; set; }
+        public virtual RecipePOCO Recipe { get; set; }
+        public virtual UserPOCO User { get; set; }
 
     }
 }
