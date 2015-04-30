@@ -31,7 +31,7 @@ namespace OnlineCookbook.Model
         public virtual UserPOCO User { get; set; }
         public virtual ICollection<RecipeAlergenPOCO> RecipeAlergens { get; set; }
         public virtual ICollection<RecipeIngradientPOCO> RecipeIngradients { get; set; }
-        public virtual ICollection<RecipePicturePOCO> RecipePictures { get; set; }*/
+        public virtual ICollection<RecipePicturePOCO> RecipePictures { get; set; }
 
     }
 }

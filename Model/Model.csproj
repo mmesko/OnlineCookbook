@@ -43,6 +43,7 @@
     <Compile Include="AlergenPOCO.cs" />
     <Compile Include="CategoryPOCO.cs" />
     <Compile Include="CommentPOCO.cs" />
+    <Compile Include="DIModule.cs" />
     <Compile Include="FavouritePOCO.cs" />
     <Compile Include="FavouriteUserPOCO.cs" />
     <Compile Include="IngradientPOCO.cs" />
@@ -60,6 +61,10 @@
     <Compile Include="UserRolePOCO.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{77ba0eb8-61b7-4951-9e22-bc2246e3c25b}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model.Common\Model.Common.csproj">
       <Project>{f1a3673c-8c1e-4d84-b761-2bcd42c7e1fe}</Project>
       <Name>Model.Common</Name>

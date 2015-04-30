@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using OnlineCookbook.DAL.Models.Mapping;
+using System.Threading.Tasks;
 
 namespace OnlineCookbook.DAL.Models
 {
@@ -76,5 +77,14 @@ namespace OnlineCookbook.DAL.Models
          DbSet<Role> Roles { get; set; }
          DbSet<User> Users { get; set; }
          DbSet<UserRole> UserRoles { get; set; }
+
+
+         DbSet<TEntity> Set<TEntity>() where TEntity : class;
+         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+         Task<int> SaveChangesAsync();
+
   }
+
+
+
 }
