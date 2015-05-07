@@ -15,13 +15,15 @@ namespace OnlineCookbook.DAL.Models
             this.RecipePictures = new List<RecipePicture>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid CategoryId { get; set; }
+        public System.Guid UserId { get; set; }
         public string RecipeTitle { get; set; }
         public string RecipeDescription { get; set; }
-        public string RecipeComplexity { get; set; }
+        public bool RecipeComplexity { get; set; }
         public string RecipeText { get; set; }
-        public int UserId { get; set; }
-        public int CategoryId { get; set; }
+        public System.Guid Abrv { get; set; }
+        public bool HasPicture { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Favourite> Favourites { get; set; }

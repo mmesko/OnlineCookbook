@@ -8,22 +8,17 @@ namespace OnlineCookbook.DAL.Models.Mapping
         public RecipePictureMap()
         {
             // Primary Key
-            this.HasKey(t => t.id);
+            this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.id)
-                .IsRequired()
-                .IsFixedLength()
-                .HasMaxLength(10);
-
             this.Property(t => t.RecipePicture1)
                 .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("RecipePicture");
-            this.Property(t => t.id).HasColumnName("id");
-            this.Property(t => t.RecipePicture1).HasColumnName("RecipePicture");
+            this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.RecipeId).HasColumnName("RecipeId");
+            this.Property(t => t.RecipePicture1).HasColumnName("RecipePicture");
 
             // Relationships
             this.HasRequired(t => t.Recipe)

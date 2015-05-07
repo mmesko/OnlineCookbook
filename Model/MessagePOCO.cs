@@ -11,11 +11,9 @@ namespace OnlineCookbook.Model
         {
             this.MessageUsers = new List<MessageUserPOCO>();
         }
-
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string TextMessage { get; set; }
         public System.DateTime DateCreated { get; set; }
         public virtual ICollection<MessageUserPOCO> MessageUsers { get; set; }
-
     }
 }

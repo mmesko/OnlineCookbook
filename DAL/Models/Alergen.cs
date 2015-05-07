@@ -10,8 +10,9 @@ namespace OnlineCookbook.DAL.Models
             this.RecipeAlergens = new List<RecipeAlergen>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string AlergenName { get; set; }
+        public System.Guid Abrv { get; set; }
         public virtual ICollection<RecipeAlergen> RecipeAlergens { get; set; }
     }
 }

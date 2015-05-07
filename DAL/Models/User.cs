@@ -14,10 +14,10 @@ namespace OnlineCookbook.DAL.Models
             this.UserRoles = new List<UserRole>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string FullName { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public string SaltKey { get; set; }
         public string RecoweryQuestion { get; set; }
         public string RecoveryAnswer { get; set; }

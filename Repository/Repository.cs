@@ -40,7 +40,7 @@ namespace OnlineCookbook.Repository
         }
 
 
-        public virtual Task<T> SingleAsync<T>(int id) where T : class
+        public virtual Task<T> SingleAsync<T>(Guid id) where T : class
         {
             return DbContext.Set<T>().FindAsync(id);
         }
@@ -113,7 +113,7 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual async Task<int> DeleteAsync<T>(int id) where T : class
+        public virtual async Task<int> DeleteAsync<T>(Guid id) where T : class
         {
             var entity = await  SingleAsync<T>(id);
             if (entity == null)

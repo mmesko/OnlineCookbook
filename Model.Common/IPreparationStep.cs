@@ -1,16 +1,18 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace OnlineCookbook.Model.Common
 {
     public interface IPreparationStep
     {
-
-        int Id { get; set; }
+        Guid Id { get; set; }
+        Guid RecipeId { get; set; }
         int StepNumber { get; set; }
         string PreparationText { get; set; }
-        int RecipeId { get; set; }
-        //public virtual Recipe Recipe { get; set; }
+        bool HasPicture { get; set; }
+        IRecipe Recipe { get; set; }
+        ICollection<IPreparationStepPicture> PreparationStepPictures { get; set; }
 
+        
     }
 }

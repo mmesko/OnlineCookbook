@@ -43,7 +43,7 @@
     <Compile Include="IAlergenRepository.cs" />
     <Compile Include="ICategoryRepository.cs" />
     <Compile Include="ICommentRepository.cs" />
-    <Compile Include="IFavouriteRepositorycs.cs" />
+    <Compile Include="IFavouriteRepository.cs" />
     <Compile Include="IFavouriteUserRepository.cs" />
     <Compile Include="IIngradientRepository.cs" />
     <Compile Include="IMessageRepository.cs" />
@@ -55,7 +55,7 @@
     <Compile Include="IRecipePictureRepository.cs" />
     <Compile Include="IRecipeRepository.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="IRoleRepositorycs.cs" />
+    <Compile Include="IRoleRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="IUserRepository.cs" />

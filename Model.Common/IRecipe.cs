@@ -1,20 +1,28 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace OnlineCookbook.Model.Common
 {
     public interface IRecipe
     {
-
-        int Id { get; set; }
+        Guid Id { get; set; }
+        Guid CategoryId { get; set; }
+        Guid UserId { get; set; }
         string RecipeTitle { get; set; }
         string RecipeDescription { get; set; }
-        string RecipeComplexity { get; set; }
+        bool RecipeComplexity { get; set; }
         string RecipeText { get; set; }
-        int UserId { get; set; }
-        int CategoryId { get; set; }
-       // public virtual Category Category { get; set; } 
-        //public virtual User User { get; set; }
-        
+        Guid Abrv { get; set; }
+        bool HasPicture { get; set; }
+
+        ICategory Category { get; set; }
+        ICollection<IComment> Comments { get; set; }
+        ICollection<IFavourite> Favourites { get; set; }
+        ICollection<IPreparationStep> PreparationSteps { get; set; }
+        IUser User { get; set; }
+        ICollection<IRecipeAlergen> RecipeAlergens { get; set; }
+        ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
+        ICollection<IRecipePicture> RecipePictures { get; set; }
+             
     }
 }

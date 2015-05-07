@@ -11,9 +11,6 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             this.Property(t => t.AlergenName)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -22,6 +19,7 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.ToTable("Alergen");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.AlergenName).HasColumnName("AlergenName");
+            this.Property(t => t.Abrv).HasColumnName("Abrv");
         }
     }
 }

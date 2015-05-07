@@ -1,8 +1,8 @@
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using OnlineCookbook.DAL.Models.Mapping;
 using System.Threading.Tasks;
+using OnlineCookbook.DAL.Models.Mapping;
 
 namespace OnlineCookbook.DAL.Models
 {
@@ -58,33 +58,31 @@ namespace OnlineCookbook.DAL.Models
         }
     }
 
-   public interface ICookBookContext : IDisposable{
-
-	     DbSet<Alergen> Alergens { get; set; }
-         DbSet<Category> Categories { get; set; }
-         DbSet<Comment> Comments { get; set; }
-         DbSet<Favourite> Favourites { get; set; }
-         DbSet<FavouriteUser> FavouriteUsers { get; set; }
-         DbSet<Ingradient> Ingradients { get; set; }
-         DbSet<Message> Messages { get; set; }
-         DbSet<MessageUser> MessageUsers { get; set; }
-         DbSet<PreparationStep> PreparationSteps { get; set; }
-         DbSet<PreparationStepPicture> PreparationStepPictures { get; set; }
-         DbSet<Recipe> Recipes { get; set; }
-         DbSet<RecipeAlergen> RecipeAlergens { get; set; }
-         DbSet<RecipeIngradient> RecipeIngradients { get; set; }
-         DbSet<RecipePicture> RecipePictures { get; set; }
-         DbSet<Role> Roles { get; set; }
-         DbSet<User> Users { get; set; }
-         DbSet<UserRole> UserRoles { get; set; }
-
-
+   public interface ICookBookContext : IDisposable
+   {
+	         DbSet<Alergen> Alergens { get; set; }
+            DbSet<Category> Categories { get; set; }
+            DbSet<Comment> Comments { get; set; }
+            DbSet<Favourite> Favourites { get; set; }
+            DbSet<FavouriteUser> FavouriteUsers { get; set; }
+            DbSet<Ingradient> Ingradients { get; set; }
+            DbSet<Message> Messages { get; set; }
+            DbSet<MessageUser> MessageUsers { get; set; }
+            DbSet<PreparationStep> PreparationSteps { get; set; }
+            DbSet<PreparationStepPicture> PreparationStepPictures { get; set; }
+            DbSet<Recipe> Recipes { get; set; }
+            DbSet<RecipeAlergen> RecipeAlergens { get; set; }
+            DbSet<RecipeIngradient> RecipeIngradients { get; set; }
+            DbSet<RecipePicture> RecipePictures { get; set; }
+            DbSet<Role> Roles { get; set; }
+            DbSet<User> Users { get; set; }
+            DbSet<UserRole> UserRoles { get; set; }
+   
+     
          DbSet<TEntity> Set<TEntity>() where TEntity : class;
          DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
          Task<int> SaveChangesAsync();
 
-  }
-
-
+   }
 
 }

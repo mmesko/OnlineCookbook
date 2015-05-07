@@ -10,9 +10,9 @@ namespace OnlineCookbook.DAL.Models
             this.UserRoles = new List<UserRole>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string RoleTitle { get; set; }
-        public string abrv { get; set; }
+        public System.Guid Abrv { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

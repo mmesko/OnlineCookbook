@@ -34,7 +34,7 @@ namespace OnlineCookbook.Service
             }
         }
 
-        public Task<IAlergen> GetAsync(int id)
+        public Task<IAlergen> GetAsync(Guid id)
         {
 
             try
@@ -88,7 +88,7 @@ namespace OnlineCookbook.Service
             }
         }
 
-        public Task<int> DeleteAsync(int id)
+        public Task<int> DeleteAsync(Guid id)
         {
             try
             {

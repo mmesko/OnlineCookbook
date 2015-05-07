@@ -5,11 +5,11 @@ namespace OnlineCookbook.DAL.Models
 {
     public partial class RecipeAlergen
     {
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid AlergenId { get; set; }
+        public System.Guid RecipeId { get; set; }
         public int AlergenQuantity { get; set; }
-        public string AlergenUntit { get; set; }
-        public int RecipeId { get; set; }
-        public int AlergenId { get; set; }
+        public string AlergenUnit { get; set; }
         public virtual Alergen Alergen { get; set; }
         public virtual Recipe Recipe { get; set; }
     }

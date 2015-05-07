@@ -11,18 +11,11 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             this.Property(t => t.RecipeTitle)
                 .IsRequired()
                 .HasMaxLength(50);
 
             this.Property(t => t.RecipeDescription)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            this.Property(t => t.RecipeComplexity)
                 .IsRequired()
                 .HasMaxLength(50);
 
@@ -32,12 +25,14 @@ namespace OnlineCookbook.DAL.Models.Mapping
             // Table & Column Mappings
             this.ToTable("Recipe");
             this.Property(t => t.Id).HasColumnName("Id");
+            this.Property(t => t.CategoryId).HasColumnName("CategoryId");
+            this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.RecipeTitle).HasColumnName("RecipeTitle");
             this.Property(t => t.RecipeDescription).HasColumnName("RecipeDescription");
             this.Property(t => t.RecipeComplexity).HasColumnName("RecipeComplexity");
             this.Property(t => t.RecipeText).HasColumnName("RecipeText");
-            this.Property(t => t.UserId).HasColumnName("UserId");
-            this.Property(t => t.CategoryId).HasColumnName("CategoryId");
+            this.Property(t => t.Abrv).HasColumnName("Abrv");
+            this.Property(t => t.HasPicture).HasColumnName("HasPicture");
 
             // Relationships
             this.HasRequired(t => t.Category)

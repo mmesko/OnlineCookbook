@@ -11,9 +11,9 @@ namespace OnlineCookbook.Model
             this.UserRoles = new List<UserRolePOCO>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string RoleTitle { get; set; }
-        public string abrv { get; set; }
+        public System.Guid Abrv { get; set; }
         public virtual ICollection<UserRolePOCO> UserRoles { get; set; }
     }
 }

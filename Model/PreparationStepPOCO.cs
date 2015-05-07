@@ -11,10 +11,11 @@ namespace OnlineCookbook.Model
             this.PreparationStepPictures = new List<PreparationStepPicturePOCO>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid RecipeId { get; set; }
         public int StepNumber { get; set; }
         public string PreparationText { get; set; }
-        public int RecipeId { get; set; }
+        public bool HasPicture { get; set; }
         public virtual RecipePOCO Recipe { get; set; }
         public virtual ICollection<PreparationStepPicturePOCO> PreparationStepPictures { get; set; }
 

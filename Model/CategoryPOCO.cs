@@ -11,9 +11,9 @@ namespace OnlineCookbook.Model
             this.Recipes = new List<RecipePOCO>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string CategoryName { get; set; }
-        public string abrv { get; set; }
+        public System.Guid Abrv { get; set; }
         public virtual ICollection<RecipePOCO> Recipes { get; set; }
 
     }

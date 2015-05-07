@@ -12,9 +12,10 @@ namespace OnlineCookbook.Model
             this.FavouriteUsers = new List<FavouriteUserPOCO>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid RecipeId { get; set; }
         public string FavouriteName { get; set; }
-        public int RecipeId { get; set; }
+        public System.Guid Abrv { get; set; }
         public virtual RecipePOCO Recipe { get; set; }
         public virtual ICollection<FavouriteUserPOCO> FavouriteUsers { get; set; }
 

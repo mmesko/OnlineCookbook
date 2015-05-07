@@ -5,9 +5,9 @@ namespace OnlineCookbook.DAL.Models
 {
     public partial class MessageUser
     {
-        public int Id { get; set; }
-        public int MessageId { get; set; }
-        public int UserId { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid MessageId { get; set; }
+        public System.Guid UserId { get; set; }
         public virtual Message Message { get; set; }
         public virtual User User { get; set; }
     }

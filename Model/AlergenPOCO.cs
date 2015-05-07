@@ -11,8 +11,9 @@ namespace OnlineCookbook.Model
             this.RecipeAlergens = new List<RecipeAlergenPOCO>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string AlergenName { get; set; }
+        public System.Guid Abrv { get; set; }
         public virtual ICollection<RecipeAlergenPOCO> RecipeAlergens { get; set; }
     }
 }

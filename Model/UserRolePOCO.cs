@@ -7,9 +7,9 @@ namespace OnlineCookbook.Model
     public partial class UserRolePOCO : IUserRole
     {
 
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid UserId { get; set; }
+        public System.Guid RoleId { get; set; }
         public virtual RolePOCO Role { get; set; }
         public virtual UserPOCO User { get; set; }
     }

@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Collections.Generic;
+using OnlineCookbook.Model.Common;
 using System.Threading.Tasks;
 
 namespace OnlineCookbook.Repository.Common
 {
-    interface IFavouriteUserRepository
+    public interface IFavouriteUserRepository
     {
+        Task<List<IFavouriteUser>> GetAsync(string sortOrder = "favouriteUserId", int pageNumber = 0, int pageSize = 20);
+        Task<IFavouriteUser> GetAsync(Guid id);
+        Task<int> InsertAsync(IFavouriteUser entity);
+        Task<int> UpdateAsync(IFavouriteUser entity);
+        Task<int> DeleteAsync(IFavouriteUser entity);
+        Task<int> DeleteAsync(Guid id); 
     }
 }

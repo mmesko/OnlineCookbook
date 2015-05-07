@@ -11,8 +11,9 @@ namespace OnlineCookbook.Model
             this.RecipeIngradients = new List<RecipeIngradientPOCO>();
         }
 
-        public int Id { get; set; }
-        public string IngradientName { get; set; }
-        public virtual ICollection<RecipeIngradientPOCO> RecipeIngradients { get; set; }
+         public System.Guid Id { get; set; }
+         public string IngradientName { get; set; }
+         public System.Guid Abrv { get; set; }
+         public virtual ICollection<RecipeIngradientPOCO> RecipeIngradients { get; set; }
     }
 }

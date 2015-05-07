@@ -11,17 +11,14 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             this.Property(t => t.StepPicture)
                 .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("PreparationStepPicture");
             this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.StepPicture).HasColumnName("StepPicture");
             this.Property(t => t.PreparationStepId).HasColumnName("PreparationStepId");
+            this.Property(t => t.StepPicture).HasColumnName("StepPicture");
 
             // Relationships
             this.HasRequired(t => t.PreparationStep)

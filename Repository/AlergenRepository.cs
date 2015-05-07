@@ -12,6 +12,7 @@ using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
 
 
+
 namespace OnlineCookbook.Repository
 {
     public class AlergenRepository :  IAlergenRepository
@@ -52,7 +53,7 @@ namespace OnlineCookbook.Repository
         }
 
 
-        public virtual async Task<IAlergen> GetAsync(int id)
+        public virtual async Task<IAlergen> GetAsync(Guid id)
         {
             try 
             {
@@ -101,7 +102,7 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual Task<int> DeleteAsync(int id)
+        public virtual Task<int> DeleteAsync(Guid id)
         {
             try
             {

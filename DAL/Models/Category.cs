@@ -10,9 +10,9 @@ namespace OnlineCookbook.DAL.Models
             this.Recipes = new List<Recipe>();
         }
 
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string CategoryName { get; set; }
-        public string abrv { get; set; }
+        public System.Guid Abrv { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

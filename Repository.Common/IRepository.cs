@@ -14,11 +14,11 @@ namespace OnlineCookbook.Repository.Common
         IUnitOfWork CreateUnitOfWork();
 
         IQueryable<T> WhereAsync<T>() where T : class;
-        Task<T> SingleAsync<T>(int id) where T : class;
+        Task<T> SingleAsync<T>(Guid id) where T : class;
         Task<int> InsertAsync<T>(T entity) where T : class;
         Task<int> UpdateAsync<T>(T entity) where T : class;
         Task<int> DeleteAsync<T>(T entity) where T : class;
-        Task<int> DeleteAsync<T>(int id) where T : class;
+        Task<int> DeleteAsync<T>(Guid id) where T : class;
        
 
     }

@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Collections.Generic;
+using OnlineCookbook.Model.Common;
 using System.Threading.Tasks;
 
 namespace OnlineCookbook.Repository.Common
 {
-    interface IMessageUserRepository
+    public interface IMessageUserRepository
     {
+        Task<List<IMessageUser>> GetAsync(string sortOrder = "messageUserId", int pageNumber = 0, int pageSize = 20);
+        Task<IMessageUser> GetAsync(Guid id);
+        Task<int> InsertAsync(IMessageUser entity);
+        Task<int> UpdateAsync(IMessageUser entity);
+        Task<int> DeleteAsync(IMessageUser entity);
+        Task<int> DeleteAsync(Guid id);
     }
 }

@@ -106,9 +106,9 @@ namespace OnlineCookbook.Repository
                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                {
                    //one transaction using one time
-                   //storing everithing added in DbContext
+                   //storing everything added in DbContext
                    result = await DbContext.SaveChangesAsync();
-                   scope.Complete(); //sacuvano u bazi
+                   scope.Complete(); //saved in DB 
                }
                return result;
            }
