@@ -44,7 +44,7 @@ namespace OnlineCookbook.Repository
                     case "recipeId":
                        page = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
                              await Repository.WhereAsync<Recipe>()
-                            .OrderBy(item => item.CategoryId) //po kategorijama?
+                            .OrderBy(item => item.Id) //sortiram po Id-u? 
                             .Skip<Recipe>((pageNumber - 1) * pageSize)
                             .Take<Recipe>(pageSize)
                             .ToListAsync<Recipe>())
@@ -230,14 +230,14 @@ namespace OnlineCookbook.Repository
         }
 
         //provjeriti (tako isto i za alergen), lista recepata koja ima tj alergen?
-        public virtual async Task<List<IRecipe>> GetByAlergenAsync(Guid alergenId)
+        public virtual async Task<List<IRecipe>> GetByAlergenAsync(Guid AlergenId)
         {
             try
             {
-                List<IRecipeAlergen> recipes = new List<IRecipeAlergen>(Mapper.Map<List<RecipeAlergenPOCO>>(
-                    await Repository.WhereAsync<RecipeAlergen>()
-                    .Where<RecipeAlergen>(item => item.Id == alergenId)
-                    .ToListAsync<RecipeAlergen>())
+                List<IRecipe> recipes = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
+                    await Repository.WhereAsync<Recipe>()
+                    .Where<Recipe>(item => item.Id == AlergenId)
+                    .ToListAsync<Recipe>())
                     );
 
                 return  alergens;
@@ -251,6 +251,30 @@ namespace OnlineCookbook.Repository
 
         }
 
+
+/*
+        public virtual async Task<int> GetByComplexityAsync(IRecipe entity)
+        {
+
+            try
+            {
+                if (entity.RecipeComplexity)
+                    {
+
+                        var complexity = await Repository.WhereAsync<Recipe>()
+                         .Where(r => entity.Id == r.RecipeId)
+                         .SingleAsync();
+                        await Repository.GetByComplexityAsync<Recipe>(complexity); 
+                    }
+     
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        
+        }
+*/
 
         public virtual async Task<int> DeleteAsync(IRecipe entity)
         {
