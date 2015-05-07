@@ -230,17 +230,17 @@ namespace OnlineCookbook.Repository
         }
 
         //provjeriti (tako isto i za alergen), lista recepata koja ima tj alergen?
-        public virtual async Task<List<IRecipe>> GetByAlergenAsync(Guid AlergenId)
+   /*     public virtual async Task<List<IRecipe>> GetByAlergenAsync(Guid AlergenId)
         {
             try
             {
-                List<IRecipe> recipes = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
+                List<IRecipe> recipeAlergens = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
                     await Repository.WhereAsync<Recipe>()
                     .Where<Recipe>(item => item.Id == AlergenId)
                     .ToListAsync<Recipe>())
                     );
 
-                return  alergens;
+                return recipeAlergens;
             }
                 
 
@@ -248,8 +248,28 @@ namespace OnlineCookbook.Repository
             {
                 throw e;
             }
-
         }
+
+
+        public virtual async Task<List<IRecipe>> GetByAlergenAsync(Guid IngradientId)
+        {
+            try
+            {
+                List<IRecipe> recipeIngradients = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
+                    await Repository.WhereAsync<Recipe>()
+                    .Where<Recipe>(item => item.Id == IngradientId)
+                    .ToListAsync<Recipe>())
+                    );
+
+                return recipeIngradients;
+            }
+
+
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }*/
 
 
 /*

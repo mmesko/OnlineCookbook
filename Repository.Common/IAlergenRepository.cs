@@ -13,6 +13,8 @@ namespace OnlineCookbook.Repository.Common
         Task<int> InsertAsync(IAlergen entity);
         Task<int> UpdateAsync(IAlergen entity);
         Task<int> DeleteAsync(IAlergen entity);
-        Task<int> DeleteAsync(Guid id); 
+        Task<int> DeleteAsync(Guid id);
+
+        
     }
 }

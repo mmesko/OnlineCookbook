@@ -15,7 +15,7 @@ namespace OnlineCookbook.Repository.Common
         Task<int> DeleteAsync(IRecipe entity);
         Task<int> DeleteAsync(Guid id);
 
-        Task<int> GetByComplexityAsync(IRecipe entity);
+        //Task<int> GetByComplexityAsync(IRecipe entity);
         Task<List<IRecipe>> GetByAlergenAsync(Guid AlergenId);
         Task<List<IRecipe>> GetByIngradientAsync(Guid IngradientId);
     }
