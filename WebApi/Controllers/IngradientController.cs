@@ -26,8 +26,6 @@ namespace OnlineCookbook.WebApi.Controllers
             Service = service;
         }
 
-
-        // GET: api/Alergen
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> Get(IngradientFilter filter)
@@ -44,8 +42,6 @@ namespace OnlineCookbook.WebApi.Controllers
             }
         }
 
-
-        // GET: api/TestingArea/5
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Get(Guid id)
@@ -60,8 +56,6 @@ namespace OnlineCookbook.WebApi.Controllers
         }
 
 
-
-        // POST: api/TestingArea
         [HttpPost]
         [Route("")]
         public async Task<IHttpActionResult> Post(IngradientModel ingradientModel)
@@ -80,8 +74,6 @@ namespace OnlineCookbook.WebApi.Controllers
         }
 
 
-
-        // PUT: api/Alergen/5
         [HttpPut]
         [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Put(Guid id, IngradientModel ingradientModel)
@@ -102,9 +94,6 @@ namespace OnlineCookbook.WebApi.Controllers
             }
         }
 
-
-
-        // DELETE: api/Alergen/
         [HttpDelete]
         [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Delete(Guid id)

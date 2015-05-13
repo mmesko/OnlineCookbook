@@ -28,7 +28,6 @@ namespace OnlineCookbook.WebApi.Controllers
             Service = service;
         }
 
-
         // GET: api/Alergen
         [HttpGet]
         [Route("")]
@@ -46,10 +45,9 @@ namespace OnlineCookbook.WebApi.Controllers
             }
         }
 
-
-        // GET: api/TestingArea/5
+        // GET: api/Alergen
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Get(Guid id)
         {
             var ialergen = await Service.GetAsync(id);
@@ -61,9 +59,7 @@ namespace OnlineCookbook.WebApi.Controllers
             else return NotFound();
         }
 
-
-
-        // POST: api/TestingArea
+        // POST: api/Alergen
         [HttpPost]
         [Route("")]
         public async Task<IHttpActionResult> Post(AlergenModel alergenModel)
@@ -82,8 +78,7 @@ namespace OnlineCookbook.WebApi.Controllers
         }
 
 
-
-        // PUT: api/Alergen/5
+        // PUT: api/Alergen
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IHttpActionResult> Put(Guid id, AlergenModel alergenModel)
@@ -105,10 +100,9 @@ namespace OnlineCookbook.WebApi.Controllers
         }
 
 
-
-        // DELETE: api/Alergen/
+        // DELETE: api/Alergen
         [HttpDelete]
-        [Route("{id:int}")]
+        [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Delete(Guid id)
         {
             try
