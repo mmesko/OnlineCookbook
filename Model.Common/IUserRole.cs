@@ -7,5 +7,7 @@ namespace OnlineCookbook.Model.Common
         Guid Id { get; set; }
         Guid UserId { get; set; }
         Guid RoleId { get; set; }
+        IRole Role { get; set; }
+        IUser User { get; set; }
     }
 }

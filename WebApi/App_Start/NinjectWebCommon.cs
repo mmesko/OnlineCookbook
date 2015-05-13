@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebApi.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebApi.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlineCookbook.WebApi.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(OnlineCookbook.WebApi.App_Start.NinjectWebCommon), "Stop")]
 
-namespace WebApi.App_Start
+namespace OnlineCookbook.WebApi.App_Start
 {
     using System;
     using System.Web;

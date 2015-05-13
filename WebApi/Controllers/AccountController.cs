@@ -9,14 +9,24 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using OnlineCookbook.Model.Common;
+using OnlineCookbook.Model;
+using OnlineCookbook.Service.Common;
+using OnlineCookbook.Service;
+using OnlineCookbook.WebApi.Models;
+  
 
-namespace IdentitySample.Controllers
+namespace OnlineCookbook.WebApi.Controllers
 {
     [Authorize]
+    [RoutePrefix("api/Account")]
     public class AccountController : Controller
     {
+        private const string LocalLoginProvider = "Local";
+
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -394,6 +404,16 @@ namespace IdentitySample.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+
+        public class LoginViewModel
+        {
+            public string Username { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public bool RememberMe { get; set; }
+
         }
 
         #region Helpers

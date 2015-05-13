@@ -9,7 +9,7 @@ namespace OnlineCookbook.Model
         public System.Guid Id { get; set; }
         public System.Guid UserId { get; set; }
         public System.Guid FavouriteId { get; set; }
-        public virtual FavouritePOCO Favourite { get; set; }
-        public virtual UserPOCO User { get; set; }
+        public virtual IFavourite Favourite { get; set; }
+        public virtual IUser User { get; set; }
     }
 }

@@ -1,12 +1,16 @@
 ﻿using System;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Repository.Common;
 using OnlineCookbook.Service.Common;
-
+using OnlineCookbook.Filters.ModelFilter;
+using OnlineCookbook.Model.Common;
+using OnlineCookbook.Model;
 
 namespace OnlineCookbook.Service
 {
@@ -20,14 +24,12 @@ namespace OnlineCookbook.Service
             Repository = repository;
         }
 
-
-        public Task<List<IAlergen>> GetAsync(string sortOrder = "alergenId", int pageNumber = 0, int pageSize = 20)
+        public Task<List<IAlergen>> GetAsync(AlergenFilter filter)
         {
             try
             {
-                return Repository.GetAsync(sortOrder, pageNumber,pageSize);
+                return Repository.GetAsync(filter);
             }
-
             catch (Exception e)
             {
                 throw e;

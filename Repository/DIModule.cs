@@ -16,6 +16,10 @@ namespace OnlineCookbook.Repository
             Bind<IAlergenRepository>().To<AlergenRepository>();
             Bind<ICategoryRepository>().To<CategoryRepository>();
             Bind<IRecipeRepository>().To<RecipeRepository>();
+            Bind<IUserRepository>().To<UserRepository>();
+            //Bind<IIngradientRepository>().To<IngradientRepository>();
+            
+            
             
 
 

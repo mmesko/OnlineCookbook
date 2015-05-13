@@ -8,7 +8,7 @@ namespace OnlineCookbook.Repository.Common
 {
     public interface ICommentRepository
     {
-        Task<List<IComment>> GetAsync(string sortOrder = "commentId", int pageNumber = 0, int pageSize = 20);
+        Task<List<IComment>> GetAsync(string sortOrder = "commentId", int pageNumber = 0, int pageSize = 50);
         Task<IComment> GetAsync(Guid id);
         Task<int> InsertAsync(IComment entity);
         Task<int> UpdateAsync(IComment entity);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OnlineCookbook.Model.Common
 {
@@ -7,6 +8,6 @@ namespace OnlineCookbook.Model.Common
         Guid Id { get; set; }
         string CategoryName { get; set; }
         Guid Abrv { get; set; }
-
+       ICollection<IRecipe> Recipes { get; set; }
     }
 }

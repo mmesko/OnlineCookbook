@@ -8,7 +8,7 @@ namespace OnlineCookbook.Model
     {
         public PreparationStepPOCO()
         {
-            this.PreparationStepPictures = new List<PreparationStepPicturePOCO>();
+            this.PreparationStepPictures = new List<IPreparationStepPicture>();
         }
 
         public System.Guid Id { get; set; }
@@ -16,8 +16,8 @@ namespace OnlineCookbook.Model
         public int StepNumber { get; set; }
         public string PreparationText { get; set; }
         public bool HasPicture { get; set; }
-        public virtual RecipePOCO Recipe { get; set; }
-        public virtual ICollection<PreparationStepPicturePOCO> PreparationStepPictures { get; set; }
+        public virtual IRecipe Recipe { get; set; }
+        public virtual ICollection<IPreparationStepPicture> PreparationStepPictures { get; set; }
 
     }
 }

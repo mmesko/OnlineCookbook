@@ -11,7 +11,7 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.FullName)
+            this.Property(t => t.Email)
                 .IsRequired()
                 .HasMaxLength(50);
 
@@ -27,23 +27,13 @@ namespace OnlineCookbook.DAL.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(50);
 
-            this.Property(t => t.RecoweryQuestion)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            this.Property(t => t.RecoveryAnswer)
-                .IsRequired()
-                .HasMaxLength(50);
-
             // Table & Column Mappings
             this.ToTable("User");
             this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.FullName).HasColumnName("FullName");
+            this.Property(t => t.Email).HasColumnName("Email");
             this.Property(t => t.Username).HasColumnName("Username");
             this.Property(t => t.Password).HasColumnName("Password");
             this.Property(t => t.SaltKey).HasColumnName("SaltKey");
-            this.Property(t => t.RecoweryQuestion).HasColumnName("RecoweryQuestion");
-            this.Property(t => t.RecoveryAnswer).HasColumnName("RecoveryAnswer");
         }
     }
 }

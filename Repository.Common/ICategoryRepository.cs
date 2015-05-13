@@ -8,7 +8,7 @@ namespace OnlineCookbook.Repository.Common
 {
     public interface ICategoryRepository
     {
-        Task<List<ICategory>> GetAsync(string sortOrder = "categoryId", int pageNumber = 0, int pageSize = 20);
+        Task<List<ICategory>> GetAsync(string sortOrder = "categoryId", int pageNumber = 0, int pageSize = 50);
         Task<ICategory> GetAsync(Guid id);
         Task<int> InsertAsync(ICategory entity);
         Task<int> UpdateAsync(ICategory entity);

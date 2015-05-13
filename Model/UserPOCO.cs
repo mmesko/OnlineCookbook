@@ -8,11 +8,11 @@ namespace OnlineCookbook.Model
     {
         public UserPOCO()
         {
-            this.Comments = new List<CommentPOCO>();
-            this.FavouriteUsers = new List<FavouriteUserPOCO>();
-            this.MessageUsers = new List<MessageUserPOCO>();
-            this.Recipes = new List<RecipePOCO>();
-            this.UserRoles = new List<UserRolePOCO>();
+            this.Comments = new List<IComment>();
+            this.FavouriteUsers = new List<IFavouriteUser>();
+            this.MessageUsers = new List<IMessageUser>();
+            this.Recipes = new List<IRecipe>();
+            this.UserRoles = new List<IUserRole>();
         }
 
         public System.Guid Id { get; set; }
@@ -20,13 +20,11 @@ namespace OnlineCookbook.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public string SaltKey { get; set; }
-        public string RecoweryQuestion { get; set; }
-        public string RecoveryAnswer { get; set; }
-        public virtual ICollection<CommentPOCO> Comments { get; set; }
-        public virtual ICollection<FavouriteUserPOCO> FavouriteUsers { get; set; }
-        public virtual ICollection<MessageUserPOCO> MessageUsers { get; set; }
-        public virtual ICollection<RecipePOCO> Recipes { get; set; }
-        public virtual ICollection<UserRolePOCO> UserRoles { get; set; }
+        public virtual ICollection<IComment> Comments { get; set; }
+        public virtual ICollection<IFavouriteUser> FavouriteUsers { get; set; }
+        public virtual ICollection<IMessageUser> MessageUsers { get; set; }
+        public virtual ICollection<IRecipe> Recipes { get; set; }
+        public virtual ICollection<IUserRole> UserRoles { get; set; }
 
     }
 }

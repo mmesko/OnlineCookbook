@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OnlineCookbook.Model.Common
 {
@@ -8,5 +9,7 @@ namespace OnlineCookbook.Model.Common
        Guid RecipeId { get; set; }
        string FavouriteName { get; set; }
        Guid Abrv { get; set; }
+       IRecipe Recipe { get; set; }
+       ICollection<IFavouriteUser> FavouriteUsers { get; set; }
     }
 }

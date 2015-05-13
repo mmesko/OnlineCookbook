@@ -8,5 +8,7 @@ namespace OnlineCookbook.Repository
 {
    public class RecipeIngradientRepository
     {
+        
+
     }
 }

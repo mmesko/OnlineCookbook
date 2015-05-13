@@ -1,6 +1,6 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebApi.App_Start.NinjectWeb), "Start")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlineCookbook.WebApi.App_Start.NinjectWeb), "Start")]
 
-namespace WebApi.App_Start
+namespace OnlineCookbook.WebApi.App_Start
 {
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 

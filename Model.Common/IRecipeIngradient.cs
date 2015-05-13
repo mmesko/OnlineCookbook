@@ -9,5 +9,7 @@ namespace OnlineCookbook.Model.Common
         Guid RecipeId { get; set; }
         int IngradientQuantity { get; set; }
         string IngradientUnit { get; set; }
+        IIngradient Ingradient { get; set; }
+        IRecipe Recipe { get; set; }
     }
 }

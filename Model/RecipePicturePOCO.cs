@@ -9,6 +9,6 @@ namespace OnlineCookbook.Model
         public System.Guid Id { get; set; }
         public System.Guid RecipeId { get; set; }
         public byte[] RecipePicture1 { get; set; }
-        public virtual RecipePOCO Recipe { get; set; }
+        public virtual IRecipe Recipe { get; set; }
     }
 }

@@ -8,13 +8,13 @@ namespace OnlineCookbook.Model
     {
         public CategoryPOCO()
         {
-            this.Recipes = new List<RecipePOCO>();
+            this.Recipes = new List<IRecipe>();
         }
 
         public System.Guid Id { get; set; }
         public string CategoryName { get; set; }
         public System.Guid Abrv { get; set; }
-        public virtual ICollection<RecipePOCO> Recipes { get; set; }
+        public virtual ICollection<IRecipe> Recipes { get; set; }
 
     }
 }

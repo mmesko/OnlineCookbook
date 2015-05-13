@@ -11,6 +11,7 @@ using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
 using OnlineCookbook.Service.Common;
 using OnlineCookbook.Service;
+using OnlineCookbook.Filters.ModelFilter;
 
 namespace OnlineCookbook.WebApi.Controllers
 {
@@ -31,11 +32,11 @@ namespace OnlineCookbook.WebApi.Controllers
         // GET: api/Alergen
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> Get(string sortOrder = "alergenId", int pageNumber = 1, int pageSize = 30)
+        public async Task<IHttpActionResult> Get(AlergenFilter filter)
         {
             try
             {
-                var alergens = await Service.GetAsync(sortOrder, pageNumber, pageSize);
+                var alergens = await Service.GetAsync(filter);
                 var alergensResult = Mapper.Map<List<AlergenModel>>(alergens);
                 return Ok(alergensResult);
             }
@@ -48,7 +49,7 @@ namespace OnlineCookbook.WebApi.Controllers
 
         // GET: api/TestingArea/5
         [HttpGet]
-        [Route("{id:Guid}")]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Get(Guid id)
         {
             var ialergen = await Service.GetAsync(id);
@@ -84,7 +85,7 @@ namespace OnlineCookbook.WebApi.Controllers
 
         // PUT: api/Alergen/5
         [HttpPut]
-        [Route("{id:Guid}")]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Put(Guid id, AlergenModel alergenModel)
         {
             try
@@ -107,7 +108,7 @@ namespace OnlineCookbook.WebApi.Controllers
 
         // DELETE: api/Alergen/
         [HttpDelete]
-        [Route("{id:Guid}")]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Delete(Guid id)
         {
             try
@@ -129,9 +130,6 @@ namespace OnlineCookbook.WebApi.Controllers
             public string AlergenName { get; set; }
             public System.Guid Abrv { get; set; }
         }
-
-
-
 
     }
 }

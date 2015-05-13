@@ -30,7 +30,23 @@ namespace OnlineCookbook.Repository.Mapping
            AutoMapper.Mapper.CreateMap<UserPOCO, User>().ReverseMap();
            AutoMapper.Mapper.CreateMap<UserRolePOCO, UserRole>().ReverseMap();
 
-
+           AutoMapper.Mapper.CreateMap<IUserRole, UserRole>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IUser, User>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IAlergen, Alergen>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IIngradient, Ingradient>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IMessage, Message>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IMessageUser, MessageUser>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IPreparationStepPicture, PreparationStepPicture>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IPreparationStep, PreparationStep>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IRecipeAlergen, RecipeAlergen>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IRecipeIngradient, RecipeIngradient>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IRecipePicture, RecipePicture>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IRecipe, Recipe>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IRole, Role>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<ICategory, Category>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IComment, Comment>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IFavourite, Favourite>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IFavouriteUser, FavouriteUser>().ReverseMap();
 
            
        

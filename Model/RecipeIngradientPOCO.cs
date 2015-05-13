@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using OnlineCookbook.Model.Common;
 
 namespace OnlineCookbook.Model
@@ -11,8 +10,8 @@ namespace OnlineCookbook.Model
         public System.Guid RecipeId { get; set; }
         public int IngradientQuantity { get; set; }
         public string IngradientUnit { get; set; }
-        public virtual IngradientPOCO Ingradient { get; set; }
-        public virtual RecipePOCO Recipe { get; set; }
+        public virtual IIngradient Ingradient { get; set; }
+        public virtual IRecipe Recipe { get; set; }
 
     }
 }

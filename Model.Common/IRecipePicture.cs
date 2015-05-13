@@ -7,5 +7,6 @@ namespace OnlineCookbook.Model.Common
         Guid Id { get; set; }
         Guid RecipeId { get; set; }
         byte[] RecipePicture1 { get; set; }
+        IRecipe Recipe { get; set; }
     }
 }

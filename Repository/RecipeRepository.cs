@@ -11,6 +11,7 @@ using OnlineCookbook.Repository.Common;
 using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
+using System.Linq.Expressions;
 
 
 namespace OnlineCookbook.Repository
@@ -19,6 +20,7 @@ namespace OnlineCookbook.Repository
     {
         
         protected IRepository Repository { get; private set; }
+        public IUnitOfWork UnitOfWork { get; private set; }
        
 
         public RecipeRepository(IRepository repository)
@@ -56,7 +58,24 @@ namespace OnlineCookbook.Repository
 
                 foreach (var recipe in page)
                 {
-                    if (recipe.HasPicture)
+
+                   // recipe.Include(c => c.RecipePicture);
+
+
+
+                    //kada sve mapiram, nestaje new list i imam Mapper.Map<List<IRecipePicture>
+                   /* recipe.RecipePictures = new List<IRecipePicture>(Mapper.Map<List<RecipePicturePOCO>>(
+                            await Repository.WhereAsync<RecipePicture>()
+                           .Where<RecipePicture>(item => item.RecipeId == recipe.Id)
+                           .ToListAsync())
+                            );
+                    if (recipe.RecipePictures == null)
+                    {
+                        throw new ArgumentNullException("Needed picture for recipe with Id =" + recipe.Id + ".");
+                    
+                    }
+                    */
+                    /*if (recipe.HasPicture)
                     {
                           //RecipePictures iz Collections? Mapping?                  
                         recipe.RecipePictures = new List<IRecipePicture>(Mapper.Map<List<RecipePicturePOCO>>(
@@ -68,7 +87,7 @@ namespace OnlineCookbook.Repository
                     else
                     {
                         recipe.RecipePictures = null;
-                    }
+                    }*/
                 }
 
                 return page;
@@ -296,9 +315,11 @@ namespace OnlineCookbook.Repository
         }
 */
 
-        public virtual async Task<int> DeleteAsync(IRecipe entity)
+      public virtual Task<int> DeleteAsync(IRecipe entity)
         {
-            try
+            throw new Exception("Not implemented!");
+           
+         /*   try
             {
                 IUnitOfWork unitOfWork = CreateUnitOfWork();
 
@@ -328,28 +349,30 @@ namespace OnlineCookbook.Repository
                           }
                           await unitOfWork.DeleteAsync<PreparationStep>(step);
                       }
-                  }
+                  } 
 
-                 if (entity.HasComment)
-                 {
-                     var comment = await Repository.WhereAsync<Comment>()
-                           .Where(com => entity.Id == com.RecipeId)
-                           .SingleAsync();
+         if (entity.HasComment)
+         {
+             var comments = await Repository.WhereAsync<Comment>()
+                   .Where(com => entity.Id == com.RecipeId)
+                   .SingleAsync();
 
-                     await unitOfWork.DeleteAsync<Comment>(comment);  //provjeriti 
-                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+             await unitOfWork.DeleteAsync<Comment>(comments);  //provjeriti 
+         }
+    } 
+    catch (Exception e)
+    {
+        throw e;
+    } */
+} 
 
 
 
-         public virtual async Task<int> DeleteAsync(Guid id)
+       public virtual Task<int> DeleteAsync(Guid id)
         {
-            try
+
+            throw new Exception("Not implemented!");
+        /*    try
             {
                 var recipe = await Repository.SingleAsync<Recipe>(id);
                 return await DeleteAsync(Mapper.Map<RecipePOCO>(recipe));
@@ -357,9 +380,11 @@ namespace OnlineCookbook.Repository
             catch (Exception e)
             {
                 throw e;
-            }
+            } */
         }
-    }   
+    }  
+ 
+
 }
 
 

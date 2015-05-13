@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OnlineCookbook.Model.Common
 {
@@ -9,7 +10,11 @@ namespace OnlineCookbook.Model.Common
         string Username { get; set; }
         string Password { get; set; }
         string SaltKey { get; set; }
-        string RecoweryQuestion { get; set; }
-        string RecoveryAnswer { get; set; }
+        
+        ICollection<IComment> Comments { get; set; }
+        ICollection<IFavouriteUser> FavouriteUsers { get; set; }
+        ICollection<IMessageUser> MessageUsers { get; set; }
+        ICollection<IRecipe> Recipes { get; set; }
+        ICollection<IUserRole> UserRoles { get; set; }
     }
 }

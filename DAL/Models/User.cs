@@ -15,12 +15,10 @@ namespace OnlineCookbook.DAL.Models
         }
 
         public System.Guid Id { get; set; }
-        public string FullName { get; set; }
+        public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string SaltKey { get; set; }
-        public string RecoweryQuestion { get; set; }
-        public string RecoveryAnswer { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<FavouriteUser> FavouriteUsers { get; set; }
         public virtual ICollection<MessageUser> MessageUsers { get; set; }

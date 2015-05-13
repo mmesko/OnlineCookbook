@@ -11,8 +11,8 @@ namespace OnlineCookbook.Model
         public System.Guid RecipeId { get; set; }
         public int AlergenQuantity { get; set; }
         public string AlergenUnit { get; set; }
-        public virtual AlergenPOCO Alergen { get; set; }
-        public virtual RecipePOCO Recipe { get; set; }
+        public virtual IAlergen Alergen { get; set; }
+        public virtual IRecipe Recipe { get; set; }
 
     }
 }
