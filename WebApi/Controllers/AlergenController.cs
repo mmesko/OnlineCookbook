@@ -31,92 +31,135 @@ namespace OnlineCookbook.WebApi.Controllers
         // GET: api/Alergen
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> Get(AlergenFilter filter)
+        public async Task<HttpResponseMessage> Get(HttpRequestMessage request, string sortOrder = "", string sortDirection = "", int pageNumber = 0, int pageSize = 0)
+        {
+            try
+            {
+                  var result = await Service.GetAsync(new AlergenFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                  if (result != null)
+                  {
+                      return request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<AlergenModel>>(result));                 
+                  }
+                  else
+                  {
+                      return request.CreateResponse(HttpStatusCode.NotFound);
+                  }
+              }
+             catch (Exception e)
+             {
+                  throw e;
+             }
+          }
+
+ 
+       /* public async Task<HttpResponseMessage> Get(HttpRequestMessage request, AlergenController filter)
         {
             try
             {
                 var alergens = await Service.GetAsync(filter);
                 var alergensResult = Mapper.Map<List<AlergenModel>>(alergens);
-                return Ok(alergensResult);
+                return request.CreateResponse(HttpStatusCode.OK, alergensResult); 
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                throw e;
             }
-        }
+        }*/
+
 
         // GET: api/Alergen
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IHttpActionResult> Get(Guid id)
+        public async Task<HttpResponseMessage> Get(HttpRequestMessage request, Guid id)
         {
-            var ialergen = await Service.GetAsync(id);
-            if (ialergen != null)
+            var result = await Service.GetAsync(id);
+            if (result != null)
             {
-                var alergen= Mapper.Map<AlergenModel>(ialergen);//poslati korisniku stvari koje mu trebaju,ne želim mu slati sve
-                return Ok(alergen);
+                return request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<AlergenModel>>(result));
             }
-            else return NotFound();
+            else 
+            {
+                return request.CreateResponse(HttpStatusCode.NotFound);
+            }
         }
+
 
         // POST: api/Alergen
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post(AlergenModel alergenModel)
+        public async Task<HttpResponseMessage> Post(HttpRequestMessage request, AlergenModel alergenModel)
         {
             alergenModel.Id = Guid.NewGuid();
             try
             {
-                var result = await Service.InsertAsync(Mapper.Map<AlergenPOCO>(alergenModel)); //
-                if (result == 1) return Ok(alergenModel);
-                else return BadRequest();
+                var result = await Service.InsertAsync(Mapper.Map<AlergenPOCO>(alergenModel)); 
+                if (result == 1)
+                {
+                    return request.CreateResponse(HttpStatusCode.OK, alergenModel);
+                }
+                else 
+                {
+                    return request.CreateResponse(HttpStatusCode.NotFound);
+                }
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                 throw e;
             }
         }
 
 
         // PUT: api/Alergen
         [HttpPut]
-        [Route("{id:int}")]
-        public async Task<IHttpActionResult> Put(Guid id, AlergenModel alergenModel)
+        [Route("{id:Guid}")]
+        public async Task<HttpResponseMessage> Put(HttpRequestMessage request, Guid id, AlergenModel alergenModel)
         {
             try
             {
+
                 if (id == alergenModel.Id)
                 {
                     var result = await Service.UpdateAsync(Mapper.Map<AlergenPOCO>(alergenModel));
-                    if (result == 1) return Ok(alergenModel);
-                    else return NotFound();
+                    if (result == 1)
+                    {
+                        return request.CreateResponse(HttpStatusCode.OK, alergenModel);
+                    }
+                    else
+                    { 
+                        return request.CreateResponse(HttpStatusCode.NotFound);
+                    }
                 }
-                return BadRequest("IDs do not match.");
+                return request.CreateResponse(HttpStatusCode.BadRequest, "ID's don't match!");
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
-            }
+                throw e;
+            } 
         }
 
 
         // DELETE: api/Alergen
         [HttpDelete]
         [Route("{id:Guid}")]
-        public async Task<IHttpActionResult> Delete(Guid id)
+        public async Task<HttpResponseMessage> Delete(Guid id)
         {
             try
             {
                 var result = await Service.DeleteAsync(id);
-                if (result == 1) return Ok("Deleted");
-                else return NotFound();
+                if (result == 1)
+                { 
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+                else
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                throw e;
             }
         }
-
 
         public class AlergenModel
         {

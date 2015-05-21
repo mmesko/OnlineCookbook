@@ -1,6 +1,12 @@
-﻿using Owin;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Owin;
+using Owin;
 
-namespace IdentitySample
+[assembly: OwinStartup(typeof(OnlineCookbook.WebApi.Startup))]
+
+namespace OnlineCookbook.WebApi
 {
     public partial class Startup
     {

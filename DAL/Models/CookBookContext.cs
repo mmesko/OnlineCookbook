@@ -60,7 +60,7 @@ namespace OnlineCookbook.DAL.Models
 
    public interface ICookBookContext : IDisposable
    {
-	         DbSet<Alergen> Alergens { get; set; }
+	        DbSet<Alergen> Alergens { get; set; }
             DbSet<Category> Categories { get; set; }
             DbSet<Comment> Comments { get; set; }
             DbSet<Favourite> Favourites { get; set; }

@@ -7,8 +7,9 @@ using OnlineCookbook.Filters.ModelFilter;
 
 namespace OnlineCookbook.Repository.Common
 {
-    public interface IAlergenRepository 
+    public interface IAlergenRepository
     {
+       // IQueryable<IAlergen> WhereAsync(AlergenFilter filter);
         Task<List<IAlergen>> GetAsync(AlergenFilter filter);
         Task<IAlergen> GetAsync(Guid id);
         Task<int> InsertAsync(IAlergen entity);

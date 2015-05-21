@@ -26,89 +26,121 @@ namespace OnlineCookbook.WebApi.Controllers
             Service = service;
         }
 
+        // GET: api/Ingradient
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> Get(IngradientFilter filter)
+        public async Task<HttpResponseMessage> Get(HttpRequestMessage request, string sortOrder = "", string sortDirection = "", int pageNumber = 0, int pageSize = 0) //kalsa uestionRequest s ovim praznim parametrima?
         {
             try
             {
-                var ingradients = await Service.GetAsync(filter);
-                var ingradientsResult = Mapper.Map<List<IngradientModel>>(ingradients);
-                return Ok(ingradientsResult);
+                var result = await Service.GetAsync(new IngradientFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                if (result != null)
+                {
+                    return request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<IngradientModel>>(result));
+                }
+                else
+                {
+                    return request.CreateResponse(HttpStatusCode.NotFound);
+                }
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                throw e;
             }
         }
 
+        // GET: api/Ingradient
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IHttpActionResult> Get(Guid id)
+        public async Task<HttpResponseMessage> Get(HttpRequestMessage request, Guid id)
         {
-            var iIngradient = await Service.GetAsync(id);
-            if (iIngradient != null)
+            var result = await Service.GetAsync(id);
+            if (result != null)
             {
-                var ingradient = Mapper.Map<IngradientModel>(iIngradient);//poslati korisniku stvari koje mu trebaju,ne želim mu slati sve
-                return Ok(ingradient);
+                return request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<IngradientModel>>(result));
             }
-            else return NotFound();
+            else
+            {
+                return request.CreateResponse(HttpStatusCode.NotFound);
+            }
         }
 
 
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post(IngradientModel ingradientModel)
+        public async Task<HttpResponseMessage> Post(HttpRequestMessage request, IngradientModel ingradientModel)
         {
             ingradientModel.Id = Guid.NewGuid();
             try
             {
-                var result = await Service.InsertAsync(Mapper.Map<IngradientPOCO>(ingradientModel)); //
-                if (result == 1) return Ok(ingradientModel);
-                else return BadRequest();
+                var result = await Service.InsertAsync(Mapper.Map<IngradientPOCO>(ingradientModel));
+                if (result == 1)
+                {
+                    return request.CreateResponse(HttpStatusCode.OK, ingradientModel);
+                }
+                else
+                {
+                    return request.CreateResponse(HttpStatusCode.NotFound);
+                }
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                throw e;
             }
         }
 
 
+        // PUT: api/Alergen
         [HttpPut]
         [Route("{id:Guid}")]
-        public async Task<IHttpActionResult> Put(Guid id, IngradientModel ingradientModel)
+        public async Task<HttpResponseMessage> Put(HttpRequestMessage request, Guid id, IngradientModel ingradientModel)
         {
             try
-            {    
+            {
+
                 if (id == ingradientModel.Id)
-                {    
+                {
                     var result = await Service.UpdateAsync(Mapper.Map<IngradientPOCO>(ingradientModel));
-                    if (result == 1) return Ok(ingradientModel);
-                    else return NotFound();
+                    if (result == 1)
+                    {
+                        return request.CreateResponse(HttpStatusCode.OK, ingradientModel);
+                    }
+                    else
+                    {
+                        return request.CreateResponse(HttpStatusCode.NotFound);
+                    }
                 }
-                return BadRequest("IDs do not match.");
+                return request.CreateResponse(HttpStatusCode.BadRequest, "ID's don't match!");
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                throw e;
             }
         }
 
+        // DELETE: api/Ingradient
         [HttpDelete]
         [Route("{id:Guid}")]
-        public async Task<IHttpActionResult> Delete(Guid id)
+        public async Task<HttpResponseMessage> Delete(Guid id)
         {
             try
             {
                 var result = await Service.DeleteAsync(id);
-                if (result == 1) return Ok("Deleted");
-                else return NotFound();
+                if (result == 1)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+                else
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                throw e;
             }
         }
+
 
 
         public class IngradientModel

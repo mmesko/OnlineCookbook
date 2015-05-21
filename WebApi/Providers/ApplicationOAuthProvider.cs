@@ -10,35 +10,12 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using OnlineCookbook.WebApi.Models;
-using IdentitySample.Models;
-
 
 namespace OnlineCookbook.WebApi.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
-
         private readonly string _publicClientId;
-        private readonly Func<UserManager<IdentityUser>> _userManagerFactory;
-
-        public ApplicationOAuthProvider(string publicClientId, Func<UserManager<IdentityUser>> userManagerFactory)
-        {
-            if (publicClientId == null)
-            {
-                throw new ArgumentNullException("publicClientId");
-            }
-
-            if (userManagerFactory == null)
-            {
-                throw new ArgumentNullException("userManagerFactory");
-            }
-
-            _publicClientId = publicClientId;
-            _userManagerFactory = userManagerFactory;
-        }
-
-
-       /* private readonly string _publicClientId;
 
         public ApplicationOAuthProvider(string publicClientId)
         {
@@ -48,47 +25,20 @@ namespace OnlineCookbook.WebApi.Providers
             }
 
             _publicClientId = publicClientId;
-        } */
-
+        }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            using (UserManager<IdentityUser> userManager = _userManagerFactory())
-            {
-                IdentityUser user = await userManager.FindAsync(context.UserName, context.Password);
-
-                if (user == null)
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
-                }
-
-                ClaimsIdentity oAuthIdentity = await userManager.CreateIdentityAsync(user,
-                    context.Options.AuthenticationType);
-                ClaimsIdentity cookiesIdentity = await userManager.CreateIdentityAsync(user,
-                    CookieAuthenticationDefaults.AuthenticationType);
-                AuthenticationProperties properties = CreateProperties(user.UserName);
-                AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-                context.Validated(ticket);
-                context.Request.Context.Authentication.SignIn(cookiesIdentity);
-            }
-        }
-
-
-     /*   public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
-        {
-
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
-           if (user == null)
+            if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
             }
 
-            
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
@@ -98,7 +48,7 @@ namespace OnlineCookbook.WebApi.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
-        }*/
+        }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
