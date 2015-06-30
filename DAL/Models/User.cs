@@ -28,7 +28,7 @@ namespace OnlineCookbook.DAL.Models
       
         public override string Id { get; set; }
 
-        [Index(IsUnique = true)]
+        
         public override string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }

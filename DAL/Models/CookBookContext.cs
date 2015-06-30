@@ -4,6 +4,8 @@ using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using OnlineCookbook.DAL.Models.Mapping;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.ModelConfiguration;
+
 
 namespace OnlineCookbook.DAL.Models
 {
@@ -18,7 +20,9 @@ namespace OnlineCookbook.DAL.Models
             : base("Name=CookBookContext", throwIfV1Schema: false)
         {
             base.RequireUniqueEmail = true;
-        }
+        } 
+
+      
 
         public DbSet<Alergen> Alergens { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -62,13 +66,20 @@ namespace OnlineCookbook.DAL.Models
            // modelBuilder.Configurations.Add(new UserLoginMap());
             //modelBuilder.Configurations.Add(new UserRoleMap());
 
+            
+            
+
             base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<IdentityUser>().ToTable("User");
+            modelBuilder.Entity<IdentityUser>().ToTable("User");
+           // modelBuilder.Entity<User>().ToTable("User", "dbo");
         }
 
         public override DbSet<TEntity> Set<TEntity>()
         {
             return base.Set<TEntity>();
-        }
+        } 
     }
 
    public interface ICookBookContext : IDisposable
