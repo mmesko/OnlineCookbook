@@ -16,11 +16,9 @@ namespace OnlineCookbook.Model
             Bind<IMessage>().To<MessagePOCO>();
             Bind<IMessageUser>().To<MessageUserPOCO>();
             Bind<IRecipe>().To<RecipePOCO>();
-            Bind<IRole>().To<RolePOCO>();
             Bind<IRecipeAlergen>().To<RecipeAlergenPOCO>();
             Bind<IUser>().To<UserPOCO>();
-            Bind<IRecipeIngradient>().To<RecipeIngradientPOCO>();
-            Bind<IUserRole>().To<UserRolePOCO>();
+            Bind<IRecipeIngradient>().To<RecipeIngradientPOCO>();           
             Bind<IPreparationStep>().To<PreparationStepPOCO>();
             Bind<IPreparationStepPicture>().To<PreparationStepPicturePOCO>();
             Bind<IRecipePicture>().To<RecipePicturePOCO>();

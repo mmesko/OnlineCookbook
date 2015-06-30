@@ -8,11 +8,12 @@ namespace OnlineCookbook.Repository.Common
 {
     public interface IRecipePictureRepository
     {
-         
-         Task<IRecipePicture> GetAsync(Guid id);
+         Task<List<IRecipePicture>> GetAsync();
+         Task<IRecipePicture> GetAsync(string id);
          Task<int> InsertAsync(IRecipePicture entity);
          Task<int> UpdateAsync(IRecipePicture entity);
-        // Task<int> DeleteAsync(IRecipePicture entity);
-        // Task<int> DeleteAsync(Guid id);
+         Task<int> DeleteAsync(IRecipePicture entity);
+         Task<int> DeleteAsync(string id);
+         Task<int> AddAsync(IUnitOfWork unitOfWork, IRecipePicture entity);
     }
 }

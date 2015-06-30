@@ -1,17 +1,14 @@
 ﻿using System;
 using AutoMapper;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using OnlineCookbook.Repository.Common;
 using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Model.Common;
-using OnlineCookbook.Model;
-using System.Linq.Expressions;
+using OnlineCookbook.Common.Filters;
 
 
 namespace OnlineCookbook.Repository
@@ -20,7 +17,7 @@ namespace OnlineCookbook.Repository
     {
         
         protected IRepository Repository { get; private set; }
-        public IUnitOfWork UnitOfWork { get; private set; }
+       
        
 
         public RecipeRepository(IRepository repository)
@@ -28,69 +25,31 @@ namespace OnlineCookbook.Repository
             Repository = repository;       
         }
 
-        private IUnitOfWork CreateUnitOfWork()
-        {
-            return Repository.CreateUnitOfWork();
-        }
+       
 
-
-        public virtual async Task<List<IRecipe>> GetAsync(string sortOrder = "recipeId", int pageNumber = 1, int pageSize = 20)
+        public virtual async Task<List<IRecipe>> GetAsync(RecipeFilter filter = null)
         {
             try
             {
-                List<IRecipe> page;
-                pageSize = (pageSize > 20) ? 20 : pageSize;
-
-                switch (sortOrder)
-                { //poco?
-                    case "recipeId":
-                       page = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
-                             await Repository.WhereAsync<Recipe>()
-                            .OrderBy(item => item.Id) //sortiram po Id-u? 
-                            .Skip<Recipe>((pageNumber - 1) * pageSize)
-                            .Take<Recipe>(pageSize)
-                            .ToListAsync<Recipe>())
-                            );
-                        break;
-                    default:
-                        throw new ArgumentException("Wrong order.");
-                }
-
-                foreach (var recipe in page)
+                if (filter != null)
                 {
-
-                   // recipe.Include(c => c.RecipePicture);
-
-
-
-                    //kada sve mapiram, nestaje new list i imam Mapper.Map<List<IRecipePicture>
-                   /* recipe.RecipePictures = new List<IRecipePicture>(Mapper.Map<List<RecipePicturePOCO>>(
-                            await Repository.WhereAsync<RecipePicture>()
-                           .Where<RecipePicture>(item => item.RecipeId == recipe.Id)
-                           .ToListAsync())
-                            );
-                    if (recipe.RecipePictures == null)
-                    {
-                        throw new ArgumentNullException("Needed picture for recipe with Id =" + recipe.Id + ".");
-                    
-                    }
-                    */
-                    /*if (recipe.HasPicture)
-                    {
-                          //RecipePictures iz Collections? Mapping?                  
-                        recipe.RecipePictures = new List<IRecipePicture>(Mapper.Map<List<RecipePicturePOCO>>(
-                            await Repository.WhereAsync<RecipePicture>()
-                           .Where<RecipePicture>(item => item.RecipeId == recipe.Id)
-                           .ToListAsync())
-                            );                      
-                    }
-                    else
-                    {
-                        recipe.RecipePictures = null;
-                    }*/
+                    return Mapper.Map<List<IRecipe>>(
+                        await Repository.WhereAsync<Recipe>()
+                                 .OrderBy(filter.SortOrder)
+                                 .Skip<Recipe>((filter.PageNumber - 1) * filter.PageSize)
+                                 .Take<Recipe>(filter.PageSize)
+                                 .Include(item => item.RecipePictures)
+                                 .ToListAsync<Recipe>()
+                                 );
                 }
-
-                return page;
+                else // return all
+                {
+                    return Mapper.Map<List<IRecipe>>(
+                        await Repository.WhereAsync<Recipe>()
+                        .Include(item => item.RecipePictures)
+                        .ToListAsync()
+                        );
+                }
             }
             catch (Exception e)
             {
@@ -98,76 +57,18 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        //insert recipe -->insert preparation step, step picture?
-        public virtual async Task<int> InsertRecipe(IUnitOfWork unitOfWork, List<IRecipe> recipes = null, List<IRecipePicture> recipePicture = null)
-        {
-            try 
-            {
-                if (recipes == null)
-                {
-                    return 0;
-                }
 
 
-                foreach (var recipe in recipes) //prolazim po svim receptima
-                {
-                    await unitOfWork.AddAsync<Recipe>(Mapper.Map<Recipe>(recipe));//iz Dala ili iz modela i zašto?
-
-                    var recipePictures = recipePicture.Find(r => recipe.Id == r.RecipeId);
-                    
-                    if (recipe.HasPicture && recipePicture != null)
-                    {
-                        await unitOfWork.AddAsync<RecipePicturePOCO>(Mapper.Map<RecipePicturePOCO>(recipePicture));
-                    }
-                    else if (recipe.HasPicture && recipePicture == null)
-                    {
-                        throw new ArgumentNullException("Needed picture for recipe with Id =" + recipe.Id + ".");
-                    }
-                    else if (!recipe.HasPicture && recipePicture != null)
-                    {
-                        throw new ArgumentException("No picture dor recipe with Id " + recipe.Id + ".");
-                    }
-                    //if for preparation step and preparation step picture                    
-                }
-                return 1;          
-            }
-
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        //provjeriti
-        protected async Task<int> UpdateRecipe(IUnitOfWork unitOfWork, List<IPreparationStep> preparations = null, List<IPreparationStep> preparationPictures = null)
+        public virtual async Task<IRecipe> GetAsync(string id)
         {
             try
             {
-                if (preparations == null)
-                {
-                    return 0;
-                }
-
-              
-                foreach (var preparation in preparations)
-                {
-                    await unitOfWork.UpdateAsync<PreparationStep>(Mapper.Map<PreparationStep>(preparation));
-
-                    var preparationPicture = preparationPictures.Find(p => preparation.Id == p.Id);
-                    if (preparation.HasPicture && preparationPicture != null)
-                    {
-                        await unitOfWork.UpdateAsync<PreparationStepPicture>(Mapper.Map<PreparationStepPicture>(preparationPicture));
-                    }
-                    else if (preparation.HasPicture && preparationPicture == null)
-                    {
-                        throw new ArgumentNullException("Picture needed for AnswerChoice with id=" + preparation.Id + ".");
-                    }
-                    else if (!preparation.HasPicture && preparationPicture != null)
-                    {
-                        throw new ArgumentException("AnswerChoice with id=" + preparation.Id + " should not have picture.");
-                    }
-                }
-                return 1;
+                return Mapper.Map<IRecipe>(
+                    await Repository.WhereAsync<Recipe>()
+                    .Where(item => item.Id == id)
+                    .Include(item => item.RecipePictures)
+                    .SingleAsync()
+                    );
             }
             catch (Exception e)
             {
@@ -175,59 +76,79 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        //jos update koraka?
-        protected async Task<int> AddPreparationSteps(IUnitOfWork unitOfWork, List<IPreparationStep> steps = null, List<IPreparationStepPicture> stepPictures = null)
+        public virtual async Task<List<IRecipe>> GetByNameAsync(string name)
         {
             try
             {
-                if (steps == null)
-                {
-                    return 0;
-                }
-
-                foreach (var step in steps)
-                {
-                    await unitOfWork.AddAsync<PreparationStep>(Mapper.Map<PreparationStep>(step)); //provjeri
-
-                    var stepPicture = stepPictures.Find(c => step.Id == c.PreparationStepId);
-                    if (step.HasPicture && stepPicture != null)
-                    {
-                        await unitOfWork.AddAsync<PreparationStepPicture>(Mapper.Map<PreparationStepPicture>(stepPicture));
-                    }
-                    else if (step.HasPicture && stepPicture == null)
-                    {
-                        throw new ArgumentNullException("Need picture for id =" + step.Id + "!");
-                    }
-                    else if (!step.HasPicture && stepPicture != null)
-                    {
-                        throw new ArgumentException("There shouldn't be pictures with Id =" + step.Id + ".");
-                    }
-                }
-                return 1;
+                return Mapper.Map<List<IRecipe>>(
+                    await Repository.WhereAsync<Recipe>()
+                    .Where(r=>r.RecipeTitle.Contains(name))
+                    .ToListAsync<Recipe>()
+                    );
             }
             catch (Exception e)
             {
                 throw e;
             }
+        
         }
 
-        public virtual async Task<IRecipe> GetAsync(Guid id)
-        {   //hasPicture? ili jos jednu metodu GetAsync?
-            try 
+        public async virtual Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null)
+        {
+            try
             {
-                return Mapper.Map<RecipePOCO>(await Repository.SingleAsync<Recipe>(id));           
+                if (filter != null)
+                {
+                    return Mapper.Map<List<IRecipe>>(
+                        await Repository.WhereAsync<Recipe>()
+                         .Where<Recipe>(item => item.CategoryId == categoryId)
+                         .OrderBy(filter.SortOrder)
+                         .Skip<Recipe>((filter.PageNumber - 1) * filter.PageSize)
+                         .Take<Recipe>(filter.PageSize)
+                         .Include(item => item.RecipePictures)
+                         .ToListAsync<Recipe>()
+
+                        );
+                }
+                else
+                {
+                    return Mapper.Map<List<IRecipe>>(
+                     await Repository.WhereAsync<Recipe>()
+                      .Where<Recipe>(item => item.CategoryId == categoryId)
+                      .OrderBy(filter.SortOrder)
+                      .Include(item => item.RecipePictures)
+                      .ToListAsync<Recipe>()
+                     );
+                }
             }
             catch (Exception e)
             {
-                throw e;
-            }        
-        }
 
+                throw e;
+            }
+
+        
+          }
+
+      
         public virtual Task<int> InsertAsync(IRecipe entity)
         {
             try
             {
                 return Repository.InsertAsync<Recipe>(Mapper.Map<Recipe>(entity));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public virtual Task<int> AddAsync(IUnitOfWork unitOfWork, IRecipe entity)
+        {
+            try
+            {
+                return unitOfWork.AddAsync<Recipe>(
+                    Mapper.Map<Recipe>(entity));
             }
             catch (Exception e)
             {
@@ -248,140 +169,101 @@ namespace OnlineCookbook.Repository
             }     
         }
 
-        //provjeriti (tako isto i za alergen), lista recepata koja ima tj alergen?
-   /*     public virtual async Task<List<IRecipe>> GetByAlergenAsync(Guid AlergenId)
+
+        private async Task<int> DeleteAsync(Recipe entity)
         {
             try
             {
-                List<IRecipe> recipeAlergens = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
-                    await Repository.WhereAsync<Recipe>()
-                    .Where<Recipe>(item => item.Id == AlergenId)
-                    .ToListAsync<Recipe>())
-                    );
+                var unitOfWork = Repository.CreateUnitOfWork(); // mogla sam staviti i gore kao parametar?
+                var result = 0;
 
-                return recipeAlergens;
-            }
-                
+                var comments = await Repository.WhereAsync<Comment>()
+                    .Where(item => item.RecipeId == entity.Id)
+                    .ToListAsync();
 
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-
-        public virtual async Task<List<IRecipe>> GetByAlergenAsync(Guid IngradientId)
-        {
-            try
-            {
-                List<IRecipe> recipeIngradients = new List<IRecipe>(Mapper.Map<List<RecipePOCO>>(
-                    await Repository.WhereAsync<Recipe>()
-                    .Where<Recipe>(item => item.Id == IngradientId)
-                    .ToListAsync<Recipe>())
-                    );
-
-                return recipeIngradients;
-            }
-
-
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }*/
-
-
-/*
-        public virtual async Task<int> GetByComplexityAsync(IRecipe entity)
-        {
-
-            try
-            {
-                if (entity.RecipeComplexity)
-                    {
-
-                        var complexity = await Repository.WhereAsync<Recipe>()
-                         .Where(r => entity.Id == r.RecipeId)
-                         .SingleAsync();
-                        await Repository.GetByComplexityAsync<Recipe>(complexity); 
-                    }
-     
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
-        
-        }
-*/
-
-      public virtual Task<int> DeleteAsync(IRecipe entity)
-        {
-            throw new Exception("Not implemented!");
-           
-         /*   try
-            {
-                IUnitOfWork unitOfWork = CreateUnitOfWork();
-
-                if (entity.HasPicture)
+                foreach (var comment in comments)
                 {
-                    var picture = await Repository.WhereAsync<RecipePicture>()
-                        .Where(p => entity.Id == p.RecipeId)
-                        .SingleAsync();
-                    await unitOfWork.DeleteAsync<RecipePicture>(picture);               
+                    result += await unitOfWork.DeleteAsync<Comment>(comment);
                 }
 
-                //potrebno?
-                 if (entity.HasSteps) 
-                  {
-                      var steps = await Repository.WhereAsync<PreparationStep>()
-                          .Where(s => entity.Id == s.RecipeId)
-                          .ToListAsync();
+                result += await unitOfWork.DeleteAsync<Recipe>(entity);
 
-                      foreach (var step in steps) //provjera da li mi koraci imaju sliku
-                      {
-                          if (step.HasPicture)
-                          {
-                              var stepPicture = await Repository.WhereAsync<PreparationStepPicture>()
-                                  .Where(s => step.Id == s.PreparationStepId)
-                                  .SingleAsync();
-                              await unitOfWork.DeleteAsync<PreparationStepPicture>(stepPicture);
-                          }
-                          await unitOfWork.DeleteAsync<PreparationStep>(step);
-                      }
-                  } 
+                return result;
 
-         if (entity.HasComment)
-         {
-             var comments = await Repository.WhereAsync<Comment>()
-                   .Where(com => entity.Id == com.RecipeId)
-                   .SingleAsync();
-
-             await unitOfWork.DeleteAsync<Comment>(comments);  //provjeriti 
-         }
-    } 
-    catch (Exception e)
-    {
-        throw e;
-    } */
-} 
-
-
-
-       public virtual Task<int> DeleteAsync(Guid id)
-        {
-
-            throw new Exception("Not implemented!");
-        /*    try
+            }
+            catch (Exception e)
             {
-                var recipe = await Repository.SingleAsync<Recipe>(id);
-                return await DeleteAsync(Mapper.Map<RecipePOCO>(recipe));
+
+                throw e;
+            }
+
+        }
+
+        private async Task<int> DeleteAsync(IUnitOfWork unitOfWork, Recipe entity)
+        {
+            try
+            {
+                var result = 0;
+
+                var pictures = await Repository.WhereAsync<RecipePicture>()
+                    .Where(item => item.RecipeId == entity.Id)
+                    .ToListAsync();
+
+                foreach (var picture in pictures)
+                {
+                    result += await unitOfWork.DeleteAsync<RecipePicture>(picture);
+                }
+
+                result += await unitOfWork.DeleteAsync<Recipe>(entity);
+
+                return result;
             }
             catch (Exception e)
             {
                 throw e;
-            } */
+            }
         }
+
+
+        public Task<int> DeleteAsync(IUnitOfWork unitOfWork, IRecipe entity)
+        {
+            try
+            {
+                return this.DeleteAsync(unitOfWork,
+                    Mapper.Map<Recipe>(entity));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+       public async Task<int> DeleteAsync(IUnitOfWork unitOfWork, string id)
+        {
+            try
+            {
+                return await DeleteAsync(
+                    unitOfWork, await Repository.SingleAsync<Recipe>(id));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+       public Task<IUnitOfWork> CreateUnitOfWork()
+       {
+           try
+           {
+               return Task.FromResult(Repository.CreateUnitOfWork());
+           }
+           catch (Exception e)
+           {
+               throw e;
+           }
+       }
+
     }  
  
 

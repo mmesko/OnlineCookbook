@@ -11,6 +11,18 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
+            this.Property(t => t.Id)
+                .IsRequired()
+                .HasMaxLength(128);
+
+            this.Property(t => t.AlergenId)
+                .IsRequired()
+                .HasMaxLength(128);
+
+            this.Property(t => t.RecipeId)
+                .IsRequired()
+                .HasMaxLength(128);
+
             this.Property(t => t.AlergenUnit)
                 .IsRequired()
                 .HasMaxLength(50);

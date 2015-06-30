@@ -90,7 +90,7 @@ namespace OnlineCookbook.Repository
 
            }
 
-           public virtual Task<int> DeleteAsync<T>(int id) where T : class
+           public virtual Task<int> DeleteAsync<T>(string id) where T : class
            {
                var entity = DbContext.Set<T>().Find(id);
                if (entity == null)

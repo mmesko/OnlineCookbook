@@ -3,10 +3,11 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using OnlineCookbook.DAL.Models.Mapping;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace OnlineCookbook.DAL.Models
 {
-    public partial class CookBookContext : DbContext, ICookBookContext
+    public partial class CookBookContext : IdentityDbContext<User>, ICookBookContext
     {
         static CookBookContext()
         {
@@ -14,8 +15,9 @@ namespace OnlineCookbook.DAL.Models
         }
 
         public CookBookContext()
-            : base("Name=CookBookContext")
+            : base("Name=CookBookContext", throwIfV1Schema: false)
         {
+            base.RequireUniqueEmail = true;
         }
 
         public DbSet<Alergen> Alergens { get; set; }
@@ -32,9 +34,11 @@ namespace OnlineCookbook.DAL.Models
         public DbSet<RecipeAlergen> RecipeAlergens { get; set; }
         public DbSet<RecipeIngradient> RecipeIngradients { get; set; }
         public DbSet<RecipePicture> RecipePictures { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
+       // public DbSet<Role> Roles { get; set; }
+       // public DbSet<User> Users { get; set; }
+       // public DbSet<UserClaim> UserClaims { get; set; }
+       // public DbSet<UserLogin> UserLogins { get; set; }
+       // public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -52,15 +56,24 @@ namespace OnlineCookbook.DAL.Models
             modelBuilder.Configurations.Add(new RecipeAlergenMap());
             modelBuilder.Configurations.Add(new RecipeIngradientMap());
             modelBuilder.Configurations.Add(new RecipePictureMap());
-            modelBuilder.Configurations.Add(new RoleMap());
+           // modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new UserMap());
-            modelBuilder.Configurations.Add(new UserRoleMap());
+            //modelBuilder.Configurations.Add(new UserClaimMap());
+           // modelBuilder.Configurations.Add(new UserLoginMap());
+            //modelBuilder.Configurations.Add(new UserRoleMap());
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public override DbSet<TEntity> Set<TEntity>()
+        {
+            return base.Set<TEntity>();
         }
     }
 
    public interface ICookBookContext : IDisposable
    {
-	        DbSet<Alergen> Alergens { get; set; }
+	         DbSet<Alergen> Alergens { get; set; }
             DbSet<Category> Categories { get; set; }
             DbSet<Comment> Comments { get; set; }
             DbSet<Favourite> Favourites { get; set; }
@@ -74,9 +87,11 @@ namespace OnlineCookbook.DAL.Models
             DbSet<RecipeAlergen> RecipeAlergens { get; set; }
             DbSet<RecipeIngradient> RecipeIngradients { get; set; }
             DbSet<RecipePicture> RecipePictures { get; set; }
-            DbSet<Role> Roles { get; set; }
-            DbSet<User> Users { get; set; }
-            DbSet<UserRole> UserRoles { get; set; }
+         //   DbSet<Role> Roles { get; set; }
+          //  DbSet<User> Users { get; set; }
+        //    DbSet<UserClaim> UserClaims { get; set; }
+       //     DbSet<UserLogin> UserLogins { get; set; }
+        //    DbSet<UserRole> UserRoles { get; set; }
    
      
          DbSet<TEntity> Set<TEntity>() where TEntity : class;

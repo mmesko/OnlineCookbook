@@ -11,6 +11,14 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
+            this.Property(t => t.Id)
+                .IsRequired()
+                .HasMaxLength(128);
+
+            this.Property(t => t.RecipeId)
+                .IsRequired()
+                .HasMaxLength(128);
+
             this.Property(t => t.PreparationText)
                 .IsRequired();
 
@@ -20,7 +28,6 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.Property(t => t.RecipeId).HasColumnName("RecipeId");
             this.Property(t => t.StepNumber).HasColumnName("StepNumber");
             this.Property(t => t.PreparationText).HasColumnName("PreparationText");
-            this.Property(t => t.HasPicture).HasColumnName("HasPicture");
 
             // Relationships
             this.HasRequired(t => t.Recipe)

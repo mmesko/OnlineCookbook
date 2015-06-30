@@ -54,9 +54,7 @@
     <Compile Include="IRecipeAlergen.cs" />
     <Compile Include="IRecipeIngradient.cs" />
     <Compile Include="IRecipePicture.cs" />
-    <Compile Include="IRole.cs" />
     <Compile Include="IUser.cs" />
-    <Compile Include="IUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

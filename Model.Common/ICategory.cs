@@ -5,9 +5,9 @@ namespace OnlineCookbook.Model.Common
 {
    public interface ICategory
     {
-        Guid Id { get; set; }
+        string Id { get; set; }
         string CategoryName { get; set; }
-        Guid Abrv { get; set; }
+        string Abrv { get; set; }
        ICollection<IRecipe> Recipes { get; set; }
     }
 }

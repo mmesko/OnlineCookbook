@@ -5,10 +5,10 @@ namespace OnlineCookbook.Model.Common
 {
    public interface IFavourite
     {
-       Guid Id { get; set; }
-       Guid RecipeId { get; set; }
+       string Id { get; set; }
+       string RecipeId { get; set; }
        string FavouriteName { get; set; }
-       Guid Abrv { get; set; }
+       string Abrv { get; set; }
        IRecipe Recipe { get; set; }
        ICollection<IFavouriteUser> FavouriteUsers { get; set; }
     }

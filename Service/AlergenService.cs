@@ -1,34 +1,33 @@
 ﻿using System;
-using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Dynamic;
-using System.Text;
 using System.Threading.Tasks;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Repository.Common;
 using OnlineCookbook.Service.Common;
-using OnlineCookbook.Filters.ModelFilter;
-using OnlineCookbook.Model.Common;
-using OnlineCookbook.Model;
+using OnlineCookbook.Common.Filters;
+
 
 namespace OnlineCookbook.Service
 {
     public class AlergenService : IAlergenService
     {
 
-        protected IAlergenRepository Repository { get; private set; }
+        private IAlergenRepository Repository { get;  set; }
+       
 
         public AlergenService(IAlergenRepository repository)
         {
+            if (repository == null)
+                throw new ArgumentNullException("Repository must be != null");
+ 
             Repository = repository;
         }
 
-        public Task<List<IAlergen>> GetAsync(AlergenFilter filter)
+        public async Task<List<IAlergen>> GetAsync(AlergenFilter filter)
         {
             try
             {
-                return Repository.GetAsync(filter);
+                return await Repository.GetAsync(filter);
             }
             catch (Exception e)
             {
@@ -36,26 +35,12 @@ namespace OnlineCookbook.Service
             }
         }
 
-        public Task<IAlergen> GetAsync(Guid id)
+        public async Task<IAlergen> GetAsync(string id)
         {
 
             try
             {
-                return Repository.GetAsync(id);
-            }
-
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public Task<int> InsertAsync(IAlergen entity)
-        {
-
-            try
-            {
-                return Repository.InsertAsync(entity);
+                return await Repository.GetAsync(id);
             }
 
             catch (Exception e)
@@ -64,11 +49,25 @@ namespace OnlineCookbook.Service
             }
         }
 
-        public Task<int> UpdateAsync(IAlergen entity)
+        public async Task<List<IAlergen>> GetNameAsync(string name)
         {
+             try
+            {
+                return await Repository.GetNameAsync(name);
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+            }       
+        }
+
+        public async Task<int> InsertAsync(IAlergen entity)
+        {
+
             try
             {
-                return Repository.UpdateAsync(entity);
+                return await Repository.InsertAsync(entity);
             }
 
             catch (Exception e)
@@ -77,11 +76,11 @@ namespace OnlineCookbook.Service
             }
         }
 
-        public Task<int> DeleteAsync(IAlergen entity)
+        public async Task<int> UpdateAsync(IAlergen entity)
         {
             try
             {
-                return Repository.DeleteAsync(entity);
+                return await Repository.UpdateAsync(entity);
             }
 
             catch (Exception e)
@@ -90,11 +89,24 @@ namespace OnlineCookbook.Service
             }
         }
 
-        public Task<int> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(IAlergen entity)
         {
             try
             {
-                return Repository.DeleteAsync(id);
+                return await Repository.DeleteAsync(entity);
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<int> DeleteAsync(string id)
+        {
+            try
+            {
+                return await Repository.DeleteAsync(id);
             }
 
             catch (Exception e)

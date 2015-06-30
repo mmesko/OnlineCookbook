@@ -10,13 +10,13 @@ using OnlineCookbook.Repository.Common;
 using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
-using OnlineCookbook.Filters.ModelFilter;
+using OnlineCookbook.Common.Filters;
 using System.Linq.Dynamic;
 
 
 namespace OnlineCookbook.Repository
 {
-   public class IngradientRepository
+   public class IngradientRepository : IIngradientRepository
     {
        protected IRepository Repository { get; private set; }
 
@@ -48,7 +48,7 @@ namespace OnlineCookbook.Repository
 
 
 
-       public virtual async Task<IIngradient> GetAsync(Guid id)
+       public virtual async Task<IIngradient> GetAsync(string id)
         {
             try 
             {
@@ -59,6 +59,24 @@ namespace OnlineCookbook.Repository
                 throw e;
             }        
         }
+
+
+       public virtual async Task<List<IIngradient>> GetNameAsync(string name)
+       {
+           try
+           {
+               return Mapper.Map<List<IIngradient>>(
+                   await Repository.WhereAsync<Ingradient>()
+                           .Where(item => item.IngradientName.Contains(name))
+                           .ToListAsync<Ingradient>()
+                   );
+           }
+           catch (Exception e)
+           {
+               throw e;
+           }
+
+       }
 
        public virtual Task<int> InsertAsync(IIngradient entity)
         {
@@ -89,7 +107,8 @@ namespace OnlineCookbook.Repository
         {
             try
             {
-                return Repository.DeleteAsync<Ingradient>(Mapper.Map<Ingradient>(entity));
+                return Repository.DeleteAsync<Ingradient >
+                    (Mapper.Map<Ingradient >(entity));
             }
             catch (Exception e)
             {
@@ -97,18 +116,18 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual Task<int> DeleteAsync(Guid id)
+        public virtual Task<int> DeleteAsync(string id)
         {
             try
             {
-                return Repository.DeleteAsync<Ingradient>(Mapper.Map<Ingradient>(id));
+                return Repository.DeleteAsync<Ingradient >(id);
             }
-
             catch (Exception e)
             {
                 throw e;
             }
         }
+    }
 
     }
-}
+

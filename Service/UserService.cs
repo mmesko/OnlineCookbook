@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Repository.Common;
 using OnlineCookbook.Service.Common;
-using OnlineCookbook.Filters.ModelFilter;
+using OnlineCookbook.Common.Filters;
 
 namespace OnlineCookbook.Service
 {
@@ -20,78 +20,52 @@ namespace OnlineCookbook.Service
             Repository = repository;
         }
 
-         public Task<List<IUser>> GetAsync(UserFilter filter)
-        {
-            try
-            {
-                return Repository.GetAsync(filter);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+         public async Task<IUser> FindAsync(string username)
+         {
+             try
+             {
+                 return await Repository.GetAsync(username);
+             }
+             catch (Exception e)
+             {
 
-        public Task<IUser> GetAsync(Guid id)
-        {
-            try
-            {
-                return Repository.GetAsync(id);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+                 throw e;
+             }
+         }
 
+         public async Task<IUser> FindAsync(string username, string password)
+         {
+             try
+             {
+                 return await Repository.GetAsync(username, password);
+             }
+             catch (Exception e)
+             {
 
-        public Task<int> InsertAsync(IUser entity)
-        {
-            try
-            {
-                return Repository.InsertAsync(entity);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+                 throw e;
+             }
+         }
 
-        public Task<int> UpdateAsync(IUser entity)
-        {
-            try
-            {
-                return Repository.UpdateAsync(entity);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+         /// <summary>
+         /// Register add user
+         /// </summary>
+         public async Task<bool> RegisterUser(Model.Common.IUser user)
+         {
+             try
+             {
+                 return await Repository.RegisterUser(user);
+             }
+             catch (Exception e)
+             {
 
-        public Task<int> DeleteAsync(IUser entity)
-        {
-            try
-            {
-                return Repository.DeleteAsync(entity);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+                 throw e;
+             }
+         }
 
-        public Task<int> DeleteAsync(Guid id)
-        {
-            try
-            {
-                return Repository.DeleteAsync(id);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+         public async Task<bool> UpdateAsync(IUser user, string password)
+         {
+             return await Repository.UpdateAsync(user, password);
+         }
 
     }
 }

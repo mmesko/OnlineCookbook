@@ -11,82 +11,117 @@ using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
 using System.Linq.Dynamic;
-using OnlineCookbook.Filters.ModelFilter;
+using OnlineCookbook.Common.Filters;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Linq.Expressions;
 
 namespace OnlineCookbook.Repository
 {
     public class UserRepository : IUserRepository
     {
         protected IRepository Repository { get; private set; }
-        public IUnitOfWork UnitOfWork { get; private set; }
+        private PasswordHasher hasher;
+        private UserManager<User> userManager;
+       
 
         public UserRepository(IRepository repository)
         {
             Repository = repository;
-        }
-
-        public IUnitOfWork CreateUnitOfWork()
-        {
-            return Repository.CreateUnitOfWork();
-        }
-
-        public virtual async Task<List<IUser>> GetAsync(UserFilter filter)
-        {
-            try
-            {    return Mapper.Map<List<IUser>>(
-                         await Repository.WhereAsync<User>() 
-                            .OrderBy(filter.SortOrder)
-                            .Skip<User>((filter.PageNumber - 1) * filter.PageSize)
-                            .Take<User>(filter.PageSize) //whole page
-                            .ToListAsync<User>()
-                     );
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }       
+            hasher = new PasswordHasher();
+            userManager = new UserManager<User>
+                (new UserStore<User>(new CookBookContext()));
         }
 
 
-        public virtual async Task<IUser> GetAsync(Guid id)
+        //bc username is unique 
+        public async Task<Model.Common.IUser> GetAsync(string username)
         {
             try
             {
-                return Mapper.Map<IUser>(await Repository.SingleAsync<User>(id));
+                return Mapper.Map<Model.Common.IUser>(
+                    await Repository.GetAsync<User>(c => c.UserName == username));
             }
             catch (Exception e)
             {
+
                 throw e;
             }
         }
 
 
-        public virtual Task<int> InsertAsync(IUser entity)
+        /// <summary>
+        /// Get all entites
+        /// </summary>
+        public async Task<IEnumerable<Model.Common.IUser>> GetAsync(Expression<Func<Model.Common.IUser, bool>> match)
         {
             try
             {
-                return Repository.InsertAsync<User>(Mapper.Map<User>(entity));
+                return Mapper.Map<IEnumerable<Model.Common.IUser>>(
+                    await Repository.GetRangeAsync<User>());
             }
             catch (Exception e)
             {
+
                 throw e;
             }
         }
 
-
-        public virtual Task<int> UpdateAsync(IUser entity)
+        /// <summary>
+        /// Find user by username and password
+        /// </summary>
+        public async Task<Model.Common.IUser> GetAsync(string username, string password)
         {
             try
             {
-                return Repository.UpdateAsync<User>(Mapper.Map<User>(entity));
+                User user = await userManager.FindAsync(username, password);
+                return Mapper.Map<Model.Common.IUser>(user);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
+                throw ex;
             }
         }
 
-        public virtual Task<int> DeleteAsync(IUser entity)
+        public async Task<int> AddAsync(Model.Common.IUser entity)
+        {
+            try
+            {
+                return await Repository.AddAsync<User>(Mapper.Map<User>(entity));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+        public async Task<bool> UpdateAsync(Model.Common.IUser entity, string password)
+        {
+            try
+            {
+                IdentityResult validation = await userManager.PasswordValidator.ValidateAsync(password);
+
+                if (validation.Succeeded)
+                {
+                    IdentityResult result = await userManager.UpdateAsync(Mapper.Map<User>(entity));
+                    bool success = result.Succeeded;
+
+                    return success;
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+
+        public virtual Task<int> DeleteAsync(Model.Common.IUser entity)
         {
             try
             {
@@ -98,14 +133,44 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual Task<int> DeleteAsync(Guid id)
+        public virtual Task<int> DeleteAsync(string id)
         {
             try
             {
-                return Repository.DeleteAsync<Role>(id);
+                return Repository.DeleteAsync<User>(id);
             }
             catch (Exception e)
             {
+                throw e;
+            }
+        }
+
+        public async Task<bool> RegisterUser(Model.Common.IUser entity)
+        {
+            try
+            {
+                IdentityResult result = await userManager.CreateAsync(
+                    Mapper.Map<User>(entity), entity.PasswordHash);
+
+                return result.Succeeded;
+            }
+            catch (Exception e)
+            {
+
+                throw e.InnerException;
+            }
+        }
+
+
+        public Task<IUnitOfWork> CreateUnitOfWork()
+        {
+            try
+            {
+                return Task.FromResult<IUnitOfWork>(Repository.CreateUnitOfWork());
+            }
+            catch (Exception e)
+            {
+
                 throw e;
             }
         }

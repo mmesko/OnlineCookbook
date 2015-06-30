@@ -7,9 +7,9 @@ namespace OnlineCookbook.Model
     public partial class MessageUserPOCO : IMessageUser
     {
 
-        public System.Guid Id { get; set; }
-        public System.Guid MessageId { get; set; }
-        public System.Guid UserId { get; set; }
+        public string Id { get; set; }
+        public string MessageId { get; set; }
+        public string UserId { get; set; }
         public virtual IMessage Message { get; set; }
         public virtual IUser User { get; set; }
 

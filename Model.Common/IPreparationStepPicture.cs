@@ -4,8 +4,8 @@ namespace OnlineCookbook.Model.Common
 {
    public interface IPreparationStepPicture
     {
-        Guid Id { get; set; }
-        Guid PreparationStepId { get; set; }
+        string Id { get; set; }
+        string PreparationStepId { get; set; }
         byte[] StepPicture { get; set; }
         IPreparationStep PreparationStep { get; set; }
     }

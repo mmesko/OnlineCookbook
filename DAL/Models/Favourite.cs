@@ -10,10 +10,10 @@ namespace OnlineCookbook.DAL.Models
             this.FavouriteUsers = new List<FavouriteUser>();
         }
 
-        public System.Guid Id { get; set; }
-        public System.Guid RecipeId { get; set; }
+        public string Id { get; set; }
+        public string RecipeId { get; set; }
         public string FavouriteName { get; set; }
-        public System.Guid Abrv { get; set; }
+        public string Abrv { get; set; }
         public virtual Recipe Recipe { get; set; }
         public virtual ICollection<FavouriteUser> FavouriteUsers { get; set; }
     }

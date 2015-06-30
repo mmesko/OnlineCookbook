@@ -5,9 +5,9 @@ namespace OnlineCookbook.Model
 {
     public partial class RecipeIngradientPOCO : IRecipeIngradient
     {
-        public System.Guid Id { get; set; }
-        public System.Guid IngradientId { get; set; }
-        public System.Guid RecipeId { get; set; }
+        public string Id { get; set; }
+        public string IngradientId { get; set; }
+        public string RecipeId { get; set; }
         public int IngradientQuantity { get; set; }
         public string IngradientUnit { get; set; }
         public virtual IIngradient Ingradient { get; set; }

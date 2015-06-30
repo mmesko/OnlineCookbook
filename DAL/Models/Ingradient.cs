@@ -10,9 +10,9 @@ namespace OnlineCookbook.DAL.Models
             this.RecipeIngradients = new List<RecipeIngradient>();
         }
 
-        public System.Guid Id { get; set; }
+        public string Id { get; set; }
         public string IngradientName { get; set; }
-        public System.Guid Abrv { get; set; }
+        public string Abrv { get; set; }
         public virtual ICollection<RecipeIngradient> RecipeIngradients { get; set; }
     }
 }

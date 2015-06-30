@@ -9,10 +9,10 @@ namespace OnlineCookbook.Repository.Common
    public interface IMessageRepository
     {
        Task<List<IMessage>> GetAsync(string sortOrder = "messageId", int pageNumber = 0, int pageSize = 20);
-       Task<IMessage> GetAsync(Guid id);
+       Task<IMessage> GetAsync(string id);
        Task<int> InsertAsync(IMessage entity);
        Task<int> UpdateAsync(IMessage entity);
        Task<int> DeleteAsync(IMessage entity);
-        Task<int> DeleteAsync(Guid id);
+        Task<int> DeleteAsync(string id);
     }
 }

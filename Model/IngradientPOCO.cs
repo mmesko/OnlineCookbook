@@ -11,9 +11,9 @@ namespace OnlineCookbook.Model
             this.RecipeIngradients = new List<IRecipeIngradient>();
         }
 
-         public System.Guid Id { get; set; }
+         public string Id { get; set; }
          public string IngradientName { get; set; }
-         public System.Guid Abrv { get; set; }
+         public string Abrv { get; set; }
          public virtual ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
     }
 }

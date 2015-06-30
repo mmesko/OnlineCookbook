@@ -3,17 +3,18 @@ using System.Linq;
 using System.Collections.Generic;
 using OnlineCookbook.Model.Common;
 using System.Threading.Tasks;
-using OnlineCookbook.Filters.ModelFilter;
+using OnlineCookbook.Common.Filters;
 
 namespace OnlineCookbook.Repository.Common
 {
     public interface IIngradientRepository
     {
         Task<List<IIngradient>> GetAsync(IngradientFilter filter);
-        Task<IIngradient> GetAsync(Guid id);
+        Task<IIngradient> GetAsync(string id);
+        Task<List<IIngradient>> GetNameAsync(string name);
         Task<int> InsertAsync(IIngradient entity);
         Task<int> UpdateAsync(IIngradient entity);
         Task<int> DeleteAsync(IIngradient entity);
-        Task<int> DeleteAsync(Guid id);
+        Task<int> DeleteAsync(string id);
     }
 }

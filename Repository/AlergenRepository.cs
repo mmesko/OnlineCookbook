@@ -11,7 +11,7 @@ using OnlineCookbook.Repository.Common;
 using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
-using OnlineCookbook.Filters.ModelFilter;
+using OnlineCookbook.Common.Filters;
 
 
 
@@ -20,13 +20,27 @@ namespace OnlineCookbook.Repository
     public class AlergenRepository :  IAlergenRepository
     {
         protected IRepository Repository { get; private set; }
+       
 
         public AlergenRepository(IRepository repository)
         {
+
             Repository = repository;       
         }
 
-
+       
+   /*  public virtual IQueryable<IAlergen> GetAllAsync()
+    {
+        try
+        {
+            return Repository.WhereAsync<IAlergen>();
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }      
+      
+    }*/
         public virtual async Task<List<IAlergen>> GetAsync(AlergenFilter filter)
         {
             try
@@ -35,7 +49,7 @@ namespace OnlineCookbook.Repository
                     await Repository.WhereAsync<Alergen>()
                             .OrderBy(filter.SortOrder)
                             .Skip<Alergen>((filter.PageNumber - 1) * filter.PageSize)
-                            .Take<Alergen>(filter.PageSize)
+                            .Take<Alergen>(filter.PageSize)                           
                             .ToListAsync<Alergen>()
                     );
             }
@@ -45,16 +59,33 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual async Task<IAlergen> GetAsync(Guid id)
+        public virtual async Task<IAlergen> GetAsync(string id)
         {
             try 
             {
-                return Mapper.Map<AlergenPOCO>(await Repository.SingleAsync<Alergen>(id));           
+                return Mapper.Map<IAlergen>(await Repository.SingleAsync<Alergen>(id));           
             }
             catch (Exception e)
             {
                 throw e;
             }        
+        }
+
+        public virtual async Task<List<IAlergen>> GetNameAsync(string name)
+        {
+            try
+            {
+                return Mapper.Map<List<IAlergen>>(
+                    await Repository.WhereAsync<Alergen>()
+                            .Where(item => item.AlergenName.Contains(name))
+                            .ToListAsync<Alergen>()
+                    );
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
 
         public virtual Task<int> InsertAsync(IAlergen entity)
@@ -86,7 +117,8 @@ namespace OnlineCookbook.Repository
         {
             try
             {
-                return Repository.DeleteAsync<Alergen>(Mapper.Map<Alergen>(entity));
+                return Repository.DeleteAsync<Alergen>
+                    (Mapper.Map<Alergen>(entity));
             }
             catch (Exception e)
             {
@@ -94,13 +126,12 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual Task<int> DeleteAsync(Guid id)
+        public virtual Task<int> DeleteAsync(string id)
         {
             try
             {
-                return Repository.DeleteAsync<Alergen>(Mapper.Map<Alergen>(id));
+                return Repository.DeleteAsync<Alergen>(id);
             }
-
             catch (Exception e)
             {
                 throw e;

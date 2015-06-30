@@ -11,13 +11,25 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
+            this.Property(t => t.Id)
+                .IsRequired()
+                .HasMaxLength(128);
+
+            this.Property(t => t.UserId)
+                .IsRequired()
+                .HasMaxLength(128);
+
+            this.Property(t => t.RecipeId)
+                .IsRequired()
+                .HasMaxLength(128);
+
             this.Property(t => t.CommentText)
                 .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("Comment");
             this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.Userid).HasColumnName("Userid");
+            this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.RecipeId).HasColumnName("RecipeId");
             this.Property(t => t.CommentText).HasColumnName("CommentText");
 
@@ -27,7 +39,7 @@ namespace OnlineCookbook.DAL.Models.Mapping
                 .HasForeignKey(d => d.RecipeId);
             this.HasRequired(t => t.User)
                 .WithMany(t => t.Comments)
-                .HasForeignKey(d => d.Userid);
+                .HasForeignKey(d => d.UserId);
 
         }
     }

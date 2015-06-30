@@ -11,7 +11,7 @@ namespace OnlineCookbook.Model
         {
             this.MessageUsers = new List<IMessageUser>();
         }
-        public System.Guid Id { get; set; }
+        public string Id { get; set; }
         public string TextMessage { get; set; }
         public System.DateTime DateCreated { get; set; }
         public virtual ICollection<IMessageUser> MessageUsers { get; set; }

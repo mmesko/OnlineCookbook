@@ -4,9 +4,9 @@ namespace OnlineCookbook.Model.Common
 {
    public interface IRecipeAlergen
     {
-        Guid Id { get; set; }
-        Guid AlergenId { get; set; }
-        Guid RecipeId { get; set; }
+        string Id { get; set; }
+        string AlergenId { get; set; }
+        string RecipeId { get; set; }
         int AlergenQuantity { get; set; }
         string AlergenUnit { get; set; }
         IAlergen Alergen { get; set; }

@@ -30,7 +30,23 @@ namespace OnlineCookbook.Repository
         }
 
 
-        public virtual async Task<IRecipePicture> GetAsync(Guid id)
+
+        public virtual async Task<List<IRecipePicture>> GetAsync()
+        {
+            try
+            {
+                return Mapper.Map<List<IRecipePicture>>(
+                    await Repository.WhereAsync<RecipePicture>()
+                    .ToListAsync()
+                    );
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public virtual async Task<IRecipePicture> GetAsync(string id)
         {
             try
             {
@@ -57,6 +73,18 @@ namespace OnlineCookbook.Repository
             }
         }
 
+        public Task<int> AddAsync(IUnitOfWork unitOfWork, IRecipePicture entity)
+        {
+            try
+            {
+                return unitOfWork.AddAsync<RecipePicture>(
+                    Mapper.Map<RecipePicture>(entity));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
         public virtual async Task<int> UpdateAsync(IRecipePicture entity)
         {
@@ -69,6 +97,32 @@ namespace OnlineCookbook.Repository
                 throw e;
             }
         }
+
+        public virtual Task<int> DeleteAsync(IRecipePicture entity)
+        {
+            try
+            {
+                return Repository.DeleteAsync<RecipePicture>(
+                    Mapper.Map<RecipePicture>(entity));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public virtual Task<int> DeleteAsync(string id)
+        {
+            try
+            {
+                return Repository.DeleteAsync<RecipePicture>(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
 
     }
 }

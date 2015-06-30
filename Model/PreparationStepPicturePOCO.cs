@@ -6,8 +6,8 @@ namespace OnlineCookbook.Model
 {
     public partial class PreparationStepPicturePOCO : IPreparationStepPicture
     {
-        public System.Guid Id { get; set; }
-        public System.Guid PreparationStepId { get; set; }
+        public string Id { get; set; }
+        public string PreparationStepId { get; set; }
         public byte[] StepPicture { get; set; }
         public virtual IPreparationStep PreparationStep { get; set; }
 

@@ -3,6 +3,7 @@ using AutoMapper;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using OnlineCookbook.Repository.Common;
 using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
-
+using OnlineCookbook.Common.Filters;
 
 namespace OnlineCookbook.Repository
 {
@@ -30,34 +31,112 @@ namespace OnlineCookbook.Repository
             return Repository.CreateUnitOfWork();
         }
 
-        public virtual Task<List<ICategory>> GetAsync(string sortOrder = "categoryId", int pageNumber = 0, int pageSize = 50)
+        public virtual async Task<List<ICategory>> GetAsync(CategoryFilter filter)
         {
-            throw new Exception("Not implemented!");
+            try
+            {
+                return Mapper.Map<List<ICategory>>(
+                    await Repository.WhereAsync<Category>()
+                            .OrderBy(filter.SortOrder)
+                            .Skip<Category>((filter.PageNumber - 1) * filter.PageSize)
+                            .Take<Category>(filter.PageSize)
+                            .ToListAsync<Category>()
+                    );
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public virtual Task<ICategory> GetAsync(Guid id)
+        public virtual async Task<ICategory> GetAsync(string id)
         {
-            throw new Exception("Not implemented!");
+            try
+            {
+                return Mapper.Map<ICategory>(
+                    await Repository.SingleAsync<Category>(id));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public virtual Task<int> InsertAsync(ICategory entity)
         {
-            throw new Exception("Not implemented!");
+            try
+            {
+                return Repository.InsertAsync<Category>(Mapper.Map<Category>(entity));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public virtual Task<int> UpdateAsync(ICategory entity)
         {
-            throw new Exception("Not implemented!");
+            try
+            {
+                return Repository.UpdateAsync<Category>(Mapper.Map<Category>(entity));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public virtual Task<int> DeleteAsync(ICategory entity)
+        public async Task<int> DeleteAsync(ICategory entity)
         {
-            throw new Exception("Not implemented!");
+            try
+            {
+                if (entity.Abrv.ToLower() == "undef")
+                {
+                    throw new ArgumentException("Category\"Undefined\" cannot be deleted.");
+                }
+                else
+                {
+                    IUnitOfWork unitOfWork = Repository.CreateUnitOfWork();
+
+                    var recipes = await Repository.WhereAsync<Recipe>()
+                        .Where<Recipe>(item => item.CategoryId == entity.Id)
+                        .ToListAsync();
+
+                    var typeUndef = await Repository.WhereAsync<Category>()
+                        .Where<Category>(item => item.Abrv.ToLower() == "undef")
+                        .SingleAsync();
+
+                    foreach (var recipe in recipes)
+                    {
+                        recipe.CategoryId = typeUndef.Id;
+                        await unitOfWork.UpdateAsync<Recipe>(recipe);
+                    }
+
+                    await unitOfWork.DeleteAsync<Category>(entity.Id);
+
+                    return await unitOfWork.CommitAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public virtual Task<int> DeleteAsync(Guid id)
+
+        public async virtual Task<int> DeleteAsync(string id)
         {
-            throw new Exception("Not implemented!");
+            try
+            {
+                return await DeleteAsync(Mapper.Map<ICategory>(
+                    await Repository.SingleAsync<Category>(id))
+                    );
+            }
+          
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
     }

@@ -51,15 +51,13 @@
     <Compile Include="IPreparationStepPictureRepository.cs" />
     <Compile Include="IPreparationStepRepository.cs" />
     <Compile Include="IRecipeAlergenRepository.cs" />
-    <Compile Include="IRecipeIngradientRepositorycs.cs" />
+    <Compile Include="IRecipeIngradientRepository.cs" />
     <Compile Include="IRecipePictureRepository.cs" />
     <Compile Include="IRecipeRepository.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="IRoleRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="IUserRepository.cs" />
-    <Compile Include="IUserRoleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,14 +65,17 @@
       <Project>{77ba0eb8-61b7-4951-9e22-bc2246e3c25b}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Filters\Filtering.csproj">
+    <ProjectReference Include="..\Filters\Common.csproj">
       <Project>{e379c740-483d-419e-baad-adab7a7f9175}</Project>
-      <Name>Filtering</Name>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model.Common\Model.Common.csproj">
       <Project>{f1a3673c-8c1e-4d84-b761-2bcd42c7e1fe}</Project>
       <Name>Model.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

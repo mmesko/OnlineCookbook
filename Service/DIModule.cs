@@ -8,9 +8,16 @@ namespace OnlineCookbook.Service
         public override void Load()
         {
             Bind<IAlergenService>().To<AlergenService>();
-            Bind<IIngradientService>().To<IngradientService>();
-            Bind<IRoleService>().To<RoleService>();
-            Bind<IIngradientService>().To<IngradientService>();
+            Bind<ICategoryService>().To<CategoryService>();
+            Bind<IIngradientService>().To<IngradientService>();           
+            Bind<IUserService>().To<UserService>();
+            Bind<IRecipeAlergenService>().To<RecipeAlergenService>();
+            Bind<IRecipeIngradientService>().To<RecipeIngradientService>();
+            Bind<IRecipePictureService>().To<RecipePictureService>();
+            Bind<IFavouriteService>().To<FavouriteService>();
+            Bind<IRecipeService>().To<RecipeService>();
+            Bind<IPreparationStepPictureService>().To<PreparationStepPictureService>();
+            Bind<ICommentService>().To<CommentService>();
             
         }
     }
