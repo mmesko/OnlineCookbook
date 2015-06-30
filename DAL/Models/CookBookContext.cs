@@ -66,20 +66,24 @@ namespace OnlineCookbook.DAL.Models
            // modelBuilder.Configurations.Add(new UserLoginMap());
             //modelBuilder.Configurations.Add(new UserRoleMap());
 
-            
-            
+
+           
 
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>().ToTable("User")
+           .Property(p => p.UserName).IsRequired();
+
+
             //modelBuilder.Entity<IdentityUser>().ToTable("User");
-            modelBuilder.Entity<IdentityUser>().ToTable("User");
-           // modelBuilder.Entity<User>().ToTable("User", "dbo");
+            //modelBuilder.Entity<IdentityUser>().ToTable("User","dbo");
+            //modelBuilder.Entity<User>().ToTable("User", "dbo");
         }
 
-        public override DbSet<TEntity> Set<TEntity>()
+       /* public override DbSet<TEntity> Set<TEntity>()
         {
             return base.Set<TEntity>();
-        } 
+        } */
     }
 
    public interface ICookBookContext : IDisposable

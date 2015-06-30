@@ -119,6 +119,10 @@
     <Compile Include="UserPOCO.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{77ba0eb8-61b7-4951-9e22-bc2246e3c25b}</Project>
       <Name>DAL</Name>
@@ -127,10 +131,6 @@
       <Project>{f1a3673c-8c1e-4d84-b761-2bcd42c7e1fe}</Project>
       <Name>Model.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

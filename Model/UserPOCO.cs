@@ -6,6 +6,7 @@ using OnlineCookbook.DAL.Models;
 
 namespace OnlineCookbook.Model
 {
+    
     public partial class UserPOCO : IdentityUser, IUser
     {
         public UserPOCO()
@@ -15,7 +16,8 @@ namespace OnlineCookbook.Model
             this.MessageUsers = new List<IMessageUser>();
             this.Recipes = new List<IRecipe>();
         }
-       
+
+        
 
         public virtual ICollection<IComment> Comments { get; set; }
         public virtual ICollection<IFavouriteUser> FavouriteUsers { get; set; }
