@@ -29,8 +29,8 @@ namespace OnlineCookbook.DAL.Models.Mapping
 
             // Table & Column Mappings
             this.ToTable("User");
-            this.Property(t => t.Id).HasColumnName("Id").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity); 
-            //this.Property(t => t.Id).HasColumnName("Id");
+           // this.Property(t => t.Id).HasColumnName("Id").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity); 
+            this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Password).HasColumnName("Password");
             this.Property(t => t.ConfirmPassword).HasColumnName("ConfirmPassword");
             this.Property(t => t.Email).HasColumnName("Email");

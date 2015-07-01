@@ -11,6 +11,6 @@ namespace OnlineCookbook.Service.Common
         Task<IUser> FindAsync(string username);
         Task<IUser> FindAsync(string username, string password);
         Task<bool> RegisterUser(IUser user);
-        Task<bool> UpdateAsync(IUser user, string password);
+        Task<int> UpdateEmailOrUsernameAsync(Model.Common.IUser user, string password);
     }
 }

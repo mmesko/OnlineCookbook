@@ -62,9 +62,9 @@ namespace OnlineCookbook.Service
              }
          }
 
-         public async Task<bool> UpdateAsync(IUser user, string password)
+         public async Task<int> UpdateEmailOrUsernameAsync(Model.Common.IUser user, string password)
          {
-             return await Repository.UpdateAsync(user, password);
+             return await Repository.UpdateEmailOrUsernameAsync(user, password);
          }
 
     }

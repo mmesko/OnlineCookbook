@@ -15,11 +15,12 @@ namespace OnlineCookbook.Repository.Common
         Task<IUser> GetAsync(string username);
 
         Task<IEnumerable<IUser>> GetAsync(Expression<Func<IUser, bool>> match);
-        Task<int> AddAsync(IUser entity);
-        Task<bool> UpdateAsync(IUser entity, string password);
-        Task<int> DeleteAsync(IUser entity);
+        Task<int> AddAsync(IUser user);
+        Task<int> UpdateAsync(IUser user, string password);
+        Task<int> UpdateEmailOrUsernameAsync(Model.Common.IUser user, string password);
+        Task<int> DeleteAsync(IUser user);
         Task<int> DeleteAsync(string id);
-        Task<bool> RegisterUser(IUser entity);
+        Task<bool> RegisterUser(IUser user);
         Task<IUser> GetAsync(string username, string password);
         Task<IUnitOfWork> CreateUnitOfWork();
     }

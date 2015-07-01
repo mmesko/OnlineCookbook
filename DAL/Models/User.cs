@@ -12,11 +12,7 @@ namespace OnlineCookbook.DAL.Models
     {
         public User()
         {
-            if (String.IsNullOrEmpty(Id))
-            {
-                Id = Guid.NewGuid().ToString();
-            }
-
+           
             this.Comments = new List<Comment>();
             this.FavouriteUsers = new List<FavouriteUser>();
             this.MessageUsers = new List<MessageUser>();
@@ -26,9 +22,22 @@ namespace OnlineCookbook.DAL.Models
           //  this.UserRoles = new List<UserRole>();
         }
 
-      
-        public override string Id { get; set; }
-        
+        public override string Id
+        {
+            get
+            {
+                return base.Id;
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                    base.Id = Guid.NewGuid().ToString();
+                else
+                    base.Id = value;
+            }
+        }
+
+            
         public override string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }

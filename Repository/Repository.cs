@@ -154,13 +154,23 @@ namespace OnlineCookbook.Repository
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ex.InnerException;
             }
         }
 
         public async Task<IEnumerable<T>> GetRangeAsync<T>() where T : class
         {
-            return await DbContext.Set<T>().ToListAsync();
+            try
+            {
+                return await DbContext.Set<T>().ToListAsync();
+            }
+
+            catch (Exception e)
+            {
+
+                throw e.InnerException;
+            }
+           
         }
 
         /// <summary>
@@ -170,7 +180,18 @@ namespace OnlineCookbook.Repository
         /// <returns>Entity or null</returns>
         public Task<T> GetAsync<T>(Expression<Func<T, bool>> match) where T : class
         {
-            return DbContext.Set<T>().FirstAsync(match);
+
+            try
+            {
+                return DbContext.Set<T>().FirstAsync(match);
+            }
+
+            catch (Exception e)
+            {
+
+                throw e.InnerException;
+            }
+            
         }
 
         /// <summary>
@@ -181,7 +202,15 @@ namespace OnlineCookbook.Repository
         public async Task<IEnumerable<T>> GetRangeAsync<T>
             (Expression<Func<T, bool>> match) where T : class
         {
-            return await DbContext.Set<T>().Where(match).ToListAsync();
+            try
+            {
+                return await DbContext.Set<T>().Where(match).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw e.InnerException;
+            }
+           
         }
 
 
@@ -196,7 +225,9 @@ namespace OnlineCookbook.Repository
         {
             try
             {
+                DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
                 DbContext.Set<T>().Add(entity);
+                dbEntityEntry.State = EntityState.Unchanged;
                 foreach (var property in proportiesToUpdate)
                 {
                     DbContext.Entry<T>(entity).Property(property).IsModified = true;
