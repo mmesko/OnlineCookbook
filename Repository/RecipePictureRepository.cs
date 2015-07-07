@@ -24,11 +24,7 @@ namespace OnlineCookbook.Repository
             Repository = repository;       
         }
 
-        private IUnitOfWork CreateUnitOfWork()
-        {
-            return Repository.CreateUnitOfWork();
-        }
-
+    
 
 
         public virtual async Task<List<IRecipePicture>> GetAsync()

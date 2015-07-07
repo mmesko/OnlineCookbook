@@ -4,7 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using OnlineCookbook.DAL.Models.Mapping;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity.ModelConfiguration;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace OnlineCookbook.DAL.Models
@@ -19,10 +19,12 @@ namespace OnlineCookbook.DAL.Models
         public CookBookContext()
             : base("Name=CookBookContext", throwIfV1Schema: false)
         {
-            base.RequireUniqueEmail = true;
-        } 
+        }
 
-      
+        //public static CookBookContext Create()
+        //{
+        //    return new CookBookContext();
+        //}
 
         public DbSet<Alergen> Alergens { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -38,11 +40,11 @@ namespace OnlineCookbook.DAL.Models
         public DbSet<RecipeAlergen> RecipeAlergens { get; set; }
         public DbSet<RecipeIngradient> RecipeIngradients { get; set; }
         public DbSet<RecipePicture> RecipePictures { get; set; }
-       // public DbSet<Role> Roles { get; set; }
-       // public DbSet<User> Users { get; set; }
-       // public DbSet<UserClaim> UserClaims { get; set; }
-       // public DbSet<UserLogin> UserLogins { get; set; }
-       // public DbSet<UserRole> UserRoles { get; set; }
+        //public DbSet<Role> Roles { get; set; }
+        //public DbSet<User> Users { get; set; }
+        public DbSet<UserClaim> UserClaims { get; set; }
+        public DbSet<UserLogin> UserLogins { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -60,59 +62,67 @@ namespace OnlineCookbook.DAL.Models
             modelBuilder.Configurations.Add(new RecipeAlergenMap());
             modelBuilder.Configurations.Add(new RecipeIngradientMap());
             modelBuilder.Configurations.Add(new RecipePictureMap());
-           // modelBuilder.Configurations.Add(new RoleMap());
+            modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new UserMap());
-            //modelBuilder.Configurations.Add(new UserClaimMap());
-           // modelBuilder.Configurations.Add(new UserLoginMap());
-            //modelBuilder.Configurations.Add(new UserRoleMap());
+            modelBuilder.Configurations.Add(new UserClaimMap());
+            modelBuilder.Configurations.Add(new UserLoginMap());
+            modelBuilder.Configurations.Add(new UserRoleMap());
 
-
-           
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().ToTable("User")
-           .Property(p => p.UserName).IsRequired();
+            // Map Entities to their tables.
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Role>().ToTable("Role");
+            modelBuilder.Entity<UserClaim>().ToTable("UserClaim");
+            modelBuilder.Entity<UserLogin>().ToTable("UserLogin");
+            modelBuilder.Entity<UserRole>().ToTable("UserRole");
+           
 
+            // Set AutoIncrement-Properties
+            modelBuilder.Entity<User>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<UserClaim>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<Role>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            //modelBuilder.Entity<IdentityUser>().ToTable("User");
-            //modelBuilder.Entity<IdentityUser>().ToTable("User","dbo");
-            //modelBuilder.Entity<User>().ToTable("User", "dbo");
+            // Override some column mappings that do not match our default
+            //modelBuilder.Entity<User>().Property(r => r.UserName).HasColumnName("Login");
+            //modelBuilder.Entity<User>().Property(r => r.PasswordHash).HasColumnName("Password");
         }
 
-       /* public override DbSet<TEntity> Set<TEntity>()
+
+        public override DbSet<TEntity> Set<TEntity>()
         {
             return base.Set<TEntity>();
-        } */
+        }
     }
 
-   public interface ICookBookContext : IDisposable
-   {
-	         DbSet<Alergen> Alergens { get; set; }
-            DbSet<Category> Categories { get; set; }
-            DbSet<Comment> Comments { get; set; }
-            DbSet<Favourite> Favourites { get; set; }
-            DbSet<FavouriteUser> FavouriteUsers { get; set; }
-            DbSet<Ingradient> Ingradients { get; set; }
-            DbSet<Message> Messages { get; set; }
-            DbSet<MessageUser> MessageUsers { get; set; }
-            DbSet<PreparationStep> PreparationSteps { get; set; }
-            DbSet<PreparationStepPicture> PreparationStepPictures { get; set; }
-            DbSet<Recipe> Recipes { get; set; }
-            DbSet<RecipeAlergen> RecipeAlergens { get; set; }
-            DbSet<RecipeIngradient> RecipeIngradients { get; set; }
-            DbSet<RecipePicture> RecipePictures { get; set; }
-         //   DbSet<Role> Roles { get; set; }
-          //  DbSet<User> Users { get; set; }
-        //    DbSet<UserClaim> UserClaims { get; set; }
-       //     DbSet<UserLogin> UserLogins { get; set; }
-        //    DbSet<UserRole> UserRoles { get; set; }
-   
-     
-         DbSet<TEntity> Set<TEntity>() where TEntity : class;
-         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
-         Task<int> SaveChangesAsync();
+    public interface ICookBookContext : IDisposable
+    {
+        DbSet<Alergen> Alergens { get; set; }
+        DbSet<Category> Categories { get; set; }
+        DbSet<Comment> Comments { get; set; }
+        DbSet<Favourite> Favourites { get; set; }
+        DbSet<FavouriteUser> FavouriteUsers { get; set; }
+        DbSet<Ingradient> Ingradients { get; set; }
+        DbSet<Message> Messages { get; set; }
+        DbSet<MessageUser> MessageUsers { get; set; }
+        DbSet<PreparationStep> PreparationSteps { get; set; }
+        DbSet<PreparationStepPicture> PreparationStepPictures { get; set; }
+        DbSet<Recipe> Recipes { get; set; }
+        DbSet<RecipeAlergen> RecipeAlergens { get; set; }
+        DbSet<RecipeIngradient> RecipeIngradients { get; set; }
+        DbSet<RecipePicture> RecipePictures { get; set; }
+        //DbSet<Role> Roles { get; set; }
+        //DbSet<User> Users { get; set; }
+        DbSet<UserClaim> UserClaims { get; set; }
+        DbSet<UserLogin> UserLogins { get; set; }
+        DbSet<UserRole> UserRoles { get; set; }
 
-   }
+
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+        Task<int> SaveChangesAsync();
+
+    }
 
 }

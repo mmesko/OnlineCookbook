@@ -1,20 +1,14 @@
-﻿using System;
+﻿
 using AutoMapper;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using OnlineCookbook.Repository.Common;
+using OnlineCookbook.DAL;
 using OnlineCookbook.DAL.Models;
-using OnlineCookbook.Model.Common;
-using OnlineCookbook.Model;
-using System.Linq.Dynamic;
-using OnlineCookbook.Common.Filters;
+using OnlineCookbook.Repository.Common;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Linq.Expressions;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace OnlineCookbook.Repository
 {
@@ -22,21 +16,38 @@ namespace OnlineCookbook.Repository
     {
         private IRepository repository;
         private PasswordHasher hasher;
-        private UserManager<User> userManager;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
+        
         public UserRepository(IRepository repository)
         {
             this.repository = repository;
             hasher = new PasswordHasher();
-            userManager = new UserManager<User>(new UserStore<User>(new CookBookContext()));
         }
 
+       
+
         /// <summary>
-        ///  Get by id
+        /// Initalize user manager
         /// </summary>
+        /// <returns>new user manager</returns>
+        private UserManager<User> createUserManager()
+        {
+            return new UserManager<User>(new UserStore<User>(new CookBookContext()));
+        }
+
+        public Task<IUnitOfWork> CreateUnitOfWork()
+        {
+            try
+            {
+                return Task.FromResult<IUnitOfWork>(repository.CreateUnitOfWork());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<Model.Common.IUser> GetAsync(string username)
         {
             try
@@ -45,10 +56,10 @@ namespace OnlineCookbook.Repository
                     await repository.GetAsync<User>(c => c.UserName == username)
                     );
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
 
-                throw ex;
+                throw e;
             }
         }
 
@@ -56,12 +67,13 @@ namespace OnlineCookbook.Repository
         /// <summary>
         /// Get all entites
         /// </summary>
-        public async Task<IEnumerable<Model.Common.IUser>> GetAsync(Expression<Func<Model.Common.IUser, bool>> match)
+        public async Task<IEnumerable<Model.Common.IUser>> GetAsync(System.Linq.Expressions.Expression<Func<Model.Common.IUser, bool>> match)
         {
             try
             {
                 return Mapper.Map<IEnumerable<Model.Common.IUser>>(
-                    await repository.GetRangeAsync<User>());
+                    await repository.GetRangeAsync<User>()
+                    );
             }
             catch (Exception ex)
             {
@@ -78,7 +90,7 @@ namespace OnlineCookbook.Repository
             try
             {
                 User user;
-                using (UserManager<User> userManager = manager())
+                using (UserManager<User> userManager = createUserManager())
                 {
                     user = await userManager.FindAsync(username, password);
                 }
@@ -90,7 +102,11 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        /// <summary>
+
+
+    
+
+		 /// <summary>
         /// Add user
         /// </summary>
         public async Task<int> AddAsync(Model.Common.IUser user)
@@ -99,26 +115,48 @@ namespace OnlineCookbook.Repository
             {
                 return await repository.AddAsync<User>(Mapper.Map<User>(user));
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
 
-                throw ex;
+                throw e;
             }
         }
 
-
-        /// <summary>
-        /// Delete user
+          /// <summary>
+        /// Registers adds user
         /// </summary>
-        public virtual Task<int> DeleteAsync(Model.Common.IUser user)
+        /// <param name="user"></param>
+        /// <returns>True if success, false otherwise</returns>
+        public async Task<bool> RegisterUser(Model.Common.IUser user, string password)
         {
             try
             {
-                return repository.DeleteAsync<User>
-                    (Mapper.Map<User>(user));
+                using (UserManager<User> userManager = createUserManager())
+                {
+                    IdentityResult result = await userManager.CreateAsync(Mapper.Map<User>(user), password);
+                    return result.Succeeded;
+                }
             }
             catch (Exception e)
             {
+
+                throw e.InnerException;
+            }
+        } 
+
+
+		 /// <summary>
+        /// Delete user
+        /// </summary>
+        public async Task<int> DeleteAsync(Model.Common.IUser user)
+        {
+            try
+            {
+                return await repository.DeleteAsync<User>(Mapper.Map<User>(user));
+            }
+            catch (Exception e)
+            {
+
                 throw e;
             }
         }
@@ -126,30 +164,35 @@ namespace OnlineCookbook.Repository
         /// <summary>
         /// Delete by id
         /// </summary>
-        public virtual Task<int> DeleteAsync(string id)
+        public async Task<int> DeleteAsync(string id)
         {
             try
             {
-                return repository.DeleteAsync<User>(id);
+                return await this.DeleteAsync(Mapper.Map<Model.Common.IUser>
+                    (await repository.DeleteAsync<User>(id))
+                    
+                    );
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw e;
-            }
-        }
 
-        /// <summary>
-        /// Registers adds user
+                throw ex;
+            }
+        } 
+
+	
+
+	    /// <summary>
+        /// Updates user, return int as result
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns>True if success, false otherwise</returns>
-        public async Task<bool> RegisterUser(Model.Common.IUser user)
+        /// <param name="user">User</param>
+        /// <param name="password">User password for validation</param>
+        /// <returns>Int { 0: operation failed }</returns>
+        public async Task<int> UpdateAsync(Model.Common.IUser user)
         {
             try
             {
-                IdentityResult result = await userManager.CreateAsync(
-                    Mapper.Map<User>(user), user.PasswordHash);
-                return result.Succeeded;
+                return await repository.UpdateAsync<User>(Mapper.Map<User>(user));
             }
             catch (Exception ex)
             {
@@ -158,81 +201,102 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public Task<IUnitOfWork> CreateUnitOfWork()
+        /// <summary>
+        /// Updates user and return updated user
+        /// </summary>
+        /// <param name="user">User to update</param>
+        /// <param name="password">User password</param>
+        /// <returns>IUser</returns>
+        public async Task<Model.Common.IUser> UpdateUserAsync(Model.Common.IUser user, string password)
         {
             try
             {
-                return Task.FromResult<IUnitOfWork>(repository.CreateUnitOfWork());
+                IUnitOfWork uow = repository.CreateUnitOfWork();
+                bool passwordValid = false;
+                Task<User> result = null;
+           
+                // Check if user is valid
+                using (UserManager<User> UserManager = createUserManager())
+                {
+                    User userToCheck = await UserManager.FindByIdAsync(user.Id);
+                    passwordValid = await UserManager.CheckPasswordAsync(userToCheck, password);
+                }
+
+                if (passwordValid)
+                      result = uow.UpdateObjectAsync<User>(Mapper.Map<User>(user));
+
+                await uow.CommitAsync();
+
+                return await Task.FromResult(
+                    Mapper.Map<Model.Common.IUser>(result.Result) as Model.Common.IUser);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Updates only username or email
+        /// </summary>
+        /// <param name="user">UserToUpdate</param>
+        /// <param name="password">User password</param>
+        /// <returns>IUser</returns>
+        public async Task<Model.Common.IUser> UpdateUserEmailOrUsernameAsync(Model.Common.IUser user,string password)
+        {
+            try
+            {
+                IUnitOfWork uow = repository.CreateUnitOfWork();
+                bool passwordValid = false;
+                Task<User> result = null;
+
+                // Check if user is valid
+                using (UserManager<User> UserManager = createUserManager())
+                {
+                    User userToCheck = await UserManager.FindByIdAsync(user.Id);
+                    passwordValid = await UserManager.CheckPasswordAsync(userToCheck, password);
+                }
+
+                if (passwordValid)
+                    result = uow.UpdateAsync<User>(Mapper.Map<User>(user), u => u.Email, u => u.UserName);
+
+                await uow.CommitAsync();
+
+                return await Task.FromResult(
+                    Mapper.Map<Model.Common.IUser>(result.Result) as Model.Common.IUser
+                    );
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+      
+        public async Task<bool> UpdateUserPasswordAsync(string userId, string oldPassword, string newPassword)
+        {
+            try
+            {
+
+                IdentityResult result;
+                using (UserManager<User> UserManager = createUserManager())
+                {
+                    result = await UserManager.ChangePasswordAsync(userId, oldPassword, newPassword);
+                }
+
+                return result.Succeeded;
             }
             catch (Exception)
             {
 
                 throw;
             }
-        }
+        
 
-        public async Task<int> UpdateAsync(Model.Common.IUser user, string password)
-        {
-            try
-            {
-                IdentityResult validation = await userManager.PasswordValidator.ValidateAsync(password);
-
-                if (validation.Succeeded)
-                {
-                    user.PasswordHash = hasher.HashPassword(user.PasswordHash);
-
-                    return await repository.UpdateAsync<User>(Mapper.Map<User>(user));
-                }
-
-                return 0;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex.InnerException;
-            }
-        }
-
-        /// <summary>
-        /// Updates only user name and password proporites
-        /// </summary>
-        public async Task<int> UpdateEmailOrUsernameAsync(Model.Common.IUser user, string password)
-        {
-            try
-            {
-                IdentityResult validation = await userManager.PasswordValidator.ValidateAsync(password);
-
-                if (validation.Succeeded)
-                {
-                    user.PasswordHash = hasher.HashPassword(user.PasswordHash);
-
-                    // Only allows user name or email to change
-                    return await repository.UpdateAsync<User>(
-                        Mapper.Map<User>(user), u => u.Email, u => u.UserName
-                        );
-                }
-
-                return 0;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex.InnerException;
-            }
-
-        }
-
-      
-        /// <summary>
-        /// User manager initialize
-        /// </summary>
-        /// <returns>new user manager</returns>
-        private UserManager<User> manager()
-        {
-            return new UserManager<User>(new UserStore<User>(new CookBookContext()));
-        } 
+   
     }
-
- }
-
+}
+}
 

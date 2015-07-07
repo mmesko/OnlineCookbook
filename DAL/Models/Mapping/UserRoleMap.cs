@@ -8,7 +8,7 @@ namespace OnlineCookbook.DAL.Models.Mapping
         public UserRoleMap()
         {
             // Primary Key
-            this.HasKey(t => t.Id);
+            this.HasKey(t => new { t.Id, t.UserId, t.RoleId });
 
             // Properties
             this.Property(t => t.Id)

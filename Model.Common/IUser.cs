@@ -11,6 +11,8 @@ namespace OnlineCookbook.Model.Common
         string PasswordHash { get; set; }
         string Email { get; set; }
 
+
+        
        ICollection<IComment> Comments { get; set; }
        ICollection<IFavouriteUser> FavouriteUsers { get; set; }
        ICollection<IMessageUser> MessageUsers { get; set; }

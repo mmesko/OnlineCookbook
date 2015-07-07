@@ -44,6 +44,7 @@ namespace OnlineCookbook.Model.Mapping
 
            AutoMapper.Mapper.CreateMap<UserPOCO, User>().ReverseMap();
            AutoMapper.Mapper.CreateMap<IUser, User>().ReverseMap();
+          
 
            AutoMapper.Mapper.CreateMap<RecipeAlergenPOCO, RecipeAlergen>().ReverseMap();
            AutoMapper.Mapper.CreateMap<IRecipeAlergen, RecipeAlergen>().ReverseMap();

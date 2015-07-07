@@ -3,7 +3,7 @@ namespace OnlineCookbook.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CookBook1 : DbMigration
+    public partial class dbIdentity : DbMigration
     {
         public override void Up()
         {
@@ -83,11 +83,10 @@ namespace OnlineCookbook.DAL.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         UserName = c.String(nullable: false, maxLength: 256),
-                        Password = c.String(nullable: false, maxLength: 50),
-                        ConfirmPassword = c.String(),
+                        ConfirmPassword = c.String(nullable: false, maxLength: 128),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
-                        PasswordHash = c.String(),
+                        PasswordHash = c.String(nullable: false, maxLength: 128),
                         SecurityStamp = c.String(),
                         PhoneNumber = c.String(),
                         PhoneNumberConfirmed = c.Boolean(nullable: false),
@@ -97,6 +96,7 @@ namespace OnlineCookbook.DAL.Migrations
                         AccessFailedCount = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
@@ -189,6 +189,54 @@ namespace OnlineCookbook.DAL.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.UserClaim",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        ClaimType = c.String(nullable: false),
+                        ClaimValue = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.UserLogin",
+                c => new
+                    {
+                        LoginProvider = c.String(nullable: false, maxLength: 128),
+                        ProviderKey = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.UserRole",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.Id, t.UserId, t.RoleId })
+                .ForeignKey("dbo.Role", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.Role",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.PreparationStep",
                 c => new
                     {
@@ -274,6 +322,10 @@ namespace OnlineCookbook.DAL.Migrations
             DropForeignKey("dbo.PreparationStep", "RecipeId", "dbo.Recipe");
             DropForeignKey("dbo.PreparationStepPicture", "PreparationStepId", "dbo.PreparationStep");
             DropForeignKey("dbo.Comment", "UserId", "dbo.User");
+            DropForeignKey("dbo.UserRole", "UserId", "dbo.User");
+            DropForeignKey("dbo.UserRole", "RoleId", "dbo.Role");
+            DropForeignKey("dbo.UserLogin", "UserId", "dbo.User");
+            DropForeignKey("dbo.UserClaim", "UserId", "dbo.User");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.User");
             DropForeignKey("dbo.MessageUser", "UserId", "dbo.User");
             DropForeignKey("dbo.MessageUser", "MessageId", "dbo.Message");
@@ -291,6 +343,10 @@ namespace OnlineCookbook.DAL.Migrations
             DropIndex("dbo.RecipeIngradient", new[] { "IngradientId" });
             DropIndex("dbo.PreparationStepPicture", new[] { "PreparationStepId" });
             DropIndex("dbo.PreparationStep", new[] { "RecipeId" });
+            DropIndex("dbo.UserRole", new[] { "RoleId" });
+            DropIndex("dbo.UserRole", new[] { "UserId" });
+            DropIndex("dbo.UserLogin", new[] { "UserId" });
+            DropIndex("dbo.UserClaim", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.MessageUser", new[] { "UserId" });
@@ -301,6 +357,7 @@ namespace OnlineCookbook.DAL.Migrations
             DropIndex("dbo.FavouriteUser", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.User", "UserNameIndex");
+            DropIndex("dbo.User", new[] { "UserName" });
             DropIndex("dbo.Comment", new[] { "RecipeId" });
             DropIndex("dbo.Comment", new[] { "UserId" });
             DropIndex("dbo.Recipe", new[] { "UserId" });
@@ -313,6 +370,10 @@ namespace OnlineCookbook.DAL.Migrations
             DropTable("dbo.RecipeIngradient");
             DropTable("dbo.PreparationStepPicture");
             DropTable("dbo.PreparationStep");
+            DropTable("dbo.Role");
+            DropTable("dbo.UserRole");
+            DropTable("dbo.UserLogin");
+            DropTable("dbo.UserClaim");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Message");
             DropTable("dbo.MessageUser");

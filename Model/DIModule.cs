@@ -1,5 +1,4 @@
-﻿using System;
-using OnlineCookbook.Model.Common;
+﻿using OnlineCookbook.Model.Common;
 
 namespace OnlineCookbook.Model
 {
@@ -22,6 +21,12 @@ namespace OnlineCookbook.Model
             Bind<IPreparationStep>().To<PreparationStepPOCO>();
             Bind<IPreparationStepPicture>().To<PreparationStepPicturePOCO>();
             Bind<IRecipePicture>().To<RecipePicturePOCO>();
+
+
+            // Za users
+            //Bind(typeof(IUserStore<User>)).To(typeof(UserStore<User>));
+            //Bind(typeof(UserManager<User>)).ToSelf();
+            //Bind(typeof(IdentityDbContext)).To(typeof(CookBookContext));
         }
     }
 }

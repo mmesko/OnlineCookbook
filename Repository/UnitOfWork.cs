@@ -67,6 +67,43 @@ namespace OnlineCookbook.Repository
 
            }
 
+           public virtual Task<T> UpdateObjectAsync<T>(T entity) where T : class
+           {
+               try
+               {
+                   DbEntityEntry entityEntry = DbContext.Entry<T>(entity);
+                   DbContext.Set<T>().Add(entity);
+                   entityEntry.State = EntityState.Modified;
+
+                   return Task.FromResult<T>(entityEntry.Entity as T);
+               }
+               catch (Exception e)
+               {
+                   throw e;
+               }
+           }
+
+           public virtual Task<T> UpdateAsync<T>(T entity, params Expression<Func<T, object>>[] entityParameters) where T : class
+           {
+               try
+               {
+                   DbEntityEntry entry = DbContext.Entry<T>(entity);
+                   DbContext.Set<T>().Add(entity);
+                   entry.State = EntityState.Unchanged;
+                   foreach (var p in entityParameters)
+                   {
+                       DbContext.Entry<T>(entity).Property(p).IsModified = true;
+                   }
+
+                   return Task.FromResult(entry.Entity as T);
+               }
+               catch (Exception e)
+               {
+
+                   throw e;
+               }
+           }
+
            public virtual Task<int> DeleteAsync<T>(T entity) where T : class
            {
                try

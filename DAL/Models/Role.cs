@@ -11,8 +11,7 @@ namespace OnlineCookbook.DAL.Models
         }
 
         public string Id { get; set; }
-        public string RoleTitle { get; set; }
-        public string Abrv { get; set; }
+        public string Name { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

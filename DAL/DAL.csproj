@@ -98,9 +98,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201506301803547_CookBook1.cs" />
-    <Compile Include="Migrations\201506301803547_CookBook1.Designer.cs">
-      <DependentUpon>201506301803547_CookBook1.cs</DependentUpon>
+    <Compile Include="Migrations\201507071327168_dbIdentity.cs" />
+    <Compile Include="Migrations\201507071327168_dbIdentity.Designer.cs">
+      <DependentUpon>201507071327168_dbIdentity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Alergen.cs" />
@@ -124,7 +124,11 @@
     <Compile Include="Models\Mapping\RecipeIngradientMap.cs" />
     <Compile Include="Models\Mapping\RecipeMap.cs" />
     <Compile Include="Models\Mapping\RecipePictureMap.cs" />
+    <Compile Include="Models\Mapping\RoleMap.cs" />
+    <Compile Include="Models\Mapping\UserClaimMap.cs" />
+    <Compile Include="Models\Mapping\UserLoginMap.cs" />
     <Compile Include="Models\Mapping\UserMap.cs" />
+    <Compile Include="Models\Mapping\UserRoleMap.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageUser.cs" />
     <Compile Include="Models\PreparationStep.cs" />
@@ -133,7 +137,11 @@
     <Compile Include="Models\RecipeAlergen.cs" />
     <Compile Include="Models\RecipeIngradient.cs" />
     <Compile Include="Models\RecipePicture.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserClaim.cs" />
+    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -147,8 +155,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506301803547_CookBook1.resx">
-      <DependentUpon>201506301803547_CookBook1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507071327168_dbIdentity.resx">
+      <DependentUpon>201507071327168_dbIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

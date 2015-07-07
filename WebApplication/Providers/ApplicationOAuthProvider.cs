@@ -10,12 +10,16 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using WebApplication.Models;
+using OnlineCookbook.Model;
+using OnlineCookbook.DAL.Models;
+using WebApplication.App_Start;
 
 namespace WebApplication.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
+
 
         public ApplicationOAuthProvider(string publicClientId)
         {
@@ -25,6 +29,7 @@ namespace WebApplication.Providers
             }
 
             _publicClientId = publicClientId;
+
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -48,6 +53,7 @@ namespace WebApplication.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
+
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -69,6 +75,8 @@ namespace WebApplication.Providers
             }
 
             return Task.FromResult<object>(null);
+
+
         }
 
         public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)

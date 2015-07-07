@@ -1,71 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OnlineCookbook.Model.Common;
+﻿using OnlineCookbook.Model.Common;
 using OnlineCookbook.Repository.Common;
 using OnlineCookbook.Service.Common;
-using OnlineCookbook.Common.Filters;
+using System;
+using System.Threading.Tasks;
 
 namespace OnlineCookbook.Service
 {
     public class UserService : IUserService
     {
+        public IUserRepository Repository { get; private set; }
 
-         protected IUserRepository Repository { get; private set; }
-
-         public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository)
         {
             Repository = repository;
         }
 
-         public async Task<IUser> FindAsync(string username)
-         {
-             try
-             {
-                 return await Repository.GetAsync(username);
-             }
-             catch (Exception e)
-             {
+        public async Task<IUser> FindAsync(string username)
+        {
+            try
+            {
+                return await Repository.GetAsync(username);
+            }
+            catch (Exception e)
+            {
 
-                 throw e;
-             }
-         }
+                throw e;
+            }
+        }
 
-         public async Task<IUser> FindAsync(string username, string password)
-         {
-             try
-             {
-                 return await Repository.GetAsync(username, password);
-             }
-             catch (Exception e)
-             {
+        public async Task<IUser> FindAsync(string username, string password)
+        {
+            try
+            {
+                return await Repository.GetAsync(username, password);
+            }
+            catch (Exception e)
+            {
 
-                 throw e;
-             }
-         }
+                throw e;
+            }
+        }
 
-         /// <summary>
-         /// Register add user
-         /// </summary>
-         public async Task<bool> RegisterUser(Model.Common.IUser user)
-         {
-             try
-             {
-                 return await Repository.RegisterUser(user);
-             }
-             catch (Exception e)
-             {
+        /// <summary>
+        /// Register add user
+        /// </summary>
+        public async Task<bool> RegisterUser(Model.Common.IUser user, string password)
+        {
+            try
+            {
+                return await Repository.RegisterUser(user, password);
+            }
+            catch (Exception e)
+            {
 
-                 throw e;
-             }
-         }
+                throw e;
+            }
+        }
 
-         public async Task<int> UpdateEmailOrUsernameAsync(Model.Common.IUser user, string password)
-         {
-             return await Repository.UpdateEmailOrUsernameAsync(user, password);
-         }
+        public async Task<Model.Common.IUser> UpdateEmailOrUsernameAsync(Model.Common.IUser user, string password)
+        {
 
+            try
+            {
+                return await Repository.UpdateUserEmailOrUsernameAsync(user, password);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+           
+        }
+
+        public async Task<bool> UpdatePasswordAsync(string userId, string oldPassword, string newPassword)
+        {
+            try
+            {
+                return await Repository.UpdateUserPasswordAsync(userId, oldPassword, newPassword);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
+        }
     }
 }

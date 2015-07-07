@@ -214,13 +214,6 @@ namespace OnlineCookbook.Repository
         }
 
 
-
-        /// Update entity
-        /// </summary>
-        /// <typeparam name="T">Entity type</typeparam>
-        /// <param name="entity">Entity to update</param>
-        /// <param name="proportiesToUpdate">Entite proporties to update</param>
-        /// <returns>Save changes async</returns>
         public async Task<int> UpdateAsync<T>(T entity, params Expression<Func<T, object>>[] proportiesToUpdate) where T : class
         {
             try
