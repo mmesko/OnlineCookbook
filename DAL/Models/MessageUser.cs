@@ -9,6 +9,6 @@ namespace OnlineCookbook.DAL.Models
         public string MessageId { get; set; }
         public string UserId { get; set; }
         public virtual Message Message { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

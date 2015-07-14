@@ -31,12 +31,7 @@ namespace OnlineCookbook.Model.Mapping
            AutoMapper.Mapper.CreateMap<MessageUserPOCO, MessageUser>().ReverseMap();
            AutoMapper.Mapper.CreateMap<IMessageUser, MessageUser>().ReverseMap();
 
-           AutoMapper.Mapper.CreateMap<PreparationStepPicturePOCO, PreparationStepPicture>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<IPreparationStepPicture, PreparationStepPicture>().ReverseMap();
-
-           AutoMapper.Mapper.CreateMap<PreparationStepPOCO, PreparationStep>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<IPreparationStep, PreparationStep>().ReverseMap();
-
+          
           
 
            AutoMapper.Mapper.CreateMap<RecipePOCO, Recipe>().ReverseMap();
@@ -52,8 +47,7 @@ namespace OnlineCookbook.Model.Mapping
            AutoMapper.Mapper.CreateMap<RecipeIngradientPOCO, RecipeIngradient>().ReverseMap();
            AutoMapper.Mapper.CreateMap<IRecipeIngradient, RecipeIngradient>().ReverseMap();
 
-           AutoMapper.Mapper.CreateMap<RecipePicturePOCO, RecipePicture>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<IRecipePicture, RecipePicture>().ReverseMap();
+          
 
        }
 

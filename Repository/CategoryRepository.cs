@@ -35,12 +35,15 @@ namespace OnlineCookbook.Repository
         {
             try
             {
+                if (filter == null)
+                    filter = new CategoryFilter(1, 5);
+
+
                 return Mapper.Map<List<ICategory>>(
                     await Repository.WhereAsync<Category>()
-                            .OrderBy(filter.SortOrder)
-                            .Skip<Category>((filter.PageNumber - 1) * filter.PageSize)
-                            .Take<Category>(filter.PageSize)
-                            .ToListAsync<Category>()
+                            .OrderBy(c => c.CategoryName)
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize).ToListAsync()
                     );
             }
             catch (Exception e)

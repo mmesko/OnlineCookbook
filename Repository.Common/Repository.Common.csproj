@@ -93,11 +93,8 @@
     <Compile Include="IIngradientRepository.cs" />
     <Compile Include="IMessageRepository.cs" />
     <Compile Include="IMessageUserRepository.cs" />
-    <Compile Include="IPreparationStepPictureRepository.cs" />
-    <Compile Include="IPreparationStepRepository.cs" />
     <Compile Include="IRecipeAlergenRepository.cs" />
     <Compile Include="IRecipeIngradientRepository.cs" />
-    <Compile Include="IRecipePictureRepository.cs" />
     <Compile Include="IRecipeRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />

@@ -10,7 +10,7 @@ namespace OnlineCookbook.Repository.Common
     public interface IAlergenRepository
     {
        // IQueryable<IAlergen> GetAllAsync();
-        Task<List<IAlergen>> GetAsync(AlergenFilter filter);
+        Task<List<IAlergen>> GetAsync(AlergenFilter filter = null);
         Task<IAlergen> GetAsync(string id);
         Task<List<IAlergen>> GetNameAsync(string name);
         Task<int> InsertAsync(IAlergen entity);

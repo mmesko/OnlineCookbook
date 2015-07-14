@@ -29,20 +29,21 @@ namespace OnlineCookbook.Repository
         {
             try
             {
+                if (filter == null)
+                    filter = new IngradientFilter(1, 5);
+
+
                 return Mapper.Map<List<IIngradient>>(
-                       await Repository.WhereAsync<Ingradient>()
-                            .OrderBy(filter.SortOrder)
-                            .Skip<Ingradient>((filter.PageNumber - 1) * filter.PageSize)
-                            .Take<Ingradient>(filter.PageSize)
-                            .ToListAsync<Ingradient>()
-                    
-                    
-                    );//mapping from model to dal 
-           }
+                    await Repository.WhereAsync<Ingradient>()
+                            .OrderBy(i => i.IngradientName)
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize).ToListAsync()
+                    );
+            }
             catch (Exception e)
             {
                 throw e;
-            }       
+            }
         }
 
 
@@ -52,7 +53,7 @@ namespace OnlineCookbook.Repository
         {
             try 
             {
-                return Mapper.Map<IngradientPOCO>(await Repository.SingleAsync<Ingradient>(id));           
+                return Mapper.Map<IIngradient>(await Repository.SingleAsync<Ingradient>(id));           
             }
             catch (Exception e)
             {

@@ -3,9 +3,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace OnlineCookbook.DAL.Models.Mapping
 {
-    public class RoleMap : EntityTypeConfiguration<Role>
+    public class AspNetRoleMap : EntityTypeConfiguration<AspNetRole>
     {
-        public RoleMap()
+        public AspNetRoleMap()
         {
             // Primary Key
             this.HasKey(t => t.Id);
@@ -20,9 +20,21 @@ namespace OnlineCookbook.DAL.Models.Mapping
                 .HasMaxLength(256);
 
             // Table & Column Mappings
-            this.ToTable("Role");
+            this.ToTable("AspNetRoles");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Name).HasColumnName("Name");
+
+            // Relationships
+            this.HasMany(t => t.AspNetUsers)
+                .WithMany(t => t.AspNetRoles)
+                .Map(m =>
+                    {
+                        m.ToTable("AspNetUserRoles");
+                        m.MapLeftKey("RoleId");
+                        m.MapRightKey("UserId");
+                    });
+
+
         }
     }
 }

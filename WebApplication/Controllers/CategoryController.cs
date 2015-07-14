@@ -22,15 +22,13 @@ namespace WebApplication.Controllers
             Service = service;
         }
 
-        // GET: api/Category
+        [Route("{pageNumber}/{pageSize}")]
         [HttpGet]
-        [Route("")]
-        public async Task<HttpResponseMessage> Get(string sortOrder = "", string sortDirection = "", 
-            int pageNumber = 0, int pageSize = 0)
+        public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0)
         {
             try
             {               
-                var result = await Service.GetAsync(new CategoryFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                var result = await Service.GetAsync(new CategoryFilter(pageNumber, pageSize));
                 if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK,

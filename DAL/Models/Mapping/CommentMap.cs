@@ -37,9 +37,10 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasRequired(t => t.Recipe)
                 .WithMany(t => t.Comments)
                 .HasForeignKey(d => d.RecipeId);
-            this.HasRequired(t => t.User)
-                .WithMany(t => t.Comments)
-                .HasForeignKey(d => d.UserId);
+
+            this.HasRequired(u => u.User)
+                .WithMany(r => r.Comments)
+                .HasForeignKey(u => u.UserId);
 
         }
     }

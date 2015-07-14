@@ -33,9 +33,6 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.HasRequired(t => t.Message)
                 .WithMany(t => t.MessageUsers)
                 .HasForeignKey(d => d.MessageId);
-            this.HasRequired(t => t.User)
-                .WithMany(t => t.MessageUsers)
-                .HasForeignKey(d => d.UserId);
 
         }
     }

@@ -28,29 +28,20 @@ namespace OnlineCookbook.Repository
             Repository = repository;       
         }
 
-       
-   /*  public virtual IQueryable<IAlergen> GetAllAsync()
-    {
-        try
-        {
-            return Repository.WhereAsync<IAlergen>();
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }      
-      
-    }*/
+
         public virtual async Task<List<IAlergen>> GetAsync(AlergenFilter filter)
         {
             try
             {
+                if (filter == null)
+                    filter = new AlergenFilter(1, 5);
+
+
                 return Mapper.Map<List<IAlergen>>(
                     await Repository.WhereAsync<Alergen>()
-                            .OrderBy(filter.SortOrder)
-                            .Skip<Alergen>((filter.PageNumber - 1) * filter.PageSize)
-                            .Take<Alergen>(filter.PageSize)                           
-                            .ToListAsync<Alergen>()
+                            .OrderBy(a => a.AlergenName)
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize).ToListAsync()
                     );
             }
             catch (Exception e)

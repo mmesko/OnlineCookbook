@@ -42,17 +42,16 @@ namespace WebApplication.App_Start
 
            
              //UserController
-          // AutoMapper.Mapper.CreateMap<UserController.UserModel, UserPOCO>().ReverseMap();
-          // AutoMapper.Mapper.CreateMap<UserController.UserModel, IUser>().ReverseMap();
+          AutoMapper.Mapper.CreateMap<WebApplication.Models.UserModel, UserPOCO>().ReverseMap();
+          AutoMapper.Mapper.CreateMap<WebApplication.Models.UserModel, IUser>().ReverseMap();
 
  
             // RecipeController
            AutoMapper.Mapper.CreateMap<RecipeController.RecipeModel, RecipePOCO>().ReverseMap();
            AutoMapper.Mapper.CreateMap<RecipeController.RecipeModel, IRecipe>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<RecipeController.RecipePictureModel, RecipePicturePOCO>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<RecipeController.RecipePictureModel, IRecipePicture>().ReverseMap();
+           
 
-           AutoMapper.Mapper.CreateMap<IdentityDbContext, CookBookContext>().ReverseMap();
+          
            
         }
     }

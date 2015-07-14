@@ -9,7 +9,7 @@ namespace OnlineCookbook.Repository.Common
 {
     public interface ICategoryRepository
     {
-        Task<List<ICategory>> GetAsync(CategoryFilter filter);
+        Task<List<ICategory>> GetAsync(CategoryFilter filter = null);
         Task<ICategory> GetAsync(string id);
         Task<int> InsertAsync(ICategory entity);
         Task<int> UpdateAsync(ICategory entity);

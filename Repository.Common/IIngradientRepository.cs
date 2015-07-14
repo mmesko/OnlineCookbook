@@ -9,7 +9,7 @@ namespace OnlineCookbook.Repository.Common
 {
     public interface IIngradientRepository
     {
-        Task<List<IIngradient>> GetAsync(IngradientFilter filter);
+        Task<List<IIngradient>> GetAsync(IngradientFilter filter = null);
         Task<IIngradient> GetAsync(string id);
         Task<List<IIngradient>> GetNameAsync(string name);
         Task<int> InsertAsync(IIngradient entity);

@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using OnlineCookbook.DAL;
 using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Repository.Common;
@@ -8,7 +7,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace OnlineCookbook.Repository
 {
@@ -17,14 +15,16 @@ namespace OnlineCookbook.Repository
         private IRepository repository;
         private PasswordHasher hasher;
 
-        
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public UserRepository(IRepository repository)
         {
             this.repository = repository;
             hasher = new PasswordHasher();
         }
 
-       
+        #region Other methods
 
         /// <summary>
         /// Initalize user manager
@@ -35,31 +35,23 @@ namespace OnlineCookbook.Repository
             return new UserManager<User>(new UserStore<User>(new CookBookContext()));
         }
 
-        public Task<IUnitOfWork> CreateUnitOfWork()
-        {
-            try
-            {
-                return Task.FromResult<IUnitOfWork>(repository.CreateUnitOfWork());
-            }
-            catch (Exception)
-            {
+        #endregion
 
-                throw;
-            }
-        }
+        #region Get
 
+        /// <summary>
+        ///  Get by id
+        /// </summary>
         public async Task<Model.Common.IUser> GetAsync(string username)
         {
             try
             {
-                return Mapper.Map<Model.Common.IUser>(
-                    await repository.GetAsync<User>(c => c.UserName == username)
-                    );
+                return Mapper.Map<Model.Common.IUser>(await repository.GetAsync<User>(c => c.UserName == username));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                throw ex;
             }
         }
 
@@ -71,9 +63,7 @@ namespace OnlineCookbook.Repository
         {
             try
             {
-                return Mapper.Map<IEnumerable<Model.Common.IUser>>(
-                    await repository.GetRangeAsync<User>()
-                    );
+                return Mapper.Map<IEnumerable<Model.Common.IUser>>(await repository.GetRangeAsync<User>());
             }
             catch (Exception ex)
             {
@@ -102,11 +92,11 @@ namespace OnlineCookbook.Repository
             }
         }
 
+        #endregion
 
+        #region Add
 
-    
-
-		 /// <summary>
+        /// <summary>
         /// Add user
         /// </summary>
         public async Task<int> AddAsync(Model.Common.IUser user)
@@ -115,14 +105,14 @@ namespace OnlineCookbook.Repository
             {
                 return await repository.AddAsync<User>(Mapper.Map<User>(user));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                throw ex;
             }
         }
 
-          /// <summary>
+        /// <summary>
         /// Registers adds user
         /// </summary>
         /// <param name="user"></param>
@@ -137,15 +127,17 @@ namespace OnlineCookbook.Repository
                     return result.Succeeded;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e.InnerException;
+                throw ex.InnerException;
             }
-        } 
+        }
+        #endregion
 
+        #region Delete
 
-		 /// <summary>
+        /// <summary>
         /// Delete user
         /// </summary>
         public async Task<int> DeleteAsync(Model.Common.IUser user)
@@ -154,10 +146,10 @@ namespace OnlineCookbook.Repository
             {
                 return await repository.DeleteAsync<User>(Mapper.Map<User>(user));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                throw ex;
             }
         }
 
@@ -169,20 +161,20 @@ namespace OnlineCookbook.Repository
             try
             {
                 return await this.DeleteAsync(Mapper.Map<Model.Common.IUser>
-                    (await repository.DeleteAsync<User>(id))
-                    
-                    );
+                    (await repository.DeleteAsync<User>(id)));
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-        } 
+        }
 
-	
+        #endregion
 
-	    /// <summary>
+        #region  Update
+
+        /// <summary>
         /// Updates user, return int as result
         /// </summary>
         /// <param name="user">User</param>
@@ -214,7 +206,7 @@ namespace OnlineCookbook.Repository
                 IUnitOfWork uow = repository.CreateUnitOfWork();
                 bool passwordValid = false;
                 Task<User> result = null;
-           
+
                 // Check if user is valid
                 using (UserManager<User> UserManager = createUserManager())
                 {
@@ -223,17 +215,15 @@ namespace OnlineCookbook.Repository
                 }
 
                 if (passwordValid)
-                      result = uow.UpdateObjectAsync<User>(Mapper.Map<User>(user));
+                    result = uow.UpdateObjectAsync<User>(Mapper.Map<User>(user));
 
                 await uow.CommitAsync();
-
-                return await Task.FromResult(
-                    Mapper.Map<Model.Common.IUser>(result.Result) as Model.Common.IUser);
+                return await Task.FromResult(Mapper.Map<Model.Common.IUser>(result.Result) as Model.Common.IUser);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw e;
+                throw;
             }
         }
 
@@ -243,7 +233,7 @@ namespace OnlineCookbook.Repository
         /// <param name="user">UserToUpdate</param>
         /// <param name="password">User password</param>
         /// <returns>IUser</returns>
-        public async Task<Model.Common.IUser> UpdateUserEmailOrUsernameAsync(Model.Common.IUser user,string password)
+        public async Task<Model.Common.IUser> UpdateUserEmailOrUsernameAsync(Model.Common.IUser user, string password)
         {
             try
             {
@@ -262,19 +252,21 @@ namespace OnlineCookbook.Repository
                     result = uow.UpdateAsync<User>(Mapper.Map<User>(user), u => u.Email, u => u.UserName);
 
                 await uow.CommitAsync();
-
-                return await Task.FromResult(
-                    Mapper.Map<Model.Common.IUser>(result.Result) as Model.Common.IUser
-                    );
+                return await Task.FromResult(Mapper.Map<Model.Common.IUser>(result.Result) as Model.Common.IUser);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw e;
+                throw;
             }
         }
 
-      
+        /// <summary>
+        /// Change user password
+        /// </summary>
+        /// <param name="user">User </param>
+        /// <param name="newPassword">New password</param>
+        /// <returns>IUser</returns>
         public async Task<bool> UpdateUserPasswordAsync(string userId, string oldPassword, string newPassword)
         {
             try
@@ -293,10 +285,12 @@ namespace OnlineCookbook.Repository
 
                 throw;
             }
-        
+        }
 
-   
+        #endregion
+
+
+
     }
-}
 }
 

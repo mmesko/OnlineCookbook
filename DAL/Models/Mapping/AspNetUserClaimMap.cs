@@ -3,37 +3,28 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace OnlineCookbook.DAL.Models.Mapping
 {
-    public class UserClaimMap : EntityTypeConfiguration<UserClaim>
+    public class AspNetUserClaimMap : EntityTypeConfiguration<AspNetUserClaim>
     {
-        public UserClaimMap()
+        public AspNetUserClaimMap()
         {
             // Primary Key
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             this.Property(t => t.UserId)
                 .IsRequired()
                 .HasMaxLength(128);
 
-            this.Property(t => t.ClaimType)
-                .IsRequired();
-
-            this.Property(t => t.ClaimValue)
-                .IsRequired();
-
             // Table & Column Mappings
-            this.ToTable("UserClaim");
+            this.ToTable("AspNetUserClaims");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.ClaimType).HasColumnName("ClaimType");
             this.Property(t => t.ClaimValue).HasColumnName("ClaimValue");
 
             // Relationships
-            this.HasRequired(t => t.User)
-                .WithMany(t => t.UserClaims)
+            this.HasRequired(t => t.AspNetUser)
+                .WithMany(t => t.AspNetUserClaims)
                 .HasForeignKey(d => d.UserId);
 
         }

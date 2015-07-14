@@ -109,12 +109,9 @@
     <Compile Include="Mapping\MappingMaps.cs" />
     <Compile Include="MessagePOCO.cs" />
     <Compile Include="MessageUserPOCO.cs" />
-    <Compile Include="PreparationStepPicturePOCO.cs" />
-    <Compile Include="PreparationStepPOCO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecipeAlergenPOCO.cs" />
     <Compile Include="RecipeIngradientPOCO.cs" />
-    <Compile Include="RecipePicturePOCO.cs" />
     <Compile Include="RecipePOCO.cs" />
     <Compile Include="UserPOCO.cs" />
   </ItemGroup>

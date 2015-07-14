@@ -19,18 +19,10 @@ namespace OnlineCookbook.Repository
             Bind<IUserRepository>().To<UserRepository>();           
             Bind<IIngradientRepository>().To<IngradientRepository>();
             Bind<IRecipeAlergenRepository>().To<RecipeAlergenRepository>();
-            Bind<IRecipePictureRepository>().To<RecipePictureRepository>();
             Bind<IRecipeIngradientRepository>().To<RecipeIngradientRepository>();
-            Bind<IFavouriteRepository>().To<FavouriteRepository>();
-            Bind<IPreparationStepRepository>().To<PreparationStepRepository>();
-            Bind<IPreparationStepPictureRepository>().To<PreparationStepPictureRepository>();
+            Bind<IFavouriteRepository>().To<FavouriteRepository>();           
             Bind<ICommentRepository>().To<CommentRepository>();
-            
-            
-            
-
-
-
+          
             Bind<ICookBookContext>().To<CookBookContext>();
             Bind<IRepository>().To<Repository>();
             Bind<IUnitOfWork>().To<UnitOfWork>();

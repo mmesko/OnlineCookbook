@@ -124,11 +124,8 @@
     <Compile Include="FavouriteUserRepositorycs.cs" />
     <Compile Include="IngradientRepository.cs" />
     <Compile Include="MessageRepository.cs" />
-    <Compile Include="PreparationStepPictureRepository.cs" />
-    <Compile Include="PreparationStepRepository.cs" />
     <Compile Include="RecipeAlergenRepository.cs" />
     <Compile Include="RecipeIngradientRepository.cs" />
-    <Compile Include="RecipePictureRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecipeRepository.cs" />

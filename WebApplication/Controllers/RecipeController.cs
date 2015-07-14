@@ -20,12 +20,11 @@ namespace WebApplication.Controllers
     {
 
         private IRecipeService Service { get; set; }
-        private IRecipePictureService PictureService { get; set; }
-
-        public RecipeController(IRecipeService service, IRecipePictureService pictureService)
+       
+        public RecipeController(IRecipeService service)
         {
             Service = service;
-            PictureService = pictureService;
+            
         }
 
 
@@ -181,36 +180,7 @@ namespace WebApplication.Controllers
         }
 
 
-        // PUT: api/Recipe/Picture/5
-        [HttpPut]
-        [Route("Picture/{id:guid}")]
-        public async Task<HttpResponseMessage> Put(string id, RecipePictureModel entity)
-        {
-            try
-            {
-                if (id != entity.Id)
-                {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest,
-                        "IDs do not match.");
-                }
-
-                var result = await PictureService.UpdateAsync(Mapper.Map<IRecipePicture>(entity));
-
-                if (result == 1)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, "Updated.");
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError,
-                        "PUT unsuccessful.");
-                }
-            }
-            catch (Exception e)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
-            }
-        }
+  
 
         // DELETE: api/Recipe/5
         [HttpDelete]

@@ -15,8 +15,8 @@ namespace OnlineCookbook.Repository.Common
         Task<int> InsertAsync(IRecipe entity);
         Task<int> AddAsync(IUnitOfWork unitOfWork, IRecipe entity);
         Task<int> UpdateAsync(IRecipe entity);
-        Task<int> DeleteAsync(IUnitOfWork unitOfWork, IRecipe entity);
-        Task<int> DeleteAsync(IUnitOfWork unitOfWork, string id);
+        Task<int> DeleteAsync(IRecipe entity);
+        Task<int> DeleteAsync(string id);
 
         //Task<int> GetByComplexityAsync(IRecipe entity);
         Task<List<IRecipe>> GetByCategoryAsync(string  categoryId, RecipeFilter filter = null);

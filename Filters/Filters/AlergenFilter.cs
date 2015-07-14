@@ -3,78 +3,14 @@ using System.Text;
 
 namespace OnlineCookbook.Common.Filters
 {
-    public class AlergenFilter 
+    public class AlergenFilter : GenericFilter
     {
-
-        public string SortOrder { get; private set; }
-        public int PageNumber { get; private set; }
-        public int PageSize { get; private set; }
-
-        private readonly int DefaultPageSize = 50;
-        private readonly string DefaultSortOrder = "Abrv";
-
-
-        public AlergenFilter(string sortOrder, int pageNumber, int pageSize)
+         public AlergenFilter(int pageNumber, int pageSize)
+            : base(pageNumber, pageSize)
         {
-            try
-            {
-                SortOrder = SetSortOrder(sortOrder);
-                SetPageNumberAndSize(pageNumber, pageSize);
-            }
-            catch (ArgumentException e)
-            {
-                throw e;
-            }
+            
         }
-
-        public AlergenFilter(string sortOrder, string sortDirection, int pageNumber, int pageSize)
-        {
-            try
-            {
-                SortOrder = SetSortOrder(sortOrder) + SetSortDirection(sortDirection);
-                SetPageNumberAndSize(pageNumber, pageSize);
-            }
-            catch (ArgumentException e)
-            {
-                throw e;
-            }
-        }
-
-        private void SetPageNumberAndSize(int pageNumber = 1, int pageSize = 0)
-        {
-            PageNumber = (pageNumber > 0) ? pageNumber : 1;
-            PageSize = (pageSize > 0 && pageSize <= DefaultPageSize) ? pageSize : DefaultPageSize;
-        }
-
-        private string SetSortOrder(string sortOrder)
-        {
-            switch (sortOrder)
-            {
-                case "Abrv":
-                case "AlergenName":
-                    return sortOrder;
-                case "":
-                    return DefaultSortOrder;
-                default:
-                    throw new ArgumentException("Invalid SortOrder.");
-            }
-        }
-
-        private string SetSortDirection(string sortDirection)
-        {
-            if (sortDirection.ToLower() == "asc" || sortDirection == "")
-            {
-                return "";
-            }
-            else if (sortDirection.ToLower() == "desc")
-            {
-                return " descending";
-            }
-            else
-            {
-                throw new ArgumentException("Invalid SortDirection.");
-            }
-        }
+     
 
     }
 }

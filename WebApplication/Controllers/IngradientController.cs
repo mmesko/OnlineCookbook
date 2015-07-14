@@ -23,13 +23,13 @@ namespace WebApplication.Controllers
         }
 
         // GET: api/Ingradient
+        [Route("{pageNumber}/{pageSize}")]
         [HttpGet]
-        [Route("")]
-        public async Task<HttpResponseMessage> Get(string sortOrder = "", string sortDirection = "", int pageNumber = 0, int pageSize = 0) //kalsa uestionRequest s ovim praznim parametrima?
+        public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0) //kalsa uestionRequest s ovim praznim parametrima?
         {
             try
             {
-                var result = await Service.GetAsync(new IngradientFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                var result = await Service.GetAsync(new IngradientFilter(pageNumber, pageSize));
                 if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<IngradientModel>>(result));

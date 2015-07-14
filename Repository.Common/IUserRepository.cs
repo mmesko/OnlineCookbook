@@ -28,7 +28,6 @@ namespace OnlineCookbook.Repository.Common
         Task<int> DeleteAsync(IUser user);
         Task<int> DeleteAsync(string id);
 
-        Task<IUnitOfWork> CreateUnitOfWork();
 
     }
 }

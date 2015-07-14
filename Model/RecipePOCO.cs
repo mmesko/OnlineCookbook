@@ -11,10 +11,10 @@ namespace OnlineCookbook.Model
         {
             this.Comments = new List<IComment>();
             this.Favourites = new List<IFavourite>();
-            this.PreparationSteps = new List<IPreparationStep>();
+           
             this.RecipeAlergens = new List<IRecipeAlergen>();
             this.RecipeIngradients = new List<IRecipeIngradient>();
-            this.RecipePictures = new List<IRecipePicture>();
+            
         }
 
          public string Id { get; set; }
@@ -28,11 +28,11 @@ namespace OnlineCookbook.Model
          public virtual ICategory Category { get; set; }
          public virtual ICollection<IComment> Comments { get; set; }
          public virtual ICollection<IFavourite> Favourites { get; set; }
-         public virtual ICollection<IPreparationStep> PreparationSteps { get; set; }
+         
          public virtual IUser User { get; set; }
          public virtual ICollection<IRecipeAlergen> RecipeAlergens { get; set; }
          public virtual ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
-         public virtual ICollection<IRecipePicture> RecipePictures { get; set; }
+        
 
     }
 }

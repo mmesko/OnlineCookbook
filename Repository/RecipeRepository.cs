@@ -38,7 +38,7 @@ namespace OnlineCookbook.Repository
                                  .OrderBy(filter.SortOrder)
                                  .Skip<Recipe>((filter.PageNumber - 1) * filter.PageSize)
                                  .Take<Recipe>(filter.PageSize)
-                                 .Include(item => item.RecipePictures)
+                                 //.Include(item => item.RecipePictures)
                                  .ToListAsync<Recipe>()
                                  );
                 }
@@ -46,7 +46,7 @@ namespace OnlineCookbook.Repository
                 {
                     return Mapper.Map<List<IRecipe>>(
                         await Repository.WhereAsync<Recipe>()
-                        .Include(item => item.RecipePictures)
+                        //.Include(item => item.RecipePictures)
                         .ToListAsync()
                         );
                 }
@@ -66,7 +66,7 @@ namespace OnlineCookbook.Repository
                 return Mapper.Map<IRecipe>(
                     await Repository.WhereAsync<Recipe>()
                     .Where(item => item.Id == id)
-                    .Include(item => item.RecipePictures)
+                    //.Include(item => item.RecipePictures)
                     .SingleAsync()
                     );
             }
@@ -105,7 +105,7 @@ namespace OnlineCookbook.Repository
                          .OrderBy(filter.SortOrder)
                          .Skip<Recipe>((filter.PageNumber - 1) * filter.PageSize)
                          .Take<Recipe>(filter.PageSize)
-                         .Include(item => item.RecipePictures)
+                         //.Include(item => item.RecipePictures)
                          .ToListAsync<Recipe>()
 
                         );
@@ -116,7 +116,7 @@ namespace OnlineCookbook.Repository
                      await Repository.WhereAsync<Recipe>()
                       .Where<Recipe>(item => item.CategoryId == categoryId)
                       .OrderBy(filter.SortOrder)
-                      .Include(item => item.RecipePictures)
+                      //.Include(item => item.RecipePictures)
                       .ToListAsync<Recipe>()
                      );
                 }
@@ -199,24 +199,37 @@ namespace OnlineCookbook.Repository
 
         }
 
-        private async Task<int> DeleteAsync(IUnitOfWork unitOfWork, Recipe entity)
+        //private async Task<int> DeleteAsync(IUnitOfWork unitOfWork, Recipe entity)
+        //{
+        //    try
+        //    {
+        //        var result = 0;
+
+        //        var pictures = await Repository.WhereAsync<RecipePicture>()
+        //            .Where(item => item.RecipeId == entity.Id)
+        //            .ToListAsync();
+
+        //        foreach (var picture in pictures)
+        //        {
+        //            result += await unitOfWork.DeleteAsync<RecipePicture>(picture);
+        //        }
+
+        //        result += await unitOfWork.DeleteAsync<Recipe>(entity);
+
+        //        return result;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
+
+
+        public Task<int> DeleteAsync(IRecipe entity)
         {
             try
             {
-                var result = 0;
-
-                var pictures = await Repository.WhereAsync<RecipePicture>()
-                    .Where(item => item.RecipeId == entity.Id)
-                    .ToListAsync();
-
-                foreach (var picture in pictures)
-                {
-                    result += await unitOfWork.DeleteAsync<RecipePicture>(picture);
-                }
-
-                result += await unitOfWork.DeleteAsync<Recipe>(entity);
-
-                return result;
+                return this.DeleteAsync(Mapper.Map<Recipe>(entity));
             }
             catch (Exception e)
             {
@@ -225,26 +238,11 @@ namespace OnlineCookbook.Repository
         }
 
 
-        public Task<int> DeleteAsync(IUnitOfWork unitOfWork, IRecipe entity)
+       public async Task<int> DeleteAsync(string id)
         {
             try
             {
-                return this.DeleteAsync(unitOfWork,
-                    Mapper.Map<Recipe>(entity));
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-
-       public async Task<int> DeleteAsync(IUnitOfWork unitOfWork, string id)
-        {
-            try
-            {
-                return await DeleteAsync(
-                    unitOfWork, await Repository.SingleAsync<Recipe>(id));
+                return await DeleteAsync(await Repository.SingleAsync<Recipe>(id));
             }
             catch (Exception e)
             {

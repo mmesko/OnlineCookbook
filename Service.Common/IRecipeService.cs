@@ -15,8 +15,7 @@ namespace OnlineCookbook.Service.Common
         Task<List<IRecipe>> GetByNameAsync(string name);
         Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null);
 
-        Task<int> InsertAsync(IRecipe entity, IRecipePicture picture = null, 
-            List<IPreparationStep> steps = null, List<IPreparationStepPicture> stepPictures = null);
+        Task<int> InsertAsync(IRecipe entity);
 
         Task<int> UpdateAsync(IRecipe entity);
 

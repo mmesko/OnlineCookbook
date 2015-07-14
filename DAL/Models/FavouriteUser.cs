@@ -9,6 +9,6 @@ namespace OnlineCookbook.DAL.Models
         public string UserId { get; set; }
         public string FavouriteId { get; set; }
         public virtual Favourite Favourite { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

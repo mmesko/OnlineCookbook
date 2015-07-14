@@ -98,12 +98,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201507071327168_dbIdentity.cs" />
-    <Compile Include="Migrations\201507071327168_dbIdentity.Designer.cs">
-      <DependentUpon>201507071327168_dbIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\201507131115222_m4.cs" />
+    <Compile Include="Migrations\201507131115222_m4.Designer.cs">
+      <DependentUpon>201507131115222_m4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Alergen.cs" />
+    <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetUserClaim.cs" />
+    <Compile Include="Models\AspNetUserLogin.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CookBookContext.cs" />
@@ -111,6 +114,10 @@
     <Compile Include="Models\FavouriteUser.cs" />
     <Compile Include="Models\Ingradient.cs" />
     <Compile Include="Models\Mapping\AlergenMap.cs" />
+    <Compile Include="Models\Mapping\AspNetRoleMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserClaimMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserLoginMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserMap.cs" />
     <Compile Include="Models\Mapping\CategoryMap.cs" />
     <Compile Include="Models\Mapping\CommentMap.cs" />
     <Compile Include="Models\Mapping\FavouriteMap.cs" />
@@ -118,30 +125,16 @@
     <Compile Include="Models\Mapping\IngradientMap.cs" />
     <Compile Include="Models\Mapping\MessageMap.cs" />
     <Compile Include="Models\Mapping\MessageUserMap.cs" />
-    <Compile Include="Models\Mapping\PreparationStepMap.cs" />
-    <Compile Include="Models\Mapping\PreparationStepPictureMap.cs" />
     <Compile Include="Models\Mapping\RecipeAlergenMap.cs" />
     <Compile Include="Models\Mapping\RecipeIngradientMap.cs" />
     <Compile Include="Models\Mapping\RecipeMap.cs" />
-    <Compile Include="Models\Mapping\RecipePictureMap.cs" />
-    <Compile Include="Models\Mapping\RoleMap.cs" />
-    <Compile Include="Models\Mapping\UserClaimMap.cs" />
-    <Compile Include="Models\Mapping\UserLoginMap.cs" />
     <Compile Include="Models\Mapping\UserMap.cs" />
-    <Compile Include="Models\Mapping\UserRoleMap.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageUser.cs" />
-    <Compile Include="Models\PreparationStep.cs" />
-    <Compile Include="Models\PreparationStepPicture.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeAlergen.cs" />
     <Compile Include="Models\RecipeIngradient.cs" />
-    <Compile Include="Models\RecipePicture.cs" />
-    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserClaim.cs" />
-    <Compile Include="Models\UserLogin.cs" />
-    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -155,8 +148,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507071327168_dbIdentity.resx">
-      <DependentUpon>201507071327168_dbIdentity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507131115222_m4.resx">
+      <DependentUpon>201507131115222_m4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

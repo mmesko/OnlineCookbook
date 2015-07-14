@@ -23,16 +23,15 @@ namespace WebApplication.Controllers
         public AlergenController(IAlergenService service)
         {
             Service = service;
-        } 
-         
-         // GET: api/Alergen
+        }
+
+        [Route("{pageNumber}/{pageSize}")]
         [HttpGet]
-        [Route("")]
-        public async Task<HttpResponseMessage> Get(string sortOrder = "", string sortDirection = "", int pageNumber = 0, int pageSize = 0)
+        public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0)
         {
             try
             {
-                var result = await Service.GetAsync(new AlergenFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                var result = await Service.GetAsync(new AlergenFilter(pageNumber, pageSize));
                 if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<AlergenModel>>(result));

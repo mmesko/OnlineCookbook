@@ -11,16 +11,13 @@ namespace OnlineCookbook.Service
    public class RecipeService : IRecipeService
     {
        protected IRecipeRepository Repository { get; private set; }
-       protected IRecipePictureRepository PictureRepository { get; private set; }
-       protected IPreparationStepRepository StepRepository { get; private set; }
+       
        
 
-       public RecipeService(IRecipeRepository repository, IRecipePictureRepository pictureRepository,
-           IPreparationStepRepository stepRepository)
+       public RecipeService(IRecipeRepository repository)
        {
            Repository = repository;
-           PictureRepository = pictureRepository;
-           StepRepository = stepRepository;
+         
        
        }
 
@@ -80,39 +77,17 @@ namespace OnlineCookbook.Service
        
        }
 
-       public async Task<int> InsertAsync(IRecipe entity, IRecipePicture picture = null,
-            List<IPreparationStep> steps = null, List<IPreparationStepPicture> stepPictures = null)
+       public async Task<int> InsertAsync(IRecipe entity)
        {
 
            try
            {
-
-               if (steps == null && stepPictures != null)
-               {
-                   throw new ArgumentNullException("Null steps, but try to add pictures!");
-               }
-
-               var unitOfWork = await Repository.CreateUnitOfWork();
-               await Repository.AddAsync(unitOfWork, entity);
-
-               if (picture != null)
-               {
-                   await PictureRepository.AddAsync(unitOfWork, picture);
-               }
-
-               if (steps != null)
-               {
-
-                   await StepRepository.AddAsync(unitOfWork, steps, stepPictures);
-               }
-
-               return await unitOfWork.CommitAsync();
-
+               return await Repository.InsertAsync(entity);
            }
+
            catch (Exception e)
            {
                throw e;
-
            }
        }
 
@@ -130,18 +105,15 @@ namespace OnlineCookbook.Service
 
            public async Task<int> DeleteAsync(IRecipe entity)
            {
-               try 
+               try
                {
-                   var unitOfWork = await Repository.CreateUnitOfWork();
-                   await StepRepository.DeleteAsync(unitOfWork, entity.Id);
-                   await Repository.DeleteAsync(unitOfWork, entity);
-
-                   return await unitOfWork.CommitAsync();
+                   return await Repository.DeleteAsync(entity);
                }
+
                catch (Exception e)
                {
                    throw e;
-               }          
+               }       
            }
 
            public async Task<int> DeleteAsync(string id)

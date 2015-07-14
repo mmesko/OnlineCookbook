@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace OnlineCookbook.DAL.Models
 {
-    public partial class Role
+    public partial class AspNetRole
     {
-        public Role()
+        public AspNetRole()
         {
-            this.UserRoles = new List<UserRole>();
+            this.AspNetUsers = new List<AspNetUser>();
         }
 
         public string Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

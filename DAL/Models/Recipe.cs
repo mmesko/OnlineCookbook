@@ -8,11 +8,10 @@ namespace OnlineCookbook.DAL.Models
         public Recipe()
         {
             this.Comments = new List<Comment>();
-            this.Favourites = new List<Favourite>();
-            this.PreparationSteps = new List<PreparationStep>();
+            this.Favourites = new List<Favourite>();   
             this.RecipeAlergens = new List<RecipeAlergen>();
             this.RecipeIngradients = new List<RecipeIngradient>();
-            this.RecipePictures = new List<RecipePicture>();
+           
         }
 
         public string Id { get; set; }
@@ -26,10 +25,10 @@ namespace OnlineCookbook.DAL.Models
         public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Favourite> Favourites { get; set; }
-        public virtual ICollection<PreparationStep> PreparationSteps { get; set; }
-        public virtual User User { get; set; }
+      
         public virtual ICollection<RecipeAlergen> RecipeAlergens { get; set; }
         public virtual ICollection<RecipeIngradient> RecipeIngradients { get; set; }
-        public virtual ICollection<RecipePicture> RecipePictures { get; set; }
+       
+        public virtual User User { get; set; }
     }
 }
