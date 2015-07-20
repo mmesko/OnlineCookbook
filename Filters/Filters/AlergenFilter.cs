@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-
+﻿
 namespace OnlineCookbook.Common.Filters
 {
     public class AlergenFilter : GenericFilter
@@ -10,7 +8,6 @@ namespace OnlineCookbook.Common.Filters
         {
             
         }
-     
 
     }
 }

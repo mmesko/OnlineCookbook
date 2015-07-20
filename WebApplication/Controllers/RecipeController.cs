@@ -12,6 +12,7 @@ using OnlineCookbook.Service.Common;
 using OnlineCookbook.Service;
 using System.Data.Entity.Validation;
 using OnlineCookbook.Common.Filters;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -30,14 +31,13 @@ namespace WebApplication.Controllers
 
 
         // GET: api/Recipe
+        [Route("{pageNumber}/{pageSize}")]
         [HttpGet]
-        [Route("")]
-        public async Task<HttpResponseMessage> Get(string sortOrder = "", string sortDirection = "",
-            int pageNumber = 0, int pageSize = 0)
+        public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0)
         {
             try
             {
-                var result = await Service.GetAsync(new RecipeFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                var result = await Service.GetAsync( new RecipeFilter(pageNumber, pageSize));
                 if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK,
@@ -102,28 +102,28 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("Category/{id:guid}")]
-        public async Task<HttpResponseMessage> GetByCategory(string id)
-        {
-            try
-            {
-                var result = await Service.GetByCategoryAsync(id, new RecipeFilter("CategoryId", 0, 0));
-                if (result != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK,
-                        Mapper.Map<List<RecipeModel>>(result));
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
-                }
-            }
-            catch (Exception e)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
-            }
-        }
+        //[HttpGet]
+        //[Route("Category/{id:guid}")]
+        //public async Task<HttpResponseMessage> GetByCategory(string id)
+        //{
+        //    try
+        //    {
+        //        var result = await Service.GetByCategoryAsync(id, new RecipeFilter(0, 0));
+        //        if (result != null)
+        //        {
+        //            return Request.CreateResponse(HttpStatusCode.OK,
+        //                Mapper.Map<List<RecipeModel>>(result));
+        //        }
+        //        else
+        //        {
+        //            return Request.CreateResponse(HttpStatusCode.NotFound);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+        //    }
+        //}
 
         // POST: api/Recipe
         [HttpPost]
@@ -204,25 +204,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        public class RecipeModel
-        {
+       
 
-            public string Id { get; set; }
-            public string CategoryId { get; set; }
-            public string UserId { get; set; }
-            public string RecipeTitle { get; set; }
-            public string RecipeDescription { get; set; }
-            public bool RecipeComplexity { get; set; }
-            public string RecipeText { get; set; }
-            public string Abrv { get; set; } //dodati u bazu picture Url?
-        
-        }
-
-        public class RecipePictureModel
-        {
-            public string Id { get; set; }
-            public string RecipeId { get; set; }
-            public byte[] RecipePicture1 { get; set; }
-        }
     }
 }

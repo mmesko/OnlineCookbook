@@ -3,6 +3,7 @@ using OnlineCookbook.DAL.Models;
 using OnlineCookbook.Model;
 using OnlineCookbook.Model.Common;
 using WebApplication.Controllers;
+using WebApplication.Models;
 
 namespace WebApplication.App_Start
 {
@@ -15,42 +16,44 @@ namespace WebApplication.App_Start
            OnlineCookbook.Model.Mapping.MappingMaps.Initialize();
 
             // AlergenContorller
-            AutoMapper.Mapper.CreateMap<AlergenController.AlergenModel, AlergenPOCO>().ReverseMap();
-            AutoMapper.Mapper.CreateMap<AlergenController.AlergenModel, IAlergen>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<AlergenModel, AlergenPOCO>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<AlergenModel, IAlergen>().ReverseMap();
            
 
             //IngradientController
-           AutoMapper.Mapper.CreateMap<IngradientController.IngradientModel, IngradientPOCO>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<IngradientController.IngradientModel, IIngradient>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IngradientModel, IngradientPOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<IngradientModel, IIngradient>().ReverseMap();
 
 
             //CategoryController
-           AutoMapper.Mapper.CreateMap<CategoryController.CategoryModel, CategoryPOCO>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<CategoryController.CategoryModel, ICategory>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<CategoryModel, CategoryPOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<CategoryModel, ICategory>().ReverseMap();
 
            //RecipeAlergenController
-           AutoMapper.Mapper.CreateMap<RecipeAlergenController.RecipeAlergenModel, RecipeAlergenPOCO>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<RecipeAlergenController.RecipeAlergenModel, IRecipeAlergen>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<RecipeAlergenModel, RecipeAlergenPOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<RecipeAlergenModel, IRecipeAlergen>().ReverseMap();
 
            //RecipeAlergenController
-           AutoMapper.Mapper.CreateMap<RecipeIngradientController.RecipeIngradientModel, RecipeIngradientPOCO>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<RecipeIngradientController.RecipeIngradientModel, IRecipeIngradient>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<RecipeIngradientModel, RecipeIngradientPOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<RecipeIngradientModel, IRecipeIngradient>().ReverseMap();
 
             //FavouriteController
-           AutoMapper.Mapper.CreateMap<FavouriteController.FavouriteModel, FavouritePOCO>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<FavouriteController.FavouriteModel, IFavourite>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<FavouriteModel, FavouritePOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<FavouriteModel, IFavourite>().ReverseMap();
 
            
              //UserController
-          AutoMapper.Mapper.CreateMap<WebApplication.Models.UserModel, UserPOCO>().ReverseMap();
-          AutoMapper.Mapper.CreateMap<WebApplication.Models.UserModel, IUser>().ReverseMap();
+          AutoMapper.Mapper.CreateMap<UserModel, UserPOCO>().ReverseMap();
+          AutoMapper.Mapper.CreateMap<UserModel, IUser>().ReverseMap();
 
  
             // RecipeController
-           AutoMapper.Mapper.CreateMap<RecipeController.RecipeModel, RecipePOCO>().ReverseMap();
-           AutoMapper.Mapper.CreateMap<RecipeController.RecipeModel, IRecipe>().ReverseMap();
-           
+           AutoMapper.Mapper.CreateMap<RecipeModel, RecipePOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<RecipeModel, IRecipe>().ReverseMap();
 
+           //CategoryController
+           AutoMapper.Mapper.CreateMap<CommentModel, CommentPOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<CommentModel, IComment>().ReverseMap();
           
            
         }

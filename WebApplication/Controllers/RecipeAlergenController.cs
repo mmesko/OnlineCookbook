@@ -9,6 +9,7 @@ using System.Web.Http;
 using OnlineCookbook.Model.Common;
 using OnlineCookbook.Service.Common;
 using OnlineCookbook.Common.Filters;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -25,12 +26,11 @@ namespace WebApplication.Controllers
         // GET: api/RecipeAlergen
          [HttpGet]
          [Route("")]
-         public async Task<HttpResponseMessage> Get(string sortOrder = "", string sortDirection = "",
-             int pageNumber = 0, int pageSize = 0)
+         public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0)
          {
              try
              {
-                 var result = await Service.GetAsync(new RecipeAlergenFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                 var result = await Service.GetAsync(new RecipeAlergenFilter(pageNumber, pageSize));
                  if (result != null)
                  {
                      return Request.CreateResponse(HttpStatusCode.OK,
@@ -153,17 +153,16 @@ namespace WebApplication.Controllers
          // GET: api/RecipeAlergen/5
          [HttpGet]
          [Route("Alergens/{id:guid}")]
-         public async Task<HttpResponseMessage> GetRecipeAlergenAsync(string id, string sortOrder = "",
-             string sortDirection = "", int pageNumber = 0, int pageSize = 0)
+         public async Task<HttpResponseMessage> GetRecipeAlergenAsync(string id, string unit)
          {
              try
              {
-                 var result = await Service.GetRecipeAlergenAsync(id, new RecipeAlergenFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                 var result = await Service.GetRecipeAlergenAsync(id,unit);
 
                  if (result != null)
                  {
                      return Request.CreateResponse(HttpStatusCode.OK,
-                         Mapper.Map<List<AlergenController.AlergenModel>>(result));
+                         Mapper.Map<List<AlergenModel>>(result));
                  }
                  else
                  {
@@ -176,14 +175,6 @@ namespace WebApplication.Controllers
              }
          }
 
-         public class RecipeAlergenModel
-         {
-             public string Id { get; set; }
-             public string AlergenId { get; set; }
-             public string RecipeId { get; set; }
-             public int AlergenQuantity { get; set; }
-             public string AlergenUnit { get; set; }
          
-         }
     }
 }

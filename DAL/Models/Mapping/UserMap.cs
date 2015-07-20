@@ -8,9 +8,11 @@ namespace OnlineCookbook.DAL.Models.Mapping
     {
         public UserMap()
         {
-
-            //HasMany(u => u.Comments).WithRequired(r => r.User);
+            //done manually and add migration: add-migration -Name, update-database
+            HasMany(r => r.Recipes).WithRequired(u => u.User);
+            HasMany(u => u.Comments).WithRequired(r => r.User);
             HasMany(u => u.MessageUsers).WithMany(r => r.Users);
+            HasMany(u => u.FavouriteUsers).WithMany(r => r.Users);
            
         }
     }

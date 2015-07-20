@@ -7,7 +7,7 @@ namespace OnlineCookbook.Service.Common
 {
     public interface IFavouriteService
     {
-        Task<List<IFavourite>> GetAsync(FavouriteFilter filter);
+        Task<List<IFavourite>> GetAsync(string recipeId, FavouriteFilter filter = null);
         Task<IFavourite> GetAsync(string id);
         Task<List<IFavourite>> GetNameAsync(string name);
         Task<int> InsertAsync(IFavourite entity);

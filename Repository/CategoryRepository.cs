@@ -19,17 +19,14 @@ namespace OnlineCookbook.Repository
     {
 
         protected IRepository Repository { get; private set; }
-        public IUnitOfWork UnitOfWork { get; private set; }
+
 
         public CategoryRepository(IRepository repository)
         {
-            Repository = repository;
+
+            Repository = repository;       
         }
 
-        public IUnitOfWork CreateUnitOfWork()
-        {
-            return Repository.CreateUnitOfWork();
-        }
 
         public virtual async Task<List<ICategory>> GetAsync(CategoryFilter filter)
         {
@@ -41,7 +38,7 @@ namespace OnlineCookbook.Repository
 
                 return Mapper.Map<List<ICategory>>(
                     await Repository.WhereAsync<Category>()
-                            .OrderBy(c => c.CategoryName)
+                            .OrderBy(a => a.CategoryName)
                             .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
                             .Take(filter.PageSize).ToListAsync()
                     );
@@ -54,15 +51,31 @@ namespace OnlineCookbook.Repository
 
         public virtual async Task<ICategory> GetAsync(string id)
         {
+            try 
+            {
+                return Mapper.Map<ICategory>(await Repository.SingleAsync<Category>(id));           
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }        
+        }
+
+        public virtual async Task<List<ICategory>> GetNameAsync(string name)
+        {
             try
             {
-                return Mapper.Map<ICategory>(
-                    await Repository.SingleAsync<Category>(id));
+                return Mapper.Map<List<ICategory>>(
+                    await Repository.WhereAsync<Category>()
+                            .Where(item => item.CategoryName.Contains(name))
+                            .ToListAsync<Category>()
+                    );
             }
             catch (Exception e)
             {
                 throw e;
             }
+
         }
 
         public virtual Task<int> InsertAsync(ICategory entity)
@@ -83,42 +96,19 @@ namespace OnlineCookbook.Repository
             {
                 return Repository.UpdateAsync<Category>(Mapper.Map<Category>(entity));
             }
+
             catch (Exception e)
             {
                 throw e;
-            }
+            }     
         }
 
-        public async Task<int> DeleteAsync(ICategory entity)
+        public virtual Task<int> DeleteAsync(ICategory entity)
         {
             try
             {
-                if (entity.Abrv.ToLower() == "undef")
-                {
-                    throw new ArgumentException("Category\"Undefined\" cannot be deleted.");
-                }
-                else
-                {
-                    IUnitOfWork unitOfWork = Repository.CreateUnitOfWork();
-
-                    var recipes = await Repository.WhereAsync<Recipe>()
-                        .Where<Recipe>(item => item.CategoryId == entity.Id)
-                        .ToListAsync();
-
-                    var typeUndef = await Repository.WhereAsync<Category>()
-                        .Where<Category>(item => item.Abrv.ToLower() == "undef")
-                        .SingleAsync();
-
-                    foreach (var recipe in recipes)
-                    {
-                        recipe.CategoryId = typeUndef.Id;
-                        await unitOfWork.UpdateAsync<Recipe>(recipe);
-                    }
-
-                    await unitOfWork.DeleteAsync<Category>(entity.Id);
-
-                    return await unitOfWork.CommitAsync();
-                }
+                return Repository.DeleteAsync<Category>
+                    (Mapper.Map<Category>(entity));
             }
             catch (Exception e)
             {
@@ -126,16 +116,12 @@ namespace OnlineCookbook.Repository
             }
         }
 
-
-        public async virtual Task<int> DeleteAsync(string id)
+        public virtual Task<int> DeleteAsync(string id)
         {
             try
             {
-                return await DeleteAsync(Mapper.Map<ICategory>(
-                    await Repository.SingleAsync<Category>(id))
-                    );
+                return Repository.DeleteAsync<Category>(id);
             }
-          
             catch (Exception e)
             {
                 throw e;

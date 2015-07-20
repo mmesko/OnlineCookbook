@@ -19,11 +19,8 @@ namespace OnlineCookbook.DAL.Models
         {
         }
 
+        // remove user bc you're using identity!
         public DbSet<Alergen> Alergens { get; set; }
-        //public DbSet<AspNetRole> AspNetRoles { get; set; }
-        //public DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        //public DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        //public DbSet<AspNetUser> AspNetUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Favourite> Favourites { get; set; }
@@ -31,7 +28,6 @@ namespace OnlineCookbook.DAL.Models
         public DbSet<Ingradient> Ingradients { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<MessageUser> MessageUsers { get; set; }
-      
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeAlergen> RecipeAlergens { get; set; }
         public DbSet<RecipeIngradient> RecipeIngradients { get; set; }
@@ -40,10 +36,6 @@ namespace OnlineCookbook.DAL.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new AlergenMap());
-            //modelBuilder.Configurations.Add(new AspNetRoleMap());
-            //modelBuilder.Configurations.Add(new AspNetUserClaimMap());
-            //modelBuilder.Configurations.Add(new AspNetUserLoginMap());
-            //modelBuilder.Configurations.Add(new AspNetUserMap());
             modelBuilder.Configurations.Add(new CategoryMap());
             modelBuilder.Configurations.Add(new CommentMap());
             modelBuilder.Configurations.Add(new FavouriteMap());
@@ -65,10 +57,6 @@ namespace OnlineCookbook.DAL.Models
    public interface ICookBookContext : IDisposable
    {
 	         DbSet<Alergen> Alergens { get; set; }
-            //DbSet<AspNetRole> AspNetRoles { get; set; }
-            //DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-            //DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-            //DbSet<AspNetUser> AspNetUsers { get; set; }
             DbSet<Category> Categories { get; set; }
             DbSet<Comment> Comments { get; set; }
             DbSet<Favourite> Favourites { get; set; }

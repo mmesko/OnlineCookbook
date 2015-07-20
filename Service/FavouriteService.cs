@@ -22,11 +22,11 @@ namespace OnlineCookbook.Service
             Repository = repository;
         }
 
-        public async Task<List<IFavourite>> GetAsync(FavouriteFilter filter)
+        public async Task<List<IFavourite>> GetAsync(string recipeId, FavouriteFilter filter = null)
         {
             try
             {
-                return await Repository.GetAsync(filter);
+                return await Repository.GetAsync(recipeId, filter);
             }
             catch (Exception e)
             {

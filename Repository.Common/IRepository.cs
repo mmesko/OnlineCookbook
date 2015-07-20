@@ -23,11 +23,12 @@ namespace OnlineCookbook.Repository.Common
         
         Task<IEnumerable<T>> GetRangeAsync<T>(Expression<Func<T, bool>> match) where T : class;
         Task<IEnumerable<T>> GetRangeAsync<T>() where T : class;
-        //za usera
-        Task<int> AddAsync<T>(T entity) where T : class;
 
+        //for user
+        Task<int> AddAsync<T>(T entity) where T : class;
         Task<int> AddAsync<T>(IEnumerable<T> listOfEntities) where T : class;
-        //za usera, provjeriti podudaranje usernamea i passworda
+
+        //user, password and username matching
         Task<T> GetAsync<T>(Expression<Func<T, bool>> match) where T : class;
         
         Task<int> UpdateAsync<T>(T entity, params Expression<Func<T, object>>[] proportiesToUpdate) where T : class;

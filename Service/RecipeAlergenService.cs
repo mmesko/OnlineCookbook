@@ -21,7 +21,7 @@ namespace OnlineCookbook.Service
 
        //method Get
 
-       public Task<List<IRecipeAlergen>> GetAsync(RecipeAlergenFilter filter)
+       public Task<List<IRecipeAlergen>> GetAsync(RecipeAlergenFilter filter = null)
        {
 
            try
@@ -94,11 +94,11 @@ namespace OnlineCookbook.Service
            }
        }
 
-       public Task<List<IRecipeAlergen>> GetRecipeAlergenAsync(string recipeId, RecipeAlergenFilter filter)
+       public Task<List<IRecipe>> GetRecipeAlergenAsync(string recipeId, string alergenUnit)
        {
            try
            {
-               return Repository.GetRecipeAlergenAsync(recipeId, filter);
+               return Repository.GetRecipeAlergenAsync(recipeId, alergenUnit);
            }
            catch (Exception e)
            {

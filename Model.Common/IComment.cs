@@ -8,7 +8,7 @@ namespace OnlineCookbook.Model.Common
         string UserId { get; set; }
         string RecipeId { get; set; }
         string CommentText { get; set; }
-        IRecipe Recipe { get; set; }
-        IUser User { get; set; }
+        //IRecipe Recipe { get; set; }
+        //IUser User { get; set; }
     }
 }

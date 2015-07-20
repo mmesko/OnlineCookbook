@@ -15,6 +15,7 @@ namespace OnlineCookbook.DAL.Models
           
         }
 
+        //override because you use identity id!
         override public string Id { get; set; }
        
       
@@ -22,6 +23,8 @@ namespace OnlineCookbook.DAL.Models
         public virtual ICollection<FavouriteUser> FavouriteUsers { get; set; }
         public virtual ICollection<MessageUser> MessageUsers { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
+
+        //no foreign key in user
        
     }
 }

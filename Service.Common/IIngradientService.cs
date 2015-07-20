@@ -8,7 +8,7 @@ namespace OnlineCookbook.Service.Common
    public interface IIngradientService
     {
 
-        Task<List<IIngradient>> GetAsync(IngradientFilter filter);
+        Task<List<IIngradient>> GetAsync(IngradientFilter filter = null);
         Task<IIngradient> GetAsync(string id);
         Task<List<IIngradient>> GetNameAsync(string name);
         Task<int> InsertAsync(IIngradient entity);

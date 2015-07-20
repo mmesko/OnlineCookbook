@@ -27,16 +27,18 @@ namespace OnlineCookbook.Repository
             Repository = repository;
         }
 
-        public virtual async Task<List<IRecipeAlergen>> GetAsync(RecipeAlergenFilter filter)
+        public virtual async Task<List<IRecipeAlergen>> GetAsync(RecipeAlergenFilter filter = null)
         {
             try
             {
+                if (filter == null)
+                    filter = new RecipeAlergenFilter(1, 5);
+
                 return Mapper.Map<List<IRecipeAlergen>>(
                     await Repository.WhereAsync<RecipeAlergen>()
-                            .OrderBy(filter.SortOrder)
-                            .Skip<RecipeAlergen>((filter.PageNumber - 1) * filter.PageSize)
-                            .Take<RecipeAlergen>(filter.PageSize)
-                            .ToListAsync<RecipeAlergen>()
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize)
+                            .ToListAsync()
                     );
             }
             catch (Exception e)
@@ -106,21 +108,21 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual async Task<List<IRecipeAlergen>> GetRecipeAlergenAsync(string recipeId, RecipeAlergenFilter filter)
+        public virtual async Task<List<IRecipe>> GetRecipeAlergenAsync(string recipeId, string alergenUnit)
         { 
-            try{
+            try
+            {
 
-                return Mapper.Map<List<IRecipeAlergen>>(
-                       await Repository.WhereAsync<RecipeAlergen>()
-                       .Where(item => item.RecipeId == recipeId)
-                       .OrderBy(filter.SortOrder)
-                       .Skip<RecipeAlergen>((filter.PageNumber - 1) * filter.PageSize)
-                       .Take<RecipeAlergen>(filter.PageSize)
-                       .Include(item => item.Alergen)
-                       .ToListAsync<RecipeAlergen>()
-                    
-                    
-                    );
+                // get entity with RecipeId of the Recipe we are looking for
+                var recipe = await Repository.WhereAsync<RecipeAlergen>()
+                      //all must be in same table
+                      .Where(item => item.RecipeId == recipeId && item.AlergenUnit == alergenUnit)
+                      .Include(item=>item.Recipe)
+                      .ToListAsync();
+
+                //return List of recipes
+                return Mapper.Map<List<IRecipe>>(recipe);
+  
             }
         
            catch(Exception e)

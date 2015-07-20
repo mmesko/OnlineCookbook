@@ -11,7 +11,6 @@ namespace OnlineCookbook.Model
         {
             this.Comments = new List<IComment>();
             this.Favourites = new List<IFavourite>();
-           
             this.RecipeAlergens = new List<IRecipeAlergen>();
             this.RecipeIngradients = new List<IRecipeIngradient>();
             
@@ -25,11 +24,13 @@ namespace OnlineCookbook.Model
          public bool RecipeComplexity { get; set; }
          public string RecipeText { get; set; }
          public string Abrv { get; set; }
+
          public virtual ICategory Category { get; set; }
+         public virtual IUser User { get; set; }
+
          public virtual ICollection<IComment> Comments { get; set; }
          public virtual ICollection<IFavourite> Favourites { get; set; }
-         
-         public virtual IUser User { get; set; }
+        
          public virtual ICollection<IRecipeAlergen> RecipeAlergens { get; set; }
          public virtual ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
         

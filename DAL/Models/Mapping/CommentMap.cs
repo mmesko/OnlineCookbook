@@ -32,6 +32,7 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.RecipeId).HasColumnName("RecipeId");
             this.Property(t => t.CommentText).HasColumnName("CommentText");
+            
 
             // Relationships
             this.HasRequired(t => t.Recipe)

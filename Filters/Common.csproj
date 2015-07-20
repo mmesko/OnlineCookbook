@@ -45,15 +45,10 @@
     <Compile Include="Filters\CommentFilter.cs" />
     <Compile Include="Filters\FavouriteFilter.cs" />
     <Compile Include="Filters\GenericFilter.cs" />
-    <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Filters\IngradientFilter.cs" />
-    <Compile Include="Filters\PreparationStepFilter.cs" />
     <Compile Include="Filters\RecipeAlergenFilter.cs" />
     <Compile Include="Filters\RecipeFilter.cs" />
     <Compile Include="Filters\RecipeIngradientFilter.cs" />
-    <Compile Include="Filters\RoleFilter.cs" />
-    <Compile Include="Filters\UserFilter.cs" />
-    <Compile Include="Filters\UserRoleFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

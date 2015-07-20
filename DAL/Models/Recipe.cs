@@ -25,10 +25,8 @@ namespace OnlineCookbook.DAL.Models
         public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Favourite> Favourites { get; set; }
-      
         public virtual ICollection<RecipeAlergen> RecipeAlergens { get; set; }
         public virtual ICollection<RecipeIngradient> RecipeIngradients { get; set; }
-       
         public virtual User User { get; set; }
     }
 }

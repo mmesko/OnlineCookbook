@@ -98,10 +98,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201507131115222_m4.cs" />
-    <Compile Include="Migrations\201507131115222_m4.Designer.cs">
-      <DependentUpon>201507131115222_m4.cs</DependentUpon>
+    <Compile Include="Migrations\201507152152471_ff.cs" />
+    <Compile Include="Migrations\201507152152471_ff.Designer.cs">
+      <DependentUpon>201507152152471_ff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507152226006_ff1.cs" />
+    <Compile Include="Migrations\201507152226006_ff1.Designer.cs">
+      <DependentUpon>201507152226006_ff1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507191011324_AddRows.cs" />
+    <Compile Include="Migrations\201507191011324_AddRows.Designer.cs">
+      <DependentUpon>201507191011324_AddRows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Alergen.cs" />
     <Compile Include="Models\AspNetRole.cs" />
     <Compile Include="Models\AspNetUser.cs" />
@@ -148,8 +157,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507131115222_m4.resx">
-      <DependentUpon>201507131115222_m4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507152152471_ff.resx">
+      <DependentUpon>201507152152471_ff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507152226006_ff1.resx">
+      <DependentUpon>201507152226006_ff1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507191011324_AddRows.resx">
+      <DependentUpon>201507191011324_AddRows.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

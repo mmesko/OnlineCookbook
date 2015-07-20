@@ -19,7 +19,7 @@ namespace OnlineCookbook.Service
         }
 
 
-        public Task<List<IIngradient>> GetAsync(IngradientFilter filter)
+        public Task<List<IIngradient>> GetAsync(IngradientFilter filter = null)
         {
             try
             {

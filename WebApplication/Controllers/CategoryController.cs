@@ -9,6 +9,7 @@ using OnlineCookbook.Model.Common;
 using OnlineCookbook.Model;
 using OnlineCookbook.Service.Common;
 using OnlineCookbook.Common.Filters;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -27,12 +28,11 @@ namespace WebApplication.Controllers
         public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0)
         {
             try
-            {               
+            {
                 var result = await Service.GetAsync(new CategoryFilter(pageNumber, pageSize));
                 if (result != null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK,
-                        Mapper.Map<List<CategoryModel>>(result));
+                    return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<CategoryModel>>(result));
                 }
                 else
                 {
@@ -44,6 +44,7 @@ namespace WebApplication.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
             }
         }
+
 
         // GET: api/Category/5
         [HttpGet]
@@ -59,6 +60,30 @@ namespace WebApplication.Controllers
                         Mapper.Map<CategoryModel>(result));
                 }
                 else return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
+        }
+
+        // GET: api/Alergen/getByName/
+        [HttpGet()]
+        [Route("getByName/{name}")]
+        public async Task<HttpResponseMessage> GetByName(string name)
+        {
+            try
+            {
+                var result = await Service.GetNameAsync(name);
+
+                if (result != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<CategoryModel>>(result));
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
             }
             catch (Exception e)
             {
@@ -146,12 +171,5 @@ namespace WebApplication.Controllers
             }
         }
 
-        public class CategoryModel
-        {
-            public string Id { get; set; }
-            public string CategoryName { get; set; }
-            public string Abrv { get; set; }
-        
-        }
     }
 }

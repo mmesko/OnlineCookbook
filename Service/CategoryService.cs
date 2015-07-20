@@ -30,7 +30,7 @@ namespace OnlineCookbook.Service
 
         #region Methods
 
-        public Task<List<ICategory>> GetAsync(CategoryFilter filter)
+        public Task<List<ICategory>> GetAsync(CategoryFilter filter = null)
         {
             try
             {
@@ -54,6 +54,19 @@ namespace OnlineCookbook.Service
             }
         }
 
+
+        public async Task<List<ICategory>> GetNameAsync(string name)
+        {
+            try
+            {
+                return await Repository.GetNameAsync(name);
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
         public Task<int> InsertAsync(ICategory entity)
         {
             try

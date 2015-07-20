@@ -10,7 +10,8 @@ namespace OnlineCookbook.Service.Common
 {
      public interface ICategoryService
     {
-        Task<List<ICategory>> GetAsync(CategoryFilter filter);
+        Task<List<ICategory>> GetAsync(CategoryFilter filter = null);
+        Task<List<ICategory>> GetNameAsync(string name);
         Task<ICategory> GetAsync(string id);
         Task<int> InsertAsync(ICategory entity);
         Task<int> UpdateAsync(ICategory entity);

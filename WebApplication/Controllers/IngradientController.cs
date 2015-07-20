@@ -8,6 +8,7 @@ using System.Web.Http;
 using OnlineCookbook.Model;
 using OnlineCookbook.Service.Common;
 using OnlineCookbook.Common.Filters;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -25,7 +26,7 @@ namespace WebApplication.Controllers
         // GET: api/Ingradient
         [Route("{pageNumber}/{pageSize}")]
         [HttpGet]
-        public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0) //kalsa uestionRequest s ovim praznim parametrima?
+        public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0)
         {
             try
             {
@@ -161,13 +162,6 @@ namespace WebApplication.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
             }
         }
-
-        public class IngradientModel
-        {
-            public string Id { get; set; }
-            public string IngradientName { get; set; }
-            public string Abrv { get; set; }
-        }
-
+      
     }
 }

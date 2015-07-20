@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using OnlineCookbook.Model;
 using AutoMapper;
 using OnlineCookbook.Common.Filters;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -25,12 +26,12 @@ namespace WebApplication.Controllers
         }
         // GET: api/Favourite
         [HttpGet]
-        [Route("")]
-        public async Task<HttpResponseMessage> Get(string sortOrder = "", string sortDirection = "", int pageNumber = 0, int pageSize = 0)
+        [Route("{recipeId}/{pageNumber}/{pageSize}")]
+        public async Task<HttpResponseMessage> Get(string id, int pageNumber = 0, int pageSize = 0)
         {
             try
             {
-                var result = await Service.GetAsync(new FavouriteFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                var result = await Service.GetAsync(id, new FavouriteFilter(pageNumber, pageSize));
                 if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<FavouriteModel>>(result));
@@ -163,12 +164,6 @@ namespace WebApplication.Controllers
             }
         }
 
-        public class FavouriteModel
-        {
-            public string Id { get; set; }
-            public string RecipeId { get; set; }
-            public string FavouriteName { get; set; }
-            public string Abrv { get; set; }
-        }
+       
     }
 }

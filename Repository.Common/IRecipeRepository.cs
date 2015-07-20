@@ -18,9 +18,9 @@ namespace OnlineCookbook.Repository.Common
         Task<int> DeleteAsync(IRecipe entity);
         Task<int> DeleteAsync(string id);
 
-        //Task<int> GetByComplexityAsync(IRecipe entity);
-        Task<List<IRecipe>> GetByCategoryAsync(string  categoryId, RecipeFilter filter = null);
-        // Task<List<IRecipe>> GetByIngradientAsync(string ingradientId); staviti u service -> business logic
+        //Task<int> GetByComplexityAsync(IRecipe entity); may be added?
+        //Task<List<IRecipe>> GetByCategoryAsync(string userId, string  categoryId, RecipeFilter filter = null);
+       
         Task<IUnitOfWork> CreateUnitOfWork();
     }
 }

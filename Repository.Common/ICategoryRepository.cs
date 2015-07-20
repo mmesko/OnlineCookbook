@@ -11,6 +11,7 @@ namespace OnlineCookbook.Repository.Common
     {
         Task<List<ICategory>> GetAsync(CategoryFilter filter = null);
         Task<ICategory> GetAsync(string id);
+        Task<List<ICategory>> GetNameAsync(string name);
         Task<int> InsertAsync(ICategory entity);
         Task<int> UpdateAsync(ICategory entity);
         Task<int> DeleteAsync(ICategory entity);

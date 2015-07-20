@@ -25,38 +25,28 @@ namespace OnlineCookbook.Repository
             Repository = repository;       
         }
 
-       
+
 
         public virtual async Task<List<IRecipe>> GetAsync(RecipeFilter filter = null)
         {
             try
             {
-                if (filter != null)
-                {
-                    return Mapper.Map<List<IRecipe>>(
-                        await Repository.WhereAsync<Recipe>()
-                                 .OrderBy(filter.SortOrder)
-                                 .Skip<Recipe>((filter.PageNumber - 1) * filter.PageSize)
-                                 .Take<Recipe>(filter.PageSize)
-                                 //.Include(item => item.RecipePictures)
-                                 .ToListAsync<Recipe>()
-                                 );
-                }
-                else // return all
-                {
-                    return Mapper.Map<List<IRecipe>>(
-                        await Repository.WhereAsync<Recipe>()
-                        //.Include(item => item.RecipePictures)
-                        .ToListAsync()
-                        );
-                }
+                if (filter == null)
+                    filter = new RecipeFilter(1, 5);
+
+
+                return Mapper.Map<List<IRecipe>>(
+                    await Repository.WhereAsync<Recipe>()
+                            .OrderBy(a => a.RecipeTitle)
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize).ToListAsync()
+                    );
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-
 
 
         public virtual async Task<IRecipe> GetAsync(string id)
@@ -66,7 +56,6 @@ namespace OnlineCookbook.Repository
                 return Mapper.Map<IRecipe>(
                     await Repository.WhereAsync<Recipe>()
                     .Where(item => item.Id == id)
-                    //.Include(item => item.RecipePictures)
                     .SingleAsync()
                     );
             }
@@ -93,42 +82,34 @@ namespace OnlineCookbook.Repository
         
         }
 
-        public async virtual Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null)
-        {
-            try
-            {
-                if (filter != null)
-                {
-                    return Mapper.Map<List<IRecipe>>(
-                        await Repository.WhereAsync<Recipe>()
-                         .Where<Recipe>(item => item.CategoryId == categoryId)
-                         .OrderBy(filter.SortOrder)
-                         .Skip<Recipe>((filter.PageNumber - 1) * filter.PageSize)
-                         .Take<Recipe>(filter.PageSize)
-                         //.Include(item => item.RecipePictures)
-                         .ToListAsync<Recipe>()
-
-                        );
-                }
-                else
-                {
-                    return Mapper.Map<List<IRecipe>>(
-                     await Repository.WhereAsync<Recipe>()
-                      .Where<Recipe>(item => item.CategoryId == categoryId)
-                      .OrderBy(filter.SortOrder)
-                      //.Include(item => item.RecipePictures)
-                      .ToListAsync<Recipe>()
-                     );
-                }
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
-
-        
-          }
+        //public async virtual Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null)
+        //{
+        //    try
+        //    {
+        //        if (filter != null)
+        //        {
+        //            return Mapper.Map<List<IRecipe>>(
+        //                await Repository.WhereAsync<Recipe>()
+        //                 .Where(item => item.CategoryId == categoryId) 
+        //                 .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+        //                 .Take(filter.PageSize)
+        //                 .ToListAsync()
+        //                );
+        //        }
+        //        else
+        //        {
+        //            return Mapper.Map<List<IRecipe>>(
+        //             await Repository.WhereAsync<Recipe>()
+        //              .Where<Recipe>(item => item.CategoryId == categoryId)
+        //              .ToListAsync<Recipe>()
+        //             );
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //  }
 
       
         public virtual Task<int> InsertAsync(IRecipe entity)

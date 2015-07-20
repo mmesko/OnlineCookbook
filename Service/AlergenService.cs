@@ -23,7 +23,7 @@ namespace OnlineCookbook.Service
             Repository = repository;
         }
 
-        public async Task<List<IAlergen>> GetAsync(AlergenFilter filter)
+        public async Task<List<IAlergen>> GetAsync(AlergenFilter filter = null)
         {
             try
             {

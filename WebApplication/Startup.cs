@@ -11,7 +11,8 @@ namespace WebApplication
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
-        {
+        {   
+            //Cors should be added first!
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureAuth(app);
         }

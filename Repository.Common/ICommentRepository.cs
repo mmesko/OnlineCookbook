@@ -9,18 +9,18 @@ namespace OnlineCookbook.Repository.Common
 {
     public interface ICommentRepository
     {
-        Task<List<IComment>> GetAsync(CommentFilter filter = null);
+        Task<IEnumerable<IComment>> GetAsync();
         Task<IComment> GetAsync(string id);
-        Task<List<IComment>> GetCommentsAsync(string recipeId); 
+        Task<IEnumerable<IComment>> GetRangeAsync(string recipeId, GenericFilter filter);
 
         Task<int> InsertAsync(IComment entity);
 
-        Task<int> UpdateAsync(IUnitOfWork unitOfWork, IComment entity);
+        //Task<int> UpdateAsync(IUnitOfWork unitOfWork, IComment entity);
         Task<int> UpdateAsync(IComment entity);
 
         Task<int> DeleteAsync(IComment entity);
         Task<int> DeleteAsync(string id);
 
-        Task<IUnitOfWork> CreateUnitOfWork();
+        //Task<IUnitOfWork> CreateUnitOfWork();
     }
 }

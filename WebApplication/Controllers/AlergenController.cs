@@ -12,6 +12,7 @@ using OnlineCookbook.Service.Common;
 using OnlineCookbook.Service;
 using System.Data.Entity.Validation;
 using OnlineCookbook.Common.Filters;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -165,11 +166,5 @@ namespace WebApplication.Controllers
         }
 
 
-        public class AlergenModel
-        {
-            public string Id { get; set; }
-            public string AlergenName { get; set; }
-            public string Abrv { get; set; }
-        }
     }
 }

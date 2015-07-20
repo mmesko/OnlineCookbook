@@ -28,24 +28,16 @@ namespace OnlineCookbook.Repository
 
             try
             {
-                if (filter != null)
-                {
-                    return Mapper.Map<List<IRecipeIngradient>>(
-                        await Repository.WhereAsync<RecipeIngradient>()
-                                .OrderBy(filter.SortOrder)
-                                .Skip<RecipeIngradient>((filter.PageNumber - 1) * filter.PageSize)
-                                .Take<RecipeIngradient>(filter.PageSize)
-                                .ToListAsync<RecipeIngradient>()
-                        );
-                }
-                else
-                {
-                    return Mapper.Map<List<IRecipeIngradient>>(
-                     await Repository.WhereAsync<RecipeIngradient>()
-                             .ToListAsync<RecipeIngradient>()
-                     );
-                }
+                if (filter == null)
+                    filter = new RecipeIngradientFilter(1, 5);
 
+
+                return Mapper.Map<List<IRecipeIngradient>>(
+                    await Repository.WhereAsync<RecipeIngradient>()
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize)
+                            .ToListAsync()
+                    );
             }
             catch (Exception e)
             {
@@ -129,17 +121,16 @@ namespace OnlineCookbook.Repository
                     return Mapper.Map<List<IRecipeIngradient>>(
                            await Repository.WhereAsync<RecipeIngradient>()
                            .Where(item => item.RecipeId == recipeId)
-                           .OrderBy(filter.SortOrder)
-                           .Skip<RecipeIngradient>((filter.PageNumber - 1) * filter.PageSize)
-                           .Take<RecipeIngradient>(filter.PageSize)
+                           .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                           .Take(filter.PageSize)
                            .Include(item => item.Ingradient)
-                           .ToListAsync<RecipeIngradient>()
+                           .ToListAsync()
 
 
                         );
                 }
                 else
-                {
+                {   //return all
                     return Mapper.Map<List<IRecipeIngradient>>(
                           await Repository.WhereAsync<RecipeIngradient>()
                           .Where(item => item.RecipeId == recipeId)

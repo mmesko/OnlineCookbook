@@ -7,14 +7,14 @@ namespace OnlineCookbook.Service.Common
 {
    public interface IRecipeAlergenService
     {
-        Task<List<IRecipeAlergen>> GetAsync(RecipeAlergenFilter filter);
+        Task<List<IRecipeAlergen>> GetAsync(RecipeAlergenFilter filter = null);
         Task<IRecipeAlergen> GetAsync(string id);
         Task<int> InsertAsync(IRecipeAlergen entity);
         Task<int> UpdateAsync(IRecipeAlergen entity);
         Task<int> DeleteAsync(IRecipeAlergen entity);
         Task<int> DeleteAsync(string id);
 
-        Task<List<IRecipeAlergen>> GetRecipeAlergenAsync(string recipeId, RecipeAlergenFilter filter);
+        Task<List<IRecipe>> GetRecipeAlergenAsync(string recipeId, string alergenUnit);
 
     }
 }

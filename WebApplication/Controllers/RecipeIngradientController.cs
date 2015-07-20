@@ -10,6 +10,7 @@ using OnlineCookbook.Service.Common;
 using OnlineCookbook.Common.Filters;
 using System.Threading.Tasks;
 using AutoMapper;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -26,12 +27,11 @@ namespace WebApplication.Controllers
         // GET: api/RecipeIngradient
          [HttpGet]
          [Route("")]
-         public async Task<HttpResponseMessage> Get(string sortOrder = "", string sortDirection = "",
-             int pageNumber = 0, int pageSize = 0)
+         public async Task<HttpResponseMessage> Get(int pageNumber = 0, int pageSize = 0)
          {
              try
              {
-                 var result = await Service.GetAsync(new RecipeIngradientFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                 var result = await Service.GetAsync(new RecipeIngradientFilter(pageNumber, pageSize));
                  if (result != null)
                  {
                      return Request.CreateResponse(HttpStatusCode.OK,
@@ -153,17 +153,16 @@ namespace WebApplication.Controllers
          // GET: api/RecipeAlergen/5
          [HttpGet]
          [Route("Alergens/{id:guid}")]
-         public async Task<HttpResponseMessage> GetRecipeIngradientAsync(string id, string sortOrder = "",
-             string sortDirection = "", int pageNumber = 0, int pageSize = 0)
+         public async Task<HttpResponseMessage> GetRecipeIngradientAsync(string id, int pageNumber = 0, int pageSize = 0)
          {
              try
              {
-                 var result = await Service.GetRecipeIngradientAsync(id, new RecipeIngradientFilter(sortOrder, sortDirection, pageNumber, pageSize));
+                 var result = await Service.GetRecipeIngradientAsync(id, new RecipeIngradientFilter( pageNumber, pageSize));
 
                  if (result != null)
                  {
                      return Request.CreateResponse(HttpStatusCode.OK,
-                         Mapper.Map<List<IngradientController.IngradientModel>>(result));
+                         Mapper.Map<List<IngradientModel>>(result));
                  }
                  else
                  {
@@ -176,13 +175,6 @@ namespace WebApplication.Controllers
              }
          }
 
-        public class RecipeIngradientModel
-        {
-            public string Id { get; set; }
-            public string IngradientId { get; set; }
-            public string RecipeId { get; set; }
-            public int IngradientQuantity { get; set; }
-            public string IngradientUnit { get; set; }
-        }
+       
     }
 }

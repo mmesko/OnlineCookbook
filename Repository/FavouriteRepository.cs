@@ -24,16 +24,20 @@ namespace OnlineCookbook.Repository
             Repository = repository;       
         }
 
-        public virtual async Task<List<IFavourite>> GetAsync(FavouriteFilter filter)
+        public virtual async Task<List<IFavourite>> GetAsync(string recipeId, FavouriteFilter filter = null)
         {
             try
             {
+                if (filter == null)
+                    filter = new FavouriteFilter(1, 5);
+
+
                 return Mapper.Map<List<IFavourite>>(
                     await Repository.WhereAsync<Favourite>()
-                            .OrderBy(filter.SortOrder)
-                            .Skip<Favourite>((filter.PageNumber - 1) * filter.PageSize)
-                            .Take<Favourite>(filter.PageSize)
-                            .ToListAsync<Favourite>()
+                            .Where(item=>item.RecipeId == recipeId)
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize)
+                            .ToListAsync()
                     );
             }
             catch (Exception e)
@@ -61,7 +65,7 @@ namespace OnlineCookbook.Repository
                 return Mapper.Map<List<IFavourite>>(
                     await Repository.WhereAsync<Favourite>()
                             .Where(item => item.FavouriteName.Contains(name))
-                            .ToListAsync<Favourite>()
+                            .ToListAsync()
                     );
             }
             catch (Exception e)
@@ -74,6 +78,7 @@ namespace OnlineCookbook.Repository
         {
             try
             {
+                
                 return Repository.InsertAsync<Favourite>(Mapper.Map<Favourite>(entity));
             }
             catch (Exception e)
@@ -81,7 +86,8 @@ namespace OnlineCookbook.Repository
                 throw e;
             }
         }
-
+       
+       //update with add?
         public virtual Task<int> UpdateAsync(IFavourite entity)
         {
             try
@@ -94,6 +100,7 @@ namespace OnlineCookbook.Repository
                 throw e;
             }
         }
+
 
         public virtual Task<int> DeleteAsync(IFavourite entity)
         {

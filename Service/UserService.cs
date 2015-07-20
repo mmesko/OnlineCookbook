@@ -41,9 +41,7 @@ namespace OnlineCookbook.Service
             }
         }
 
-        /// <summary>
-        /// Register add user
-        /// </summary>
+
         public async Task<bool> RegisterUser(Model.Common.IUser user, string password)
         {
             try

@@ -119,18 +119,16 @@ namespace WebApplication.Controllers
             }
         }
 
-        /// <summary>
-        /// Keeps user model that holds user and password
-        /// </summary>
+
+        // Keeps user model that holds user and password
         public class ChangeUserModel
         {
             public UserModel User { get; set; }
             public string Password { get; set; }
         }
 
-        /// <summary>
-        /// Keeps model data for changing user password
-        /// </summary>
+        
+        // Keeps model data for changing user password
         public class ChangeUserPasswordModel
         {
             public string UserId { get; set; }

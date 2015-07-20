@@ -17,97 +17,16 @@ namespace OnlineCookbook.Service
             Repository = repository;
         }
 
-        public Task<List<IComment>> GetAsync(CommentFilter filter = null)
-        {
-            try
-            {
-                return Repository.GetAsync(filter);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
 
+        public async Task<IEnumerable<IComment>> GetRangeAsync(string recipeId, GenericFilter filter)
+        {
+            return await Repository.GetRangeAsync(recipeId, filter);
         }
 
-
-        public Task<IComment> GetAsync(string id)
+        public async Task<int> InsertAsync(IComment comment)
         {
-            try
-            {
-                return Repository.GetAsync(id);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
+            return await Repository.InsertAsync(comment);
         }
-
-        public Task<List<IComment>> GetCommentsAsync(string recipeId)
-        {
-
-            try
-            {
-                return Repository.GetCommentsAsync(recipeId);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        
-        }
-
-        public Task<int> InsertAsync(IComment entity)
-        {
-            try
-            {
-                return Repository.InsertAsync(entity);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
-        }
-
-        public Task<int> UpdateAsync(IComment entity)
-        {
-            try
-            {
-                return Repository.UpdateAsync(entity);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-
-        public Task<int> DeleteAsync(IComment entity)
-        {
-            try
-            {
-                return Repository.DeleteAsync(entity);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public Task<int> DeleteAsync(string id)
-        {
-            try
-            {
-                return Repository.DeleteAsync(id);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
  
     }
 }
