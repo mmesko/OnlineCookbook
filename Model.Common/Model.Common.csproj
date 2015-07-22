@@ -96,6 +96,7 @@
     <Compile Include="IRecipe.cs" />
     <Compile Include="IRecipeAlergen.cs" />
     <Compile Include="IRecipeIngradient.cs" />
+    <Compile Include="IRecipePicture.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

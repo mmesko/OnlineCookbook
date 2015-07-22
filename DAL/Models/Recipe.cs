@@ -11,6 +11,7 @@ namespace OnlineCookbook.DAL.Models
             this.Favourites = new List<Favourite>();   
             this.RecipeAlergens = new List<RecipeAlergen>();
             this.RecipeIngradients = new List<RecipeIngradient>();
+            this.RecipePictures = new List<RecipePicture>();
            
         }
 
@@ -27,6 +28,7 @@ namespace OnlineCookbook.DAL.Models
         public virtual ICollection<Favourite> Favourites { get; set; }
         public virtual ICollection<RecipeAlergen> RecipeAlergens { get; set; }
         public virtual ICollection<RecipeIngradient> RecipeIngradients { get; set; }
+        public virtual ICollection<RecipePicture> RecipePictures { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -18,14 +18,61 @@ namespace OnlineCookbook.Service
         }
 
 
-        public async Task<IEnumerable<IComment>> GetRangeAsync(string recipeId, GenericFilter filter)
+        public async Task<IEnumerable<IComment>> GetAsync(string recipeId, GenericFilter filter)
         {
-            return await Repository.GetRangeAsync(recipeId, filter);
+            try
+            {
+                return await Repository.GetAsync(recipeId, filter);
+            }
+          
+            catch(Exception e)
+            {
+                throw e.InnerException;
+            }
         }
 
-        public async Task<int> InsertAsync(IComment comment)
+        public async Task<IComment> InsertAsync(IComment entity)
         {
-            return await Repository.InsertAsync(comment);
+            try 
+            {
+                return await Repository.InsertICommentAsync(entity);
+            }
+            catch (Exception e)
+            {
+                throw e.InnerException;
+            }
+            
+        }
+
+        /// <summary>
+        /// Updates given comment
+        /// </summary>
+        public async Task<IComment> UpdateAsync(IComment entity)
+        {
+            try
+            {
+                return await Repository.UpdateICommentAsync(entity);
+            }
+            catch (Exception e)
+            {
+                throw e.InnerException;
+            }
+            
+        }
+
+        /// <summary>
+        /// Deletes review by id
+        /// </summary>
+        public async Task<int> DeleteAsync(string id)
+        {
+            try
+            {
+                return await Repository.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                throw e.InnerException;
+            }
         }
  
     }

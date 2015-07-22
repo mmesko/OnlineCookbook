@@ -13,7 +13,7 @@ namespace OnlineCookbook.Service
             Bind<IUserService>().To<UserService>();
             Bind<IRecipeAlergenService>().To<RecipeAlergenService>();
             Bind<IRecipeIngradientService>().To<RecipeIngradientService>();
-          
+            Bind<IRecipePictureService>().To<RecipePictureService>();
             Bind<IFavouriteService>().To<FavouriteService>();
             Bind<IRecipeService>().To<RecipeService>();
           

@@ -102,28 +102,28 @@ namespace WebApplication.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("Category/{id:guid}")]
-        //public async Task<HttpResponseMessage> GetByCategory(string id)
-        //{
-        //    try
-        //    {
-        //        var result = await Service.GetByCategoryAsync(id, new RecipeFilter(0, 0));
-        //        if (result != null)
-        //        {
-        //            return Request.CreateResponse(HttpStatusCode.OK,
-        //                Mapper.Map<List<RecipeModel>>(result));
-        //        }
-        //        else
-        //        {
-        //            return Request.CreateResponse(HttpStatusCode.NotFound);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
-        //    }
-        //}
+        [HttpGet]
+        [Route("{categoryId}/{pageNumber}/{pageSize}")]
+        public async Task<HttpResponseMessage> GetByCategory(string id, int pageNumber = 0, int pageSize = 0)
+        {
+            try
+            {
+                var result = await Service.GetByCategoryAsync(id, new RecipeFilter(pageNumber, pageSize));
+                if (result != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK,
+                        Mapper.Map<List<RecipeModel>>(result));
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
+            }
+        }
 
         // POST: api/Recipe
         [HttpPost]
@@ -150,35 +150,34 @@ namespace WebApplication.Controllers
             }
         }
 
-        // PUT: api/Recipe/5
+        // PUT: api/Alergen/5
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<HttpResponseMessage> Put(string id, RecipeModel entity)
+        public async Task<HttpResponseMessage> Put(string id, RecipeModel model)
         {
             try
             {
-                if (id != entity.Id)
-                {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest, "IDs do not match.");
-                }
+                
 
-                var result = await Service.UpdateAsync(Mapper.Map<IRecipe>(entity));
-
-                if (result == 1)
+                if (id == model.Id)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, entity);
+                    var result = await Service.UpdateAsync(Mapper.Map<RecipePOCO>(model));
+                    if (result == 1)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, model);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound);
+                    }
                 }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
-                }
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "ID's don't match!");
             }
             catch (Exception e)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.ToString());
             }
         }
-
 
   
 

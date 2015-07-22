@@ -22,6 +22,7 @@ namespace OnlineCookbook.Repository
             Bind<IRecipeIngradientRepository>().To<RecipeIngradientRepository>();
             Bind<IFavouriteRepository>().To<FavouriteRepository>();           
             Bind<ICommentRepository>().To<CommentRepository>();
+            Bind<IRecipePictureRepository>().To<RecipePictureRepository>();
           
             Bind<ICookBookContext>().To<CookBookContext>();
             Bind<IRepository>().To<Repository>();

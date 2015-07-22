@@ -63,19 +63,19 @@ namespace OnlineCookbook.Service
        }
 
 
-       //public Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null)
-       //{
+       public Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null)
+       {
 
-       //    try
-       //    {
-       //        return Repository.GetByCategoryAsync(categoryId, filter);
-       //    }
-       //    catch (Exception e)
-       //    {
-       //        throw e;
-       //    }
-       
-       //}
+           try
+           {
+               return Repository.GetByCategoryAsync(categoryId, filter);
+           }
+           catch (Exception e)
+           {
+               throw e;
+           }
+
+       }
 
        public async Task<int> InsertAsync(IRecipe entity)
        {

@@ -25,7 +25,7 @@ namespace OnlineCookbook.Repository
         }
 
 
-        public virtual async Task<IEnumerable<IComment>> GetAsync()
+        public virtual async Task<IEnumerable<IComment>> GetAsync(IRecipe entity)
         {
             try
             {
@@ -37,6 +37,8 @@ namespace OnlineCookbook.Repository
                 throw e;
             }
         }
+
+    
 
         public virtual async Task<IComment> GetAsync(string id)
         {
@@ -55,7 +57,7 @@ namespace OnlineCookbook.Repository
         {
             try
             {
-                return Repository.InsertAsync<Comment>(
+                return Repository.AddAsync<Comment>(
                     Mapper.Map<Comment>(entity));
             }
             catch (Exception e)
@@ -64,25 +66,33 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        //public async Task<List<IComment>> AddCommentsAsync(string recipeId)
-        //{
+        /// <summary>
+        /// Adds comments and updates recipe with raiting
+        /// </summary>
+        /// <param name="review">Comment</param>
+        /// <returns>Comment</returns>
+        public async Task<IComment> InsertICommentAsync(IComment entity)
+        {
+            try
+            {
+                IUnitOfWork uow = Repository.CreateUnitOfWork();
 
-        //    try
-        //    {
-        //        return Mapper.Map<List<IComment>>(
-        //             await Repository.WhereAsync<Comment>()
-        //             .Where<Comment>(item => item.RecipeId == recipeId)
-        //             .ToListAsync<Comment>()
-        //             );
+                Comment result = await uow.AddAsync<Comment>(Mapper.Map<Comment>(entity));
 
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw e;
-        //    }
-        
-        //}
-        public async Task<IEnumerable<IComment>> GetRangeAsync(string recipeId, GenericFilter filter)
+                await uow.CommitAsync();
+
+                return Mapper.Map<IComment>(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+    
+        public async Task<IEnumerable<IComment>> GetAsync(string recipeId, GenericFilter filter)
         {
             try
             {
@@ -104,19 +114,6 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        //public virtual Task<int> UpdateAsync(IUnitOfWork unitOfWork, IComment entity)
-        //{
-        //    try
-        //    {
-        //        return unitOfWork.UpdateAsync<Comment>(
-        //            Mapper.Map<Comment>(entity));
-        //    }
-
-        //    catch (Exception e)
-        //    {
-        //        throw e;
-        //    }
-        //}
 
         public virtual Task<int> UpdateAsync(IComment entity)
         {
@@ -127,6 +124,25 @@ namespace OnlineCookbook.Repository
 
             catch (Exception e)
             {
+                throw e;
+            }
+        }
+
+        public async Task<IComment> UpdateICommentAsync(IComment entity)
+        {
+            try
+            {
+                IUnitOfWork uow = Repository.CreateUnitOfWork();
+                Comment result = await uow.UpdateWithAttachAsync<Comment>(
+                    AutoMapper.Mapper.Map<Comment>(entity));
+                await uow.CommitAsync();
+
+                return AutoMapper.Mapper.Map<IComment>(result);
+
+            }
+            catch (Exception e)
+            {
+
                 throw e;
             }
         }

@@ -26,24 +26,24 @@ namespace OnlineCookbook.Repository
                DbContext = dbContext;
            }
 
-           public virtual Task<int> AddAsync<T>(T entity) where T : class
+           public virtual Task<T> AddAsync<T>(T entity) where T : class
            {
                try
                {
-                   DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
-                   if (dbEntityEntry.State != EntityState.Detached)
+                   DbEntityEntry dbEntity = DbContext.Entry(entity);
+                   if (dbEntity.State != EntityState.Detached)
                    {
-                       dbEntityEntry.State = EntityState.Added;
+                       dbEntity.State = EntityState.Added;
                    }
                    else
                    {
                        DbContext.Set<T>().Add(entity);
                    }
-                   return Task.FromResult(1);
+                   return Task.FromResult(dbEntity.Entity as T);
                }
-               catch (Exception e)
+               catch (Exception)
                {
-                   throw e;
+                   throw;
                }
 
            }
@@ -67,6 +67,30 @@ namespace OnlineCookbook.Repository
 
            }
 
+           /// <summary>
+           /// Update without adding new entites
+           /// </summary>
+           public virtual Task<T> UpdateWithAttachAsync<T>(T entity) where T : class
+           {
+               try
+               {
+                   DbEntityEntry entry = DbContext.Entry<T>(entity);
+                   entry.State = EntityState.Modified;
+
+                   return Task.FromResult(entry.Entity as T);
+               }
+               catch (Exception ex)
+               {
+
+                   throw ex;
+               }
+           }
+
+
+           /// <summary>
+           /// Updates entity, commit should be called afterwards to save changes
+           /// </summary>
+           /// <returns>T entity</returns
            public virtual Task<T> UpdateObjectAsync<T>(T entity) where T : class
            {
                try
@@ -149,6 +173,12 @@ namespace OnlineCookbook.Repository
                }
                return result;
            }
+
+
+           /// <summary>
+           /// Save changes to database
+     
+
 
            public void Dispose()
            {

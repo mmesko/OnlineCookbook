@@ -92,6 +92,7 @@
     <Compile Include="IIngradientService.cs" />
     <Compile Include="IRecipeAlergenService.cs" />
     <Compile Include="IRecipeIngradientService.cs" />
+    <Compile Include="IRecipePictureService.cs" />
     <Compile Include="IRecipeService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

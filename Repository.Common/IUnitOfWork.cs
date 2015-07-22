@@ -9,12 +9,14 @@ namespace OnlineCookbook.Repository
 
         Task<int> CommitAsync();
 
-        Task<int> AddAsync<T>(T entity) where T : class;
+        Task<T> AddAsync<T>(T entity) where T : class;
         Task<int> UpdateAsync<T>(T entity) where T : class;
         Task<T> UpdateObjectAsync<T>(T entity) where T : class;
+        Task<T> UpdateWithAttachAsync<T>(T entity) where T : class;
         Task<T> UpdateAsync<T>(T entity, params Expression<Func<T, object>>[] entityParameters) where T : class;
         Task<int> DeleteAsync<T>(T entity) where T : class;
         Task<int> DeleteAsync<T>(string id) where T : class;
+        
       
 
     }

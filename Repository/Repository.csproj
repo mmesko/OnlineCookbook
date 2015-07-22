@@ -126,6 +126,7 @@
     <Compile Include="MessageRepository.cs" />
     <Compile Include="RecipeAlergenRepository.cs" />
     <Compile Include="RecipeIngradientRepository.cs" />
+    <Compile Include="RecipePictureRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecipeRepository.cs" />

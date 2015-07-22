@@ -48,6 +48,28 @@ namespace OnlineCookbook.Repository
             }
         }
 
+        public virtual async Task<List<IRecipe>> GetAsync(string ingradientId, RecipeFilter filter =null)
+        {
+            try
+            {
+                if (filter == null)
+                    filter = new RecipeFilter(1,5);
+                //Any() returns bool
+                var result = await Repository.WhereAsync<Recipe>()
+                     .Where(t => t.RecipeIngradients.Where(c => c.IngradientId == ingradientId).Any())
+                     .OrderBy(a => a.RecipeTitle)
+                     .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                     .Take(filter.PageSize).ToListAsync();
+                     
+                return Mapper.Map<List<IRecipe>>(result);
+
+            }
+            catch (Exception e)
+            {
+                throw e.InnerException;
+            }
+        
+        }
 
         public virtual async Task<IRecipe> GetAsync(string id)
         {
@@ -82,34 +104,34 @@ namespace OnlineCookbook.Repository
         
         }
 
-        //public async virtual Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null)
-        //{
-        //    try
-        //    {
-        //        if (filter != null)
-        //        {
-        //            return Mapper.Map<List<IRecipe>>(
-        //                await Repository.WhereAsync<Recipe>()
-        //                 .Where(item => item.CategoryId == categoryId) 
-        //                 .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
-        //                 .Take(filter.PageSize)
-        //                 .ToListAsync()
-        //                );
-        //        }
-        //        else
-        //        {
-        //            return Mapper.Map<List<IRecipe>>(
-        //             await Repository.WhereAsync<Recipe>()
-        //              .Where<Recipe>(item => item.CategoryId == categoryId)
-        //              .ToListAsync<Recipe>()
-        //             );
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw e;
-        //    }
-        //  }
+        public async virtual Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null)
+        {
+            try
+            {
+                if (filter != null)
+                {
+                    return Mapper.Map<List<IRecipe>>(
+                        await Repository.WhereAsync<Recipe>()
+                         .Where(item => item.CategoryId == categoryId)
+                         .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                         .Take(filter.PageSize)
+                         .ToListAsync()
+                        );
+                }
+                else
+                {
+                    return Mapper.Map<List<IRecipe>>(
+                     await Repository.WhereAsync<Recipe>()
+                      .Where<Recipe>(item => item.CategoryId == categoryId)
+                      .ToListAsync<Recipe>()
+                     );
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
       
         public virtual Task<int> InsertAsync(IRecipe entity)
@@ -124,18 +146,7 @@ namespace OnlineCookbook.Repository
             }
         }
 
-        public virtual Task<int> AddAsync(IUnitOfWork unitOfWork, IRecipe entity)
-        {
-            try
-            {
-                return unitOfWork.AddAsync<Recipe>(
-                    Mapper.Map<Recipe>(entity));
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+ 
 
         public virtual Task<int> UpdateAsync(IRecipe entity)
         {

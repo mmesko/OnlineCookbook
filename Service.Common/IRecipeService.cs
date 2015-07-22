@@ -13,7 +13,7 @@ namespace OnlineCookbook.Service.Common
         Task<List<IRecipe>> GetAsync(RecipeFilter filter = null);
         Task<IRecipe> GetAsync(string id);
         Task<List<IRecipe>> GetByNameAsync(string name);
-        //Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null);
+        Task<List<IRecipe>> GetByCategoryAsync(string categoryId, RecipeFilter filter = null);
 
         Task<int> InsertAsync(IRecipe entity);
 

@@ -76,6 +76,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Linq.Dynamic">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.3\lib\net40\System.Linq.Dynamic.dll</HintPath>
     </Reference>
@@ -110,6 +112,22 @@
     <Compile Include="Migrations\201507191011324_AddRows.Designer.cs">
       <DependentUpon>201507191011324_AddRows.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507221359288_ffp.cs" />
+    <Compile Include="Migrations\201507221359288_ffp.Designer.cs">
+      <DependentUpon>201507221359288_ffp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507221407053_InitFirstPic.cs" />
+    <Compile Include="Migrations\201507221407053_InitFirstPic.Designer.cs">
+      <DependentUpon>201507221407053_InitFirstPic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507221416299_PICTURE.cs" />
+    <Compile Include="Migrations\201507221416299_PICTURE.Designer.cs">
+      <DependentUpon>201507221416299_PICTURE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507221420451_mmm.cs" />
+    <Compile Include="Migrations\201507221420451_mmm.Designer.cs">
+      <DependentUpon>201507221420451_mmm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Alergen.cs" />
     <Compile Include="Models\AspNetRole.cs" />
@@ -137,12 +155,14 @@
     <Compile Include="Models\Mapping\RecipeAlergenMap.cs" />
     <Compile Include="Models\Mapping\RecipeIngradientMap.cs" />
     <Compile Include="Models\Mapping\RecipeMap.cs" />
+    <Compile Include="Models\Mapping\RecipePictureMap.cs" />
     <Compile Include="Models\Mapping\UserMap.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageUser.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeAlergen.cs" />
     <Compile Include="Models\RecipeIngradient.cs" />
+    <Compile Include="Models\RecipePicture.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -166,6 +186,24 @@
     <EmbeddedResource Include="Migrations\201507191011324_AddRows.resx">
       <DependentUpon>201507191011324_AddRows.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221359288_ffp.resx">
+      <DependentUpon>201507221359288_ffp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221407053_InitFirstPic.resx">
+      <DependentUpon>201507221407053_InitFirstPic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221416299_PICTURE.resx">
+      <DependentUpon>201507221416299_PICTURE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221420451_mmm.resx">
+      <DependentUpon>201507221420451_mmm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{ded32742-c3ac-4c79-96bc-7c106698d4a5}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

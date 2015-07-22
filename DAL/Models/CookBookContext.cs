@@ -31,7 +31,8 @@ namespace OnlineCookbook.DAL.Models
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeAlergen> RecipeAlergens { get; set; }
         public DbSet<RecipeIngradient> RecipeIngradients { get; set; }
-        
+
+        public DbSet<RecipePicture> RecipePictures { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -47,6 +48,7 @@ namespace OnlineCookbook.DAL.Models
             modelBuilder.Configurations.Add(new RecipeMap());
             modelBuilder.Configurations.Add(new RecipeAlergenMap());
             modelBuilder.Configurations.Add(new RecipeIngradientMap());
+            modelBuilder.Configurations.Add(new RecipePictureMap());
            
             modelBuilder.Configurations.Add(new UserMap());
 
@@ -68,6 +70,7 @@ namespace OnlineCookbook.DAL.Models
             DbSet<Recipe> Recipes { get; set; }
             DbSet<RecipeAlergen> RecipeAlergens { get; set; }
             DbSet<RecipeIngradient> RecipeIngradients { get; set; }
+            DbSet<RecipePicture> RecipePictures { get; set; }
             
    
      
