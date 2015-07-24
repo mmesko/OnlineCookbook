@@ -54,6 +54,10 @@ namespace WebApplication.App_Start
            //CategoryController
            AutoMapper.Mapper.CreateMap<CommentModel, CommentPOCO>().ReverseMap();
            AutoMapper.Mapper.CreateMap<CommentModel, IComment>().ReverseMap();
+
+           //RecipePictureController
+           AutoMapper.Mapper.CreateMap<RecipePictureModel, RecipePicturePOCO>().ReverseMap();
+           AutoMapper.Mapper.CreateMap<RecipePictureModel, IRecipePicture>().ReverseMap();
           
            
         }

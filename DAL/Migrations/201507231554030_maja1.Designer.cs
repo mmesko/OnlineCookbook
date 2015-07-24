@@ -7,13 +7,13 @@ namespace OnlineCookbook.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddRows : IMigrationMetadata
+    public sealed partial class maja1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRows));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(maja1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507191011324_AddRows"; }
+            get { return "201507231554030_maja1"; }
         }
         
         string IMigrationMetadata.Source

@@ -20,9 +20,11 @@ namespace OnlineCookbook.Model.Common
         ICollection<IFavourite> Favourites { get; set; }
         
         //IUser User { get; set; }
+
+        // One to many, recipe can have many images
         ICollection<IRecipeAlergen> RecipeAlergens { get; set; }
         ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
-       
+        ICollection<IRecipePicture> RecipePictures { get; set; }
              
     }
 }

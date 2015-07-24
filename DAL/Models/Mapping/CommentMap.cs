@@ -32,16 +32,12 @@ namespace OnlineCookbook.DAL.Models.Mapping
             this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.RecipeId).HasColumnName("RecipeId");
             this.Property(t => t.CommentText).HasColumnName("CommentText");
-            
+            this.Property(t => t.DateCreated).HasColumnName("DateCreated");
 
             // Relationships
             this.HasRequired(t => t.Recipe)
                 .WithMany(t => t.Comments)
                 .HasForeignKey(d => d.RecipeId);
-
-            this.HasRequired(u => u.User)
-                .WithMany(r => r.Comments)
-                .HasForeignKey(u => u.UserId);
 
         }
     }

@@ -6,7 +6,7 @@ namespace OnlineCookbook.Model.Common
     {
         string Id { get; set; }
         string RecipeId { get; set; }
-        byte[] RecipePicture { get; set; }
+        byte[] Picture { get; set; }
         IRecipe Recipe { get; set; }
     }
 }

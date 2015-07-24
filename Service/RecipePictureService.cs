@@ -22,9 +22,9 @@ namespace OnlineCookbook.Service
        
 
         /// <summary>
-        /// Get images that belong to game
+        /// Get images that belong to recipe
         /// </summary>
-        /// <param name="gameId">GameId</param>
+        /// <param name="recipeId">RecipeId</param>
         /// <param name="filter">Filter</param>
         /// <returns>Collection of games</returns>
         public async Task<List<IRecipePicture>> GetRangeAsync(string recipeId, GenericFilter filter)

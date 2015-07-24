@@ -44,40 +44,40 @@ namespace OnlineCookbook.DAL.Models
             modelBuilder.Configurations.Add(new IngradientMap());
             modelBuilder.Configurations.Add(new MessageMap());
             modelBuilder.Configurations.Add(new MessageUserMap());
-          
+
             modelBuilder.Configurations.Add(new RecipeMap());
             modelBuilder.Configurations.Add(new RecipeAlergenMap());
             modelBuilder.Configurations.Add(new RecipeIngradientMap());
             modelBuilder.Configurations.Add(new RecipePictureMap());
-           
+
             modelBuilder.Configurations.Add(new UserMap());
 
             base.OnModelCreating(modelBuilder);
         }
     }
 
-   public interface ICookBookContext : IDisposable
-   {
-	         DbSet<Alergen> Alergens { get; set; }
-            DbSet<Category> Categories { get; set; }
-            DbSet<Comment> Comments { get; set; }
-            DbSet<Favourite> Favourites { get; set; }
-            DbSet<FavouriteUser> FavouriteUsers { get; set; }
-            DbSet<Ingradient> Ingradients { get; set; }
-            DbSet<Message> Messages { get; set; }
-            DbSet<MessageUser> MessageUsers { get; set; }
-           
-            DbSet<Recipe> Recipes { get; set; }
-            DbSet<RecipeAlergen> RecipeAlergens { get; set; }
-            DbSet<RecipeIngradient> RecipeIngradients { get; set; }
-            DbSet<RecipePicture> RecipePictures { get; set; }
-            
-   
-     
-         DbSet<TEntity> Set<TEntity>() where TEntity : class;
-         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
-         Task<int> SaveChangesAsync();
+    public interface ICookBookContext : IDisposable
+    {
+        DbSet<Alergen> Alergens { get; set; }
+        DbSet<Category> Categories { get; set; }
+        DbSet<Comment> Comments { get; set; }
+        DbSet<Favourite> Favourites { get; set; }
+        DbSet<FavouriteUser> FavouriteUsers { get; set; }
+        DbSet<Ingradient> Ingradients { get; set; }
+        DbSet<Message> Messages { get; set; }
+        DbSet<MessageUser> MessageUsers { get; set; }
 
-   }
+        DbSet<Recipe> Recipes { get; set; }
+        DbSet<RecipeAlergen> RecipeAlergens { get; set; }
+        DbSet<RecipeIngradient> RecipeIngradients { get; set; }
+        DbSet<RecipePicture> RecipePictures { get; set; }
+
+
+
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+        Task<int> SaveChangesAsync();
+
+    }
 
 }

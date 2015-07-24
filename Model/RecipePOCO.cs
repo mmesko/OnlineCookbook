@@ -13,6 +13,7 @@ namespace OnlineCookbook.Model
             this.Favourites = new List<IFavourite>();
             this.RecipeAlergens = new List<IRecipeAlergen>();
             this.RecipeIngradients = new List<IRecipeIngradient>();
+            this.RecipePictures = new List<IRecipePicture>(); //added
             
         }
 
@@ -33,6 +34,8 @@ namespace OnlineCookbook.Model
         
          public virtual ICollection<IRecipeAlergen> RecipeAlergens { get; set; }
          public virtual ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
+
+         public virtual ICollection<IRecipePicture> RecipePictures { get; set; }
         
 
     }

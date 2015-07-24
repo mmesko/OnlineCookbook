@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace OnlineCookbook.DAL.Models
 {
     public partial class AspNetRole
-    {   
-        //added by migrations, than do EF reverse,CF
+    {
         public AspNetRole()
         {
             this.AspNetUsers = new List<AspNetUser>();

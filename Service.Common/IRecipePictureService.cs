@@ -11,5 +11,6 @@ namespace OnlineCookbook.Service.Common
     public interface IRecipePictureService
     {
         Task<List<IRecipePicture>> GetRangeAsync(string recipeId, GenericFilter filter);
+      
     }
 }

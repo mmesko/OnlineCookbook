@@ -26,7 +26,7 @@ namespace OnlineCookbook.Repository
         }
 
         /// <summary>
-        /// Get game image by id
+        /// Get recipe image by id
         /// </summary>
 
        public virtual async Task<IRecipePicture> GetAsync(string id)
@@ -43,10 +43,10 @@ namespace OnlineCookbook.Repository
        }
 
         /// <summary>
-        /// Get collection of game images
+        /// Get collection of recipe images
         /// </summary>
         /// <param name="filter">Filter, which provides options for pagination</param>
-        /// <returns>GameImages collection</returns>
+        /// <returns>RecipeImages collection</returns>
        public async Task<List<IRecipePicture>> GetRangeAsync(GenericFilter filter)
         {
             try
@@ -71,7 +71,7 @@ namespace OnlineCookbook.Repository
         /// </summary>
         /// <param name="gameId">Foreign key</param>
         /// <param name="filter">Filtering options</param>
-        /// <returns>ICollection of IGameImage</returns>
+        /// <returns>ICollection of IRecipePicture</returns>
         public async Task<List<IRecipePicture>> GetRangeAsync(string recipeId, GenericFilter filter)
         {
             try
@@ -93,9 +93,9 @@ namespace OnlineCookbook.Repository
         }
 
         /// <summary>
-        /// Add new game image to database
+        /// Add new recipe image to database
         /// </summary>
-        /// <param name="gameImate">IGameImage to add</param>
+        /// <param name="gameImate">IRecipePicture to add</param>
         /// <returns>1 is success, 0 otherwise</returns>
         public async Task<int> InsertAsync(IRecipePicture entity)
         {
@@ -113,9 +113,9 @@ namespace OnlineCookbook.Repository
         }
 
         /// <summary>
-        /// Update existing game image
+        /// Update existing recipe image
         /// </summary>
-        /// <param name="gameImage">Game image to update</param>
+        /// <param name="gameImage">Recipe image to update</param>
         /// <returns>1 if success , 0 otherwise</returns>
         public async Task<int> UpdateAsync(IRecipePicture entity)
         {

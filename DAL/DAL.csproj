@@ -100,33 +100,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201507152152471_ff.cs" />
-    <Compile Include="Migrations\201507152152471_ff.Designer.cs">
-      <DependentUpon>201507152152471_ff.cs</DependentUpon>
+    <Compile Include="Migrations\201507221826463_first.cs" />
+    <Compile Include="Migrations\201507221826463_first.Designer.cs">
+      <DependentUpon>201507221826463_first.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507152226006_ff1.cs" />
-    <Compile Include="Migrations\201507152226006_ff1.Designer.cs">
-      <DependentUpon>201507152226006_ff1.cs</DependentUpon>
+    <Compile Include="Migrations\201507221833443_second.cs" />
+    <Compile Include="Migrations\201507221833443_second.Designer.cs">
+      <DependentUpon>201507221833443_second.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507191011324_AddRows.cs" />
-    <Compile Include="Migrations\201507191011324_AddRows.Designer.cs">
-      <DependentUpon>201507191011324_AddRows.cs</DependentUpon>
+    <Compile Include="Migrations\201507221843346_third.cs" />
+    <Compile Include="Migrations\201507221843346_third.Designer.cs">
+      <DependentUpon>201507221843346_third.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507221359288_ffp.cs" />
-    <Compile Include="Migrations\201507221359288_ffp.Designer.cs">
-      <DependentUpon>201507221359288_ffp.cs</DependentUpon>
+    <Compile Include="Migrations\201507221859367_thh.cs" />
+    <Compile Include="Migrations\201507221859367_thh.Designer.cs">
+      <DependentUpon>201507221859367_thh.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507221407053_InitFirstPic.cs" />
-    <Compile Include="Migrations\201507221407053_InitFirstPic.Designer.cs">
-      <DependentUpon>201507221407053_InitFirstPic.cs</DependentUpon>
+    <Compile Include="Migrations\201507221903371_mm.cs" />
+    <Compile Include="Migrations\201507221903371_mm.Designer.cs">
+      <DependentUpon>201507221903371_mm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507221416299_PICTURE.cs" />
-    <Compile Include="Migrations\201507221416299_PICTURE.Designer.cs">
-      <DependentUpon>201507221416299_PICTURE.cs</DependentUpon>
+    <Compile Include="Migrations\201507221907287_sada.cs" />
+    <Compile Include="Migrations\201507221907287_sada.Designer.cs">
+      <DependentUpon>201507221907287_sada.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507221420451_mmm.cs" />
-    <Compile Include="Migrations\201507221420451_mmm.Designer.cs">
-      <DependentUpon>201507221420451_mmm.cs</DependentUpon>
+    <Compile Include="Migrations\201507231549171_maja.cs" />
+    <Compile Include="Migrations\201507231549171_maja.Designer.cs">
+      <DependentUpon>201507231549171_maja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507231554030_maja1.cs" />
+    <Compile Include="Migrations\201507231554030_maja1.Designer.cs">
+      <DependentUpon>201507231554030_maja1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507231556248_mmaja.cs" />
+    <Compile Include="Migrations\201507231556248_mmaja.Designer.cs">
+      <DependentUpon>201507231556248_mmaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507231601504_code.cs" />
+    <Compile Include="Migrations\201507231601504_code.Designer.cs">
+      <DependentUpon>201507231601504_code.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507231603469_first1.cs" />
+    <Compile Include="Migrations\201507231603469_first1.Designer.cs">
+      <DependentUpon>201507231603469_first1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507240906015_ime1.cs" />
+    <Compile Include="Migrations\201507240906015_ime1.Designer.cs">
+      <DependentUpon>201507240906015_ime1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507240936251_last.cs" />
+    <Compile Include="Migrations\201507240936251_last.Designer.cs">
+      <DependentUpon>201507240936251_last.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507240940150_last1.cs" />
+    <Compile Include="Migrations\201507240940150_last1.Designer.cs">
+      <DependentUpon>201507240940150_last1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507240943110_last2.cs" />
+    <Compile Include="Migrations\201507240943110_last2.Designer.cs">
+      <DependentUpon>201507240943110_last2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Alergen.cs" />
@@ -177,33 +209,57 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507152152471_ff.resx">
-      <DependentUpon>201507152152471_ff.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507152226006_ff1.resx">
-      <DependentUpon>201507152226006_ff1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507191011324_AddRows.resx">
-      <DependentUpon>201507191011324_AddRows.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221359288_ffp.resx">
-      <DependentUpon>201507221359288_ffp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221407053_InitFirstPic.resx">
-      <DependentUpon>201507221407053_InitFirstPic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221416299_PICTURE.resx">
-      <DependentUpon>201507221416299_PICTURE.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221420451_mmm.resx">
-      <DependentUpon>201507221420451_mmm.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{ded32742-c3ac-4c79-96bc-7c106698d4a5}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201507221826463_first.resx">
+      <DependentUpon>201507221826463_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221833443_second.resx">
+      <DependentUpon>201507221833443_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221843346_third.resx">
+      <DependentUpon>201507221843346_third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221859367_thh.resx">
+      <DependentUpon>201507221859367_thh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221903371_mm.resx">
+      <DependentUpon>201507221903371_mm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221907287_sada.resx">
+      <DependentUpon>201507221907287_sada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507231549171_maja.resx">
+      <DependentUpon>201507231549171_maja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507231554030_maja1.resx">
+      <DependentUpon>201507231554030_maja1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507231556248_mmaja.resx">
+      <DependentUpon>201507231556248_mmaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507231601504_code.resx">
+      <DependentUpon>201507231601504_code.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507231603469_first1.resx">
+      <DependentUpon>201507231603469_first1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507240906015_ime1.resx">
+      <DependentUpon>201507240906015_ime1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507240936251_last.resx">
+      <DependentUpon>201507240936251_last.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507240940150_last1.resx">
+      <DependentUpon>201507240940150_last1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507240943110_last2.resx">
+      <DependentUpon>201507240943110_last2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

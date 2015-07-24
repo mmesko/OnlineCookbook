@@ -19,14 +19,14 @@ namespace OnlineCookbook.DAL.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(128);
 
-            this.Property(t => t.RecipePicture1)
+            this.Property(t => t.Picture)
                 .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("RecipePicture");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.RecipeId).HasColumnName("RecipeId");
-            this.Property(t => t.RecipePicture1).HasColumnName("RecipePicture");
+            this.Property(t => t.Picture).HasColumnName("Picture");
 
             // Relationships
             this.HasRequired(t => t.Recipe)

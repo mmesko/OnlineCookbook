@@ -8,7 +8,7 @@ namespace OnlineCookbook.Model
     {
         public string Id { get; set; }
         public string RecipeId { get; set; }
-        public byte[] RecipePicture { get; set; }
+        public byte[] Picture { get; set; }
         public virtual IRecipe Recipe { get; set; }
     }
 }

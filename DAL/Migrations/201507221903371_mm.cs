@@ -3,7 +3,7 @@ namespace OnlineCookbook.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ff1 : DbMigration
+    public partial class mm : DbMigration
     {
         public override void Up()
         {

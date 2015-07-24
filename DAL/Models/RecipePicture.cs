@@ -7,7 +7,7 @@ namespace OnlineCookbook.DAL.Models
     {
         public string Id { get; set; }
         public string RecipeId { get; set; }
-        public byte[] RecipePicture1 { get; set; }
+        public byte[] Picture { get; set; }
         public virtual Recipe Recipe { get; set; }
     }
 }
