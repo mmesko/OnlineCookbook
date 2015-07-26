@@ -108,24 +108,17 @@ namespace OnlineCookbook.Repository
         {
             try
             {
-                if (filter != null)
-                {
-                    return Mapper.Map<List<IRecipe>>(
-                        await Repository.WhereAsync<Recipe>()
-                         .Where(item => item.CategoryId == categoryId)
-                         .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
-                         .Take(filter.PageSize)
-                         .ToListAsync()
-                        );
-                }
-                else
-                {
-                    return Mapper.Map<List<IRecipe>>(
-                     await Repository.WhereAsync<Recipe>()
-                      .Where<Recipe>(item => item.CategoryId == categoryId)
-                      .ToListAsync<Recipe>()
-                     );
-                }
+                if (filter == null)
+                    filter = new RecipeFilter(1, 5);
+
+
+                return Mapper.Map<List<IRecipe>>(
+                    await Repository.WhereAsync<Recipe>()
+                             .Where(item=>item.CategoryId==categoryId)
+                            .OrderBy(a => a.RecipeTitle)
+                            .Skip((filter.PageNumber * filter.PageSize) - filter.PageSize)
+                            .Take(filter.PageSize).ToListAsync()
+                    );
             }
             catch (Exception e)
             {

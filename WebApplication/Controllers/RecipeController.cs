@@ -89,7 +89,7 @@ namespace WebApplication.Controllers
 
                 if (result != null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<RecipeModel>(result));
+                    return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<RecipeModel>>(result));
                 }
                 else
                 {

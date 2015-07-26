@@ -16,15 +16,15 @@ namespace OnlineCookbook.Model.Common
        
 
         //ICategory Category { get; set; }
-        ICollection<IComment> Comments { get; set; }
-        ICollection<IFavourite> Favourites { get; set; }
+        //ICollection<IComment> Comments { get; set; }
+        //ICollection<IFavourite> Favourites { get; set; }
         
         //IUser User { get; set; }
 
         // One to many, recipe can have many images
-        ICollection<IRecipeAlergen> RecipeAlergens { get; set; }
-        ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
-        ICollection<IRecipePicture> RecipePictures { get; set; }
+        //ICollection<IRecipeAlergen> RecipeAlergens { get; set; }
+        //ICollection<IRecipeIngradient> RecipeIngradients { get; set; }
+        //ICollection<IRecipePicture> RecipePictures { get; set; }
              
     }
 }
